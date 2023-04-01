@@ -1,5 +1,5 @@
 import generateNpc from './generateNpc';
-import type { MapCell, MapType } from './types';
+import type { MapCell, MapInfo } from './types';
 
 const mapSize = 20;
 
@@ -14,7 +14,7 @@ for (let i = 0; i < mapSize; i++) {
   }
 }
 
-const map: MapType = {
+const map: MapInfo = {
   id: 0,
   layout,
 };
@@ -24,3 +24,7 @@ const mapCellArr: MapCell[] = map.layout.reduce((arr, i) => [...arr, ...i], []);
 generateNpc(mapCellArr, 20);
 
 export default map;
+
+export const fetchMap = (mapId: number): MapInfo => {
+  return map;
+};

@@ -1,13 +1,5 @@
 <script lang="ts">
-  import map from '../backend/map';
-  import type { Player } from '../backend/player/types';
-  import Map from '../components/Map.svelte';
-  import { playerActions, playerState } from '../store/player';
-
-  let player: Player;
-  playerState.subscribe((v) => {
-    player = v;
-  });
+  import Map from '@/components/Map.svelte';
 </script>
 
 <svelte:head>
@@ -15,13 +7,29 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
-  <Map position={player.position} map={map.layout} />
-  <button on:click={() => playerActions.directionalMove('UP')}>UP</button>
-  <button on:click={() => playerActions.directionalMove('LEFT')}>LEFT</button>
-  <button on:click={() => playerActions.directionalMove('RIGHT')}>RIGHT</button>
-  <button on:click={() => playerActions.directionalMove('DOWN')}>DOWN</button>
+<section class="section main-page">
+  <div class="container container--stretch">
+    <div class="row">
+      <div class="col-lg-4">char info</div>
+      <div class="col-lg-4 main-col">main info</div>
+      <div class="col-lg-4">
+        <div class="map-container">
+          <Map />
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<style>
+<style lang="scss">
+  .main-page {
+    .map-container {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    .main-col {
+      border-left: 1px solid var(--contrast);
+      border-right: 1px solid var(--contrast);
+    }
+  }
 </style>

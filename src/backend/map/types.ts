@@ -7,7 +7,9 @@ export type MapCell = {
   npcArr: NPC[];
 };
 
-export type MapType = {
+export type MapLayout = MapCell[][];
+
+export type MapInfo = {
   id: number;
   layout: MapCell[][];
 };

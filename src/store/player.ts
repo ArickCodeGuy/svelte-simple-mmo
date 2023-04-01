@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
 import { createPlayer } from '../backend/player';
-import type { Player } from '../backend/player/types';
 
 export const playerState = writable(createPlayer('admin'));
 
