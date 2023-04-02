@@ -1,10 +1,15 @@
 import idGen from '@/utils/idGen';
-import type { BaseProto } from '../aliveEntity/types';
 import type { FightInstance } from './types';
+import { livingsActions } from '../Livings';
+
+const currentFights: FightInstance[] = [];
 
 const genId = idGen();
 
-const initFight = (teamOne: BaseProto[], teamTwo: BaseProto[]) => {
+const initFight = (teamOneIds: number[], teamTwoIds: number[]) => {
+  const teamOne = teamOneIds.map(livingsActions.findById);
+  const teamTwo = teamTwoIds.map(livingsActions.findById);
+
   const fightInstance: FightInstance = {
     id: genId(),
     teamOne,
@@ -12,10 +17,18 @@ const initFight = (teamOne: BaseProto[], teamTwo: BaseProto[]) => {
   };
 
   currentFights.push(fightInstance);
+
+  return fightInstance;
+};
+
+const getById = (fightId: number) => {
+  const fight = currentFights.find((i) => i.id === fightId);
+  if (!fight) throw `Fight instance with id ${fightId} is not found`;
+
+  return fight;
 };
 
 export const fightActions = {
   initFight,
+  getById,
 };
-
-const currentFights: FightInstance[] = [];

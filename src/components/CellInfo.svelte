@@ -1,32 +1,37 @@
 <script lang="ts">
-  import type { MapInfo } from '@/backend/map/types';
-  import { npcActions } from '@/backend/npc/actions';
-  import type { Player } from '@/backend/player/types';
-  import UINPCButtonContainer from '@/components/UI/NPC/buttonContainer.svelte';
+  import type { Living } from '@/backend/Livings/types';
+  import { getLivingsByPosition } from '@/backend/LivingsPositions';
+  import type { MapInfo } from '@/backend/MapTable/types';
+  import UINPCButtonContainer from '@/components/UI/NPC/UILivingButtonContainer.svelte';
   import { mapState } from '@/store/map';
-  import { playerState } from '@/store/player';
+  import { playerActions, playerState } from '@/store/player';
 
   const handleSwordClick = (npcId: number) => {
-    console.log(npcActions.findNpcById(npcId));
+    playerActions.initFight(npcId);
   };
 
-  let player: Player;
+  let player: Living;
   playerState.subscribe((v) => (player = v));
   let map: MapInfo;
   mapState.subscribe((v) => (map = v));
 
-  $: cell =
-    (map && player && map.layout[player.position.y][player.position.x]) || null;
+  $: cellType =
+    map && player && map.layout[player.position.y][player.position.x].type;
+  $: livingArr = getLivingsByPosition(player.position).filter(
+    (i) => i.id !== player.id
+  );
 </script>
 
 <div class="CellInfo">
-  {#if cell}
+  {#if livingArr}
     <div class="CellInfo__title">Cell info</div>
-    <div class="CellInfo__name">{cell.type}</div>
-    {#if Array.isArray(cell.npcArr)}
+    <div class="CellInfo__name">
+      {cellType}
+    </div>
+    {#if Array.isArray(livingArr)}
       <div class="CellInfo__npcArr">
         <UINPCButtonContainer
-          items={cell.npcArr}
+          items={livingArr}
           onSwordClick={handleSwordClick}
         />
       </div>

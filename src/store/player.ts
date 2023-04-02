@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
-import { createPlayer } from '../backend/player';
-import type { BaseProtoActivity } from '@/backend/aliveEntity/types';
+import type { LivingActivity } from '@/backend/Livings/types';
+import { livingsActions } from '@/backend/Livings';
+import { fightActions } from '@/backend/fight/actions';
 
-export const playerState = writable(createPlayer('admin'));
+export const playerState = writable(livingsActions.createPlayer('admin'));
 
 export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 
@@ -23,14 +24,19 @@ const directionalMove = (direction: Direction) => {
   });
 };
 
-const setActivity = (activity: BaseProtoActivity) => {
-  playerState.update((state) => ({
-    ...state,
-    activity,
-  }));
+const initFight = (livingId: number) => {
+  playerState.update((player) => {
+    const inst = fightActions.initFight([player.id], [livingId]);
+    console.log(fightActions.getById(inst.id));
+
+    return {
+      ...player,
+      activity: 'FIGHT',
+    };
+  });
 };
 
 export const playerActions = {
   directionalMove,
-  setActivity,
+  initFight,
 };

@@ -1,16 +1,17 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { MapCell } from '../../backend/map/types';
-  import type { Position } from '../../types';
+  import type { MapCell } from '../../../backend/MapTable/types';
+  import type { Position } from '../../../types';
+  import type { UIMapCell } from './types';
 
   let MapNode: Element;
-  export let map: MapCell[][];
+  export let map: UIMapCell[][];
   export let map_size = 1;
   export let range = 2;
   export let position: Position;
 
   type GridCell = {
-    value: MapCell | null;
+    value: UIMapCell | null;
     x: number;
     y: number;
   };
@@ -53,8 +54,8 @@
       <div
         class="cell {!cell.value && 'cell--wall'} {position.x === cell?.x &&
           position.y === cell?.y &&
-          'cell--you'} {cell.value?.npcArr.length && 'cell--enemy'}"
-        style="width: {cell_size}px; height: {cell_size}px"
+          'cell--you'} && {cell.value?.type === 'WATER' && 'cell--water'}"
+        style="width: {cell_size}px; height: {cell_size}px;"
       />
     {/each}
   {/each}
@@ -73,8 +74,11 @@
     &--wall {
       background-color: black;
     }
-    &--enemy {
-      background-color: red;
+    &--water {
+      background-color: lightblue;
+    }
+    &--living {
+      background-color: yellow;
     }
     &--you {
       background-color: lightgreen;

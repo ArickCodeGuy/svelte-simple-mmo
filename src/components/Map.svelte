@@ -1,11 +1,11 @@
 <script lang="ts">
-  import UIMap from '@/components/UI/Map.svelte';
-  import type { Player } from '@/backend/player/types';
+  import UIMap from '@/components/UI/UIMap/UIMap.svelte';
   import { playerActions, playerState } from '@/store/player';
-  import type { MapInfo } from '@/backend/map/types';
+  import type { MapInfo } from '@/backend/MapTable/types';
   import { mapState } from '@/store/map';
+  import type { Living } from '@/backend/Livings/types';
 
-  let player: Player;
+  let player: Living;
   playerState.subscribe((v) => {
     player = v;
   });

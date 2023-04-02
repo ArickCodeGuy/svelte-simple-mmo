@@ -1,7 +1,7 @@
-import type { BaseProto } from '../aliveEntity/types';
+import type { Living } from '../Livings/types';
 
 export type FightInstance = {
   id: number;
-  teamOne: BaseProto[];
-  teamTwo: BaseProto[];
+  teamOne: Living[];
+  teamTwo: Living[];
 };

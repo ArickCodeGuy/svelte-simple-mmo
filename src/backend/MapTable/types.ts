@@ -1,10 +1,7 @@
-import type { NPC } from '../npc/types';
-
-export type CellType = 'LAND' | 'BLOCK';
+export type CellType = 'LAND' | 'BLOCK' | 'WATER';
 
 export type MapCell = {
   type: CellType;
-  npcArr: NPC[];
 };
 
 export type MapLayout = MapCell[][];

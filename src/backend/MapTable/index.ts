@@ -7,9 +7,9 @@ const layout: MapCell[][] = [];
 for (let i = 0; i < mapSize; i++) {
   layout.push([]);
   for (let j = 0; j < mapSize; j++) {
+    const type = Math.random() > 0.1 ? 'LAND' : 'WATER';
     layout[i][j] = {
-      type: 'LAND',
-      npcArr: [],
+      type,
     };
   }
 }
@@ -19,9 +19,7 @@ const map: MapInfo = {
   layout,
 };
 
-const mapCellArr: MapCell[] = map.layout.reduce((arr, i) => [...arr, ...i], []);
-
-generateNpc(mapCellArr, 20);
+generateNpc(100, map.id, 0, 0, map.layout.length - 1, map.layout[0].length - 1);
 
 export default map;
 
