@@ -1,11 +1,6 @@
-import type { Stats } from '../../types/stats';
+import type { BaseProto } from '../aliveEntity/types';
 
-export type NPCProto = {
-  id: number;
-  name: string;
-  stats: Stats;
-  lvl: number;
-};
+export type NPCProto = BaseProto;
 
 export type NPC = {
   protoId: number;

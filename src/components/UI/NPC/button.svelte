@@ -12,7 +12,7 @@
     <div class="UINPCButton__name">{npc.name}</div>
     <div>id: {npc.id}</div>
     <div class="UINPCButton__right">
-      <UIIcon icon={'sword-cross'} on:click={() => onSwordClick(npc.id)} />
+      <UIIcon icon={'sword-cross'} onClick={() => onSwordClick(npc.id)} />
     </div>
   </div>
 {/if}

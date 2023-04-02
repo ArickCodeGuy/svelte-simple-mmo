@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { createPlayer } from '../backend/player';
+import type { BaseProtoActivity } from '@/backend/aliveEntity/types';
 
 export const playerState = writable(createPlayer('admin'));
 
@@ -22,6 +23,14 @@ const directionalMove = (direction: Direction) => {
   });
 };
 
+const setActivity = (activity: BaseProtoActivity) => {
+  playerState.update((state) => ({
+    ...state,
+    activity,
+  }));
+};
+
 export const playerActions = {
   directionalMove,
+  setActivity,
 };

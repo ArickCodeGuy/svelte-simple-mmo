@@ -1,9 +1,6 @@
 import type { Position } from '../../types';
-import type { Stats } from '../../types/stats';
+import type { BaseProto } from '../aliveEntity/types';
 
 export type Player = {
-  // id: number;
-  name: string;
-  stats: Stats;
   position: Position;
-};
+} & BaseProto;

@@ -1,11 +1,6 @@
 <script lang="ts">
   import Map from '@/components/Map.svelte';
-  import UINPCButton from '@/components/UI/NPC/button.svelte';
-  import slug from '@/backend/npc/list/slug';
-  import protoToNpc from '@/backend/npc/protoToNpc';
   import CellInfo from '@/components/CellInfo.svelte';
-
-  const npc = protoToNpc(slug);
 </script>
 
 <svelte:head>

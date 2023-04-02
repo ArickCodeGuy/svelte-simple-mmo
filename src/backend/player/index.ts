@@ -5,7 +5,8 @@ const createId = idGen();
 
 export function createPlayer(name: string): Player {
   return {
-    // id: createId(),
+    id: createId(),
+    lvl: 1,
     name,
     position: {
       x: 0,
