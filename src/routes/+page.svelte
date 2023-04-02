@@ -1,5 +1,11 @@
 <script lang="ts">
   import Map from '@/components/Map.svelte';
+  import UINPCButton from '@/components/UI/NPC/button.svelte';
+  import slug from '@/backend/npc/list/slug';
+  import protoToNpc from '@/backend/npc/protoToNpc';
+  import CellInfo from '@/components/CellInfo.svelte';
+
+  const npc = protoToNpc(slug);
 </script>
 
 <svelte:head>
@@ -16,20 +22,24 @@
         <div class="map-container">
           <Map />
         </div>
+        <CellInfo />
       </div>
     </div>
   </div>
 </section>
 
 <style lang="scss">
+  @import '@/assets/styles/vars.scss';
   .main-page {
     .map-container {
       max-width: 200px;
-      margin: 0 auto;
+      margin: 0 auto 20px;
     }
-    .main-col {
-      border-left: 1px solid var(--contrast);
-      border-right: 1px solid var(--contrast);
+    @media (min-width: $breakpoint-lg) {
+      .main-col {
+        border-left: 1px solid var(--contrast);
+        border-right: 1px solid var(--contrast);
+      }
     }
   }
 </style>
