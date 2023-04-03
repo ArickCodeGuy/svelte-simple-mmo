@@ -24,3 +24,5 @@ export type LivingStats = {
   hp: number;
   attack: number;
 };
+
+export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';

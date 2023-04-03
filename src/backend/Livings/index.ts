@@ -1,8 +1,9 @@
 import type { Position } from '@/types';
-import type { Living } from './types';
+import type { DirectionalMove, Living } from './types';
 import idGen from '@/utils/idGen';
 import { createFromId } from './actions/createFromId';
 import { createNewPlayer } from './actions/createNewPlayer';
+import { directionalMove } from './actions/directionalMove';
 
 const createId = idGen();
 
@@ -28,4 +29,13 @@ export const livingsActions = {
     return living;
   },
   getLivings: () => LivingsArr,
+  move: (direction: DirectionalMove, livingId: number) => {
+    const livingIndex = LivingsArr.findIndex((i) => i.id === livingId);
+    if (livingIndex === -1) throw `Living with id ${livingId} is not found`;
+    const living = LivingsArr[livingIndex];
+
+    const newLivingState = directionalMove(direction, living);
+    LivingsArr[livingIndex] = newLivingState;
+    return newLivingState;
+  },
 };
