@@ -1,6 +1,13 @@
 <script lang="ts">
   import Map from '@/components/Map.svelte';
   import CellInfo from '@/components/CellInfo.svelte';
+  import type { Living } from '@/backend/Livings/types';
+  import { playerState } from '@/store/player';
+
+  let player: Living;
+  playerState.subscribe((v) => (player = v));
+
+  $: state = player.activity || 'NO_ACTIVITY';
 </script>
 
 <svelte:head>
@@ -12,7 +19,7 @@
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">char info</div>
-      <div class="col-lg-4 main-col">main info</div>
+      <div class="col-lg-4 main-col">{state}</div>
       <div class="col-lg-4">
         <div class="map-container">
           <Map />

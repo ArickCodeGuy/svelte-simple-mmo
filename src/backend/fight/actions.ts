@@ -23,7 +23,7 @@ const initFight = (teamOneIds: number[], teamTwoIds: number[]) => {
 
 const getById = (fightId: number) => {
   const fight = currentFights.find((i) => i.id === fightId);
-  if (!fight) throw `Fight instance with id ${fightId} is not found`;
+  if (!fight) throw new Error(`Fight instance with id ${fightId} is not found`);
 
   return fight;
 };

@@ -26,3 +26,10 @@ export type LivingStats = {
 };
 
 export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+
+/**
+ * LivingsPositions[mapId][y][x] = Living[];
+ */
+export type LivingsPositions = Record<string, MapLivingsPositions>;
+
+export type MapLivingsPositions = Record<string, Record<string, Living[]>>;

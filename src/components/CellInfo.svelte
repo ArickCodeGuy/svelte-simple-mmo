@@ -1,13 +1,14 @@
 <script lang="ts">
+  import { Server } from '@/backend';
   import type { Living } from '@/backend/Livings/types';
-  import { getLivingsByPosition } from '@/backend/LivingsPositions';
   import type { MapInfo } from '@/backend/MapTable/types';
   import UINPCButtonContainer from '@/components/UI/NPC/UILivingButtonContainer.svelte';
   import { mapState } from '@/store/map';
-  import { playerActions, playerState } from '@/store/player';
+  import { playerState } from '@/store/player';
 
   const handleSwordClick = (npcId: number) => {
-    playerActions.initFight(npcId);
+    Server.initFight([player.id], [npcId]);
+    playerState.update((v) => Server.livingsTable.findById(v.id));
   };
 
   let player: Living;
@@ -17,9 +18,7 @@
 
   $: cellType =
     map && player && map.layout[player.position.y][player.position.x].type;
-  $: livingArr = getLivingsByPosition(player.position).filter(
-    (i) => i.id !== player.id
-  );
+  $: livingArr = Server.livingsTable.getLivingsByPosition(player.position);
 </script>
 
 <div class="CellInfo">

@@ -1,14 +1,13 @@
 import type { Living } from '../types';
 import { getProtoById } from './getProtoById';
 
-export const createNewPlayer = (newPlayerId: number, name: string): Living => {
+export const createNewPlayer = (name: string): Omit<Living, 'id'> => {
   const playerProto = getProtoById(0);
 
   return {
-    id: newPlayerId,
     name,
     lvl: playerProto.lvl,
-    protoId: 0,
+    protoId: playerProto.id,
     chp: playerProto.stats.hp,
     stats: {
       hp: playerProto.stats.hp,
@@ -17,7 +16,7 @@ export const createNewPlayer = (newPlayerId: number, name: string): Living => {
     position: {
       x: 0,
       y: 0,
-      mapId: 0,
+      mapId: 1,
     },
   };
 };
