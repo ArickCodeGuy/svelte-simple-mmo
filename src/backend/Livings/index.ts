@@ -1,86 +1,44 @@
-import type { Position } from '@/types';
-import type { DirectionalMove, Living, LivingsPositions } from './types';
+import type { Living } from './types';
 import idGen from '@/utils/idGen';
-import { createFromId } from './actions/createFromId';
-import { createNewPlayer } from './actions/createNewPlayer';
-import { directionalMove } from './actions/directionalMove';
+import { useCreateFromId } from './actions/createFromId';
+import { useCreateNewPlayer } from './actions/createNewPlayer';
+import { useDirectionalMove } from './actions/directionalMove';
+import { useFindIndexById } from './actions/findIndexById';
+import { useGetLivingsByPosition } from './actions/getLivingsByPosition';
+import { useFindById } from './actions/findById';
+import { useGetLivingsPositions } from './actions/getLivingsPositions';
+import { useAdd } from './actions/add';
+import { useRemove } from './actions/remove';
+import { useUpdate } from './actions/update';
 
 export class LivingsTable {
   livings: Living[];
   idGen: () => number;
+  createFromId: ReturnType<typeof useCreateFromId>;
+  createNewPlayer: ReturnType<typeof useCreateNewPlayer>;
+  directionalMove: ReturnType<typeof useDirectionalMove>;
+  findIndexById: ReturnType<typeof useFindIndexById>;
+  getLivingsByPosition: ReturnType<typeof useGetLivingsByPosition>;
+  findById: ReturnType<typeof useFindById>;
+  getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
+  add: ReturnType<typeof useAdd>;
+  remove: ReturnType<typeof useRemove>;
+  update: ReturnType<typeof useUpdate>;
 
   constructor() {
     this.livings = [];
     this.idGen = idGen();
-  }
 
-  findIndexById(id: number) {
-    const livingIndex = this.livings.findIndex((i) => i.id === id);
-    if (livingIndex === -1) throw new Error(`Living with id ${id} not found`);
-
-    return livingIndex;
-  }
-  findById(id: number) {
-    const living = this.livings.find((living) => living.id === id);
-    if (!living) throw new Error(`Living with id ${id} not found`);
-
-    return living;
-  }
-  add(living: Living) {
-    this.livings.push(living);
-  }
-  remove(living: Living) {
-    this.livings = this.livings.filter((i) => i.id !== living.id);
-  }
-  update(id: number, newState: Living): Living {
-    const livingIndex = this.findIndexById(id);
-    this.livings[livingIndex] = newState;
-    return newState;
-  }
-  livingsPositions(): LivingsPositions {
-    return this.livings.reduce<LivingsPositions>((result, living) => {
-      const { mapId, x, y } = living.position;
-
-      if (!result[mapId]) result[mapId] = {};
-      if (!result[mapId][y]) result[mapId][y] = {};
-      if (!result[mapId][y][x]) {
-        result[mapId][y][x] = [];
-      }
-      result[mapId][y][x].push(living);
-      return result;
-    }, {});
-  }
-  getLivingsByPosition({ mapId, y, x }: Position): Living[] {
-    const livingsPositions = this.livingsPositions();
-
-    if (
-      !livingsPositions[mapId] ||
-      !livingsPositions[mapId][y] ||
-      !livingsPositions[mapId][y][x]
-    ) {
-      return [];
-    } else {
-      return livingsPositions[mapId][y][x];
-    }
-  }
-
-  createNpc(protoId: number, position: Position) {
-    const living = {
-      ...createFromId(protoId, position),
-      id: this.idGen(),
-    };
-    this.add(living);
-  }
-  createPlayer(name: string) {
-    const newPlayer = {
-      ...createNewPlayer(name),
-      id: this.idGen(),
-    };
-    this.add(newPlayer);
-    return newPlayer;
-  }
-  directionalMove(id: number, direction: DirectionalMove) {
-    const living = this.findById(id);
-    this.update(id, directionalMove(living, direction));
+    // actions
+    this.createFromId = useCreateFromId(this);
+    this.createNewPlayer = useCreateNewPlayer(this);
+    this.directionalMove = useDirectionalMove(this);
+    this.findIndexById = useFindIndexById(this);
+    this.getLivingsByPosition = useGetLivingsByPosition(this);
+    this.findById = useFindById(this);
+    this.getLivingsPositions = useGetLivingsPositions(this);
+    this.add = useAdd(this);
+    this.remove = useRemove(this);
+    this.update = useUpdate(this);
   }
 }

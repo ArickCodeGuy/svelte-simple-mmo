@@ -1,57 +1,32 @@
 import idGen from '@/utils/idGen';
-import type { MapArea, MapInfo } from './types';
+import type { MapInfo } from './types';
 import { createDefaultMap } from './maps/default';
-import type { Position } from '@/types';
+import { useIsMovable } from './actions/isMovable';
+import { useGetRandomPositionFromArea } from './actions/getRandomPositionFromArea';
+import { useGetMapArea } from './actions/getMapArea';
+import { useGetMapById } from './actions/getMapById';
+import { useCreate } from './actions/create';
 
 export class MapTable {
   maps: MapInfo[];
   idGen: () => number;
+  isMovable: ReturnType<typeof useIsMovable>;
+  getRandomPositionFromArea: ReturnType<typeof useGetRandomPositionFromArea>;
+  getMapArea: ReturnType<typeof useGetMapArea>;
+  getMapById: ReturnType<typeof useGetMapById>;
+  create: ReturnType<typeof useCreate>;
 
   constructor() {
     this.maps = [];
     this.idGen = idGen();
+
+    // actions
+    this.isMovable = useIsMovable(this);
+    this.getRandomPositionFromArea = useGetRandomPositionFromArea(this);
+    this.getMapArea = useGetMapArea(this);
+    this.getMapById = useGetMapById(this);
+    this.create = useCreate(this);
+
     this.create(createDefaultMap());
-  }
-  getMapById(id: number) {
-    const map = this.maps.find((map) => map.id === id);
-    if (!map) throw new Error(`map with id ${id} not found`);
-
-    return map;
-  }
-  create(mapInfo: Omit<MapInfo, 'id'>) {
-    this.maps.push({
-      ...mapInfo,
-      id: this.idGen(),
-    });
-  }
-  getMaps() {
-    return this.maps;
-  }
-  getMapArea(id: number): MapArea {
-    const map = this.getMapById(id);
-    return {
-      x: 0,
-      y: 0,
-      xRange: map.width,
-      yRange: map.height,
-    };
-  }
-  randomPositionFromArea(area: MapArea) {
-    return {
-      x: Math.floor(area.x + Math.random() * area.xRange),
-      y: Math.floor(area.y + Math.random() * area.yRange),
-    };
-  }
-  isMovable(position: Position): boolean {
-    try {
-      const map = this.getMapById(position.mapId);
-
-      if (!map.layout[position.y] || !map.layout[position.y][position.x]) {
-        return false;
-      }
-      return map.layout[position.y][position.x].type !== 'BLOCK';
-    } catch (e) {
-      return false;
-    }
   }
 }

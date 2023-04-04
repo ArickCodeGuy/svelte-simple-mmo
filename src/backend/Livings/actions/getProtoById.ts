@@ -1,9 +1,9 @@
 import protos from '../protos';
 import type { LivingProto } from '../types';
 
-export const getProtoById = (protoId: number): LivingProto => {
-  const proto = protos.find((proto) => proto.id === protoId);
-  if (!proto) throw new Error(`Proto by id ${protoId} not found`);
+export const getProtoById = (id: number): LivingProto => {
+  const proto = protos.find((proto) => proto.id === id);
+  if (!proto) throw new Error(`Proto by id ${id} not found`);
 
   return proto;
 };
