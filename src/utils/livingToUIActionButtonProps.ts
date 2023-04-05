@@ -1,9 +1,9 @@
 import type { Living } from '@/backend/Controllers/Livings/types';
-import type { UILivingButtonProps } from '@/components/UI/Livings/types';
+import type { UIActionButtonProps } from '@/components/UI/ActionButton/types';
 
-export const livingToUILivingButtonProps = (
+export const livingToUIActionButtonProps = (
   living: Living
-): UILivingButtonProps => ({
+): UIActionButtonProps => ({
   lvl: living.lvl,
   name: living.name,
   chp: living.chp,

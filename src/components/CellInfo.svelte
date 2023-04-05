@@ -2,10 +2,11 @@
   import { Server } from '@/backend';
   import type { Living } from '@/backend/Controllers/Livings/types';
   import type { MapInfo } from '@/backend/Controllers/Maps/types';
-  import UILivingButtonContainer from '@/components/UI/Livings/UILivingButtonContainer.svelte';
+  import UIActionButtonContainer from '@/components/UI/ActionButton/UIActionButtonContainer.svelte';
   import { mapState } from '@/store/map';
   import { playerState } from '@/store/player';
-  import { livingToUILivingButtonProps } from '@/utils/livingToUILivingButtonProps';
+  import { showPopup } from '@/store/popup';
+  import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
 
   let player: Living;
   playerState.subscribe((v) => (player = v));
@@ -20,8 +21,17 @@
     .filter((living) => living.id !== player.id);
 
   $: items = livingArr.map((i) => ({
-    ...livingToUILivingButtonProps(i),
+    ...livingToUIActionButtonProps(i),
     actions: [
+      {
+        f: () => {
+          showPopup({
+            title: i.name,
+            content: JSON.stringify(i.stats),
+          });
+        },
+        icon: 'information-slab-circle-outline',
+      },
       {
         f: () => {
           Server.initFight([player.id], [i.id]);
@@ -41,7 +51,7 @@
     </div>
     {#if Array.isArray(items)}
       <div class="CellInfo__npcArr">
-        <UILivingButtonContainer {items} />
+        <UIActionButtonContainer {items} />
       </div>
     {/if}
   {:else}

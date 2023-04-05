@@ -3,6 +3,7 @@
   import CellInfo from '@/components/CellInfo.svelte';
   import type { Living } from '@/backend/Livings/types';
   import { playerState } from '@/store/player';
+  import PlayerInfo from '@/components/PlayerInfo.svelte';
 
   let player: Living;
   playerState.subscribe((v) => (player = v));
@@ -18,7 +19,9 @@
 <section class="section main-page">
   <div class="container container--stretch">
     <div class="row">
-      <div class="col-lg-4">char info</div>
+      <div class="col-lg-4">
+        <PlayerInfo />
+      </div>
       <div class="col-lg-4 main-col">{state}</div>
       <div class="col-lg-4">
         <div class="map-container">
