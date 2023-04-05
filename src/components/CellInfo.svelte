@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Server } from '@/backend';
-  import type { Living } from '@/backend/Livings/types';
-  import type { MapInfo } from '@/backend/MapTable/types';
-  import UINPCButtonContainer from '@/components/UI/NPC/UILivingButtonContainer.svelte';
+  import type { Living } from '@/backend/Controllers/Livings/types';
+  import type { MapInfo } from '@/backend/Controllers/Maps/types';
+  import UILivingButtonContainer from '@/components/UI/Livings/UILivingButtonContainer.svelte';
   import { mapState } from '@/store/map';
   import { playerState } from '@/store/player';
 
   const handleSwordClick = (npcId: number) => {
     Server.initFight([player.id], [npcId]);
-    playerState.update((v) => Server.livingsTable.findById(v.id));
+    playerState.update((v) => Server.livingsController.findById(v.id));
   };
 
   let player: Living;
@@ -18,7 +18,7 @@
 
   $: cellType =
     map && player && map.layout[player.position.y][player.position.x].type;
-  $: livingArr = Server.livingsTable.getLivingsByPosition(player.position);
+  $: livingArr = Server.livingsController.getLivingsByPosition(player.position);
 </script>
 
 <div class="CellInfo">
@@ -29,7 +29,7 @@
     </div>
     {#if Array.isArray(livingArr)}
       <div class="CellInfo__npcArr">
-        <UINPCButtonContainer
+        <UILivingButtonContainer
           items={livingArr}
           onSwordClick={handleSwordClick}
         />

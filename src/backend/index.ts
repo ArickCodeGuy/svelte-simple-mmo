@@ -1,14 +1,14 @@
-import { LivingsTable } from './Livings';
-import { MapTable } from './MapTable';
-import { ServerTables } from './Tables';
-import { FightTable } from './fight';
+import { FightController } from './Controllers/Fights';
+import { LivingsController } from './Controllers/Livings';
+import { MapController } from './Controllers/Maps';
+import { ServerController } from './Server';
 
-const ServerLivingsTable = new LivingsTable();
-const ServerMapTable = new MapTable();
-const ServerFightTable = new FightTable();
+const ServerLivingsController = new LivingsController();
+const ServerMapController = new MapController();
+const ServerFightController = new FightController();
 
-export const Server = new ServerTables(
-  ServerLivingsTable,
-  ServerMapTable,
-  ServerFightTable
+export const Server = new ServerController(
+  ServerLivingsController,
+  ServerMapController,
+  ServerFightController
 );

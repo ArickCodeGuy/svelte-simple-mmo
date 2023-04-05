@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { MapCell } from '../../../backend/MapTable/types';
+  import type { MapCell } from '../../../backend/MapController/types';
   import type { Position } from '../../../types';
   import type { UIMapCell } from './types';
 

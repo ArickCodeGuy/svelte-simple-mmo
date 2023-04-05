@@ -1,11 +1,14 @@
 <script lang="ts">
   import UIMap from '@/components/UI/UIMap/UIMap.svelte';
   import { playerState } from '@/store/player';
-  import type { MapInfo } from '@/backend/MapTable/types';
   import { mapState } from '@/store/map';
-  import type { DirectionalMove, Living } from '@/backend/Livings/types';
   import { Server } from '@/backend';
   import { onMount } from 'svelte';
+  import type {
+    DirectionalMove,
+    Living,
+  } from '@/backend/Controllers/Livings/types';
+  import type { MapInfo } from '@/backend/Controllers/Maps/types';
 
   let player: Living;
   playerState.subscribe((v) => {
