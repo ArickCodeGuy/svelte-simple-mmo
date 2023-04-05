@@ -5,11 +5,7 @@
   import UILivingButtonContainer from '@/components/UI/Livings/UILivingButtonContainer.svelte';
   import { mapState } from '@/store/map';
   import { playerState } from '@/store/player';
-
-  const handleSwordClick = (npcId: number) => {
-    Server.initFight([player.id], [npcId]);
-    playerState.update((v) => Server.livingsController.findById(v.id));
-  };
+  import { livingToUILivingButtonProps } from '@/utils/livingToUILivingButtonProps';
 
   let player: Living;
   playerState.subscribe((v) => (player = v));
@@ -18,21 +14,34 @@
 
   $: cellType =
     map && player && map.layout[player.position.y][player.position.x].type;
-  $: livingArr = Server.livingsController.getLivingsByPosition(player.position);
+
+  $: livingArr = Server.livingsController
+    .getLivingsByPosition(player.position)
+    .filter((living) => living.id !== player.id);
+
+  $: items = livingArr.map((i) => ({
+    ...livingToUILivingButtonProps(i),
+    actions: [
+      {
+        f: () => {
+          Server.initFight([player.id], [i.id]);
+          playerState.update((v) => Server.livingsController.findById(v.id));
+        },
+        icon: 'sword-cross',
+      },
+    ],
+  }));
 </script>
 
 <div class="CellInfo">
-  {#if livingArr}
+  {#if items}
     <div class="CellInfo__title">Cell info</div>
     <div class="CellInfo__name">
       {cellType}
     </div>
-    {#if Array.isArray(livingArr)}
+    {#if Array.isArray(items)}
       <div class="CellInfo__npcArr">
-        <UILivingButtonContainer
-          items={livingArr}
-          onSwordClick={handleSwordClick}
-        />
+        <UILivingButtonContainer {items} />
       </div>
     {/if}
   {:else}

@@ -1,26 +1,23 @@
 <script lang="ts">
-  import type { Living } from '@/backend/Controllers/Livings/types';
   import UIIcon from '@/components/UI/UIIcon.svelte';
+  import type { UILivingButtonProps } from './types';
 
-  export let living: Living;
-  export let onSwordClick: (LivivngId: number) => void;
+  export let props: UILivingButtonProps;
 </script>
 
-{#if living}
-  <div class="UILivivngButton">
-    <div class="UILivivngButton__lvl">[{living.lvl}]</div>
-    <div class="UILivivngButton__name">{living.name}</div>
-    <div>id: {living.id}</div>
-    <div class="UILivivngButton__right">
-      {#if living.protoId}
-        <UIIcon icon={'sword-cross'} onClick={() => onSwordClick(living.id)} />
-      {/if}
-    </div>
+<div class="UILivingButton">
+  <div class="UILivingButton__lvl">[{props.lvl}]</div>
+  <div class="UILivingButton__name">{props.name}</div>
+  <div class="UILivingButton__right">
+    {#each props.actions as action}
+      <UIIcon icon={action.icon} onClick={() => action.f(props)} />
+    {/each}
+    <!-- <UIIcon icon={'sword-cross'} onClick={() => {}} /> -->
   </div>
-{/if}
+</div>
 
 <style lang="scss">
-  .UILivivngButton {
+  .UILivingButton {
     cursor: pointer;
     display: flex;
     align-items: center;

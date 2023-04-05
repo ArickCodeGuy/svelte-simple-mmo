@@ -1,14 +1,13 @@
 <script lang="ts">
-  import type { Living } from '@/backend/Controllers/Livings/types';
   import UILivingButton from './UILivingButton.svelte';
+  import type { UILivingButtonProps } from './types';
 
-  export let items: Living[] = [];
-  export let onSwordClick: (npcId: number) => void;
+  export let items: UILivingButtonProps[] = [];
 </script>
 
 <div class="UILivingButtonContainer">
   {#each items as living}
-    <UILivingButton {living} {onSwordClick} />
+    <UILivingButton props={living} />
   {/each}
 </div>
 
