@@ -1,7 +1,10 @@
-<script lang="ts"></script>
+<script lang="ts">
+  export let name: string = '';
+  export let lvl: number = 0;
+</script>
 
 <div class="UICharacter">
-  <div class="title">Player name <b>[lvl]</b></div>
+  <div class="title">{name} <b>[{lvl}]</b></div>
   <div class="bars">
     <div class="bar" />
     <div class="bar" />

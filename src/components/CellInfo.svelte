@@ -7,6 +7,7 @@
   import { playerState } from '@/store/player';
   import { showPopup } from '@/store/popup';
   import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
+  import UiCharacter from './UI/Character/UICharacter.svelte';
 
   let player: Living;
   playerState.subscribe((v) => (player = v));
@@ -26,8 +27,10 @@
       {
         f: () => {
           showPopup({
-            title: i.name,
-            content: JSON.stringify(i.stats),
+            ...i,
+            // title: i.name,
+            // content: '',
+            component: UiCharacter,
           });
         },
         icon: 'information-slab-circle-outline',

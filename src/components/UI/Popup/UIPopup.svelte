@@ -23,19 +23,20 @@
   export let props: UIPopupProps | undefined = undefined;
 </script>
 
-<div
-  class="UIPopup {shown && 'UIPopup--open'}"
-  on:click={bgClick}
-  on:keydown={() => {}}
->
+<div class="UIPopup {shown && 'UIPopup--open'}" on:click={bgClick} on:keydown>
   <div class="modal">
     <div class="modal__inner-box">
       <div class="modal__close">
         <UiIconButton icon={'close'} onClick={close} />
       </div>
       {#if props}
-        <div class="modal__title">{props.title}</div>
-        <div class="modal__content">{props.content}</div>
+        {#if props.title}<div class="modal__title">{props.title}</div>{/if}
+        {#if props.content}<div class="modal__content">
+            {props.content}
+          </div>{/if}
+        {#if props.component}
+          <svelte:component this={props.component} {...props} />
+        {/if}
       {/if}
     </div>
   </div>
@@ -69,8 +70,11 @@
     }
     .modal {
       position: relative;
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: 500px;
+      height: 500px;
+      overflow-y: scroll;
       background-color: var(--bgc);
       padding: 15px;
       transform: translateY(-40px);
@@ -82,6 +86,9 @@
         position: absolute;
         top: 15px;
         right: 15px;
+      }
+      &__inner-box {
+        // overflow-y: scroll;
       }
     }
   }

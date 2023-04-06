@@ -20,7 +20,7 @@
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
-        <UiCharacter />
+        <UiCharacter {...player} />
       </div>
       <div class="col-lg-4 main-col">{state}</div>
       <div class="col-lg-4">

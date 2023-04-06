@@ -1,14 +1,12 @@
 map
-npc
 
-- proto
+- editor
+
 - generator
   fight
-  move
 
 main page
 
 - char
 - middle
-  - current position info
   - fight info
