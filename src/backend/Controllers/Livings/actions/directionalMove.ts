@@ -4,7 +4,6 @@ import type { DirectionalMove } from '../types';
 export const useDirectionalMove =
   (livingsController: LivingsController) =>
   (id: number, direction: DirectionalMove) => {
-    console.log(id, direction);
     const living = livingsController.getById(id);
 
     const newLivingState = { ...living };

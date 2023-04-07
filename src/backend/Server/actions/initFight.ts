@@ -14,4 +14,6 @@ export const useInitFight =
         fightInstanceId: fightInstance.id,
       }));
     });
+
+    serverController.fightTurn();
   };

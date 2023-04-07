@@ -16,14 +16,10 @@ export class BaseController<T> {
     return this.#state;
   }
   getById(id: number) {
-    const item = this.#state.find((i) => i.id === id);
-    if (!item) throw new Error(`item with id ${id} not found`);
-    return item;
+    return this.#state.find((i) => i.id === id);
   }
   getIndexById(id: number) {
-    const item = this.#state.findIndex((i) => i.id === id);
-    if (!item) throw new Error(`item with id ${id} not found`);
-    return item;
+    return this.#state.findIndex((i) => i.id === id);
   }
   add(i: T) {
     const id = this.#idGen();
@@ -38,6 +34,7 @@ export class BaseController<T> {
   }
   update(id: number, updater: ((i: BaseItem<T>) => BaseItem<T>) | BaseItem<T>) {
     const index = this.getIndexById(id);
+    if (index === -1) return;
     const oldState = this.#state[index];
     const newState =
       typeof updater === 'function' ? updater(oldState) : updater;
