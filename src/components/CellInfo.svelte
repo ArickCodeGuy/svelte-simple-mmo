@@ -48,9 +48,9 @@
 
 <div class="CellInfo">
   {#if items}
-    <div class="CellInfo__title">Cell info</div>
+    <!-- <div class="CellInfo__title">Cell info</div> -->
     <div class="CellInfo__name">
-      {cellType}
+      Cell type: {cellType}
     </div>
     {#if Array.isArray(items)}
       <div class="CellInfo__npcArr">

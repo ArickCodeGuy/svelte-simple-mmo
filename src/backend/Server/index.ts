@@ -3,11 +3,14 @@ import type { LivingsController } from '../Controllers/Livings';
 import type { DirectionalMove, Living } from '../Controllers/Livings/types';
 import type { MapController } from '../Controllers/Maps';
 import type { MapArea } from '../Controllers/Maps/types';
+import { useInitFight } from './actions/initFight';
 
 export class ServerController {
   livingsController: LivingsController;
   mapController: MapController;
   fightController: FightController;
+
+  initFight: ReturnType<typeof useInitFight>;
 
   constructor(
     livingsController: LivingsController,
@@ -17,6 +20,9 @@ export class ServerController {
     this.livingsController = livingsController;
     this.mapController = mapController;
     this.fightController = fightController;
+
+    // actions
+    this.initFight = useInitFight(this);
 
     this.init();
   }
@@ -52,18 +58,5 @@ export class ServerController {
       throw new Error(`You can't go to ${newLivingState.position}`);
 
     return this.livingsController.update(id, newLivingState);
-  }
-  initFight(teamOne: number[], teamTwo: number[]) {
-    const fightInstance = this.fightController.initFight(teamOne, teamTwo);
-    const members = [...teamOne, ...teamTwo].map((id) =>
-      this.livingsController.findById(id)
-    );
-    members.forEach((fightMember) =>
-      this.livingsController.update(fightMember.id, {
-        ...fightMember,
-        activity: 'FIGHT',
-      })
-    );
-    console.log(members);
   }
 }
