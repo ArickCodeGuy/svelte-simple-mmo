@@ -11,11 +11,10 @@ export const useInitFight =
       serverController.livingsController.findById(id)
     );
     members.forEach((fightMember) =>
-      serverController.livingsController.update(fightMember.id, {
+      serverController.livingsController.update(fightMember.id, () => ({
         ...fightMember,
         activity: 'FIGHT',
-      })
+        fightInstanceId: fightInstance.id,
+      }))
     );
-
-    console.log(fightInstance);
   };

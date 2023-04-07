@@ -12,6 +12,6 @@ export const useDirectionalMove =
     if (direction === 'LEFT') newLivingState.position.x -= 1;
     if (direction === 'RIGHT') newLivingState.position.x += 1;
 
-    livingsController.update(id, newLivingState);
+    livingsController.update(id, () => newLivingState);
     return newLivingState;
   };

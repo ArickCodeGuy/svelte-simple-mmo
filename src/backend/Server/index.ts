@@ -3,6 +3,8 @@ import type { LivingsController } from '../Controllers/Livings';
 import type { DirectionalMove, Living } from '../Controllers/Livings/types';
 import type { MapController } from '../Controllers/Maps';
 import type { MapArea } from '../Controllers/Maps/types';
+import { useFightTurn } from './actions/fightTurn';
+import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useInitFight } from './actions/initFight';
 
 export class ServerController {
@@ -11,6 +13,8 @@ export class ServerController {
   fightController: FightController;
 
   initFight: ReturnType<typeof useInitFight>;
+  getFightsLivings: ReturnType<typeof useGetFightsLivings>;
+  fightTurn: ReturnType<typeof useFightTurn>;
 
   constructor(
     livingsController: LivingsController,
@@ -23,6 +27,8 @@ export class ServerController {
 
     // actions
     this.initFight = useInitFight(this);
+    this.getFightsLivings = useGetFightsLivings(this);
+    this.fightTurn = useFightTurn(this);
 
     this.init();
   }
@@ -57,6 +63,6 @@ export class ServerController {
     if (!this.mapController.isMovable(newLivingState.position))
       throw new Error(`You can't go to ${newLivingState.position}`);
 
-    return this.livingsController.update(id, newLivingState);
+    return this.livingsController.update(id, () => newLivingState);
   }
 }

@@ -7,7 +7,6 @@ import { useFindIndexById } from './actions/findIndexById';
 import { useGetLivingsByPosition } from './actions/getLivingsByPosition';
 import { useFindById } from './actions/findById';
 import { useGetLivingsPositions } from './actions/getLivingsPositions';
-import { useAdd } from './actions/add';
 import { useRemove } from './actions/remove';
 import { useUpdate } from './actions/update';
 
@@ -21,7 +20,6 @@ export class LivingsController {
   getLivingsByPosition: ReturnType<typeof useGetLivingsByPosition>;
   findById: ReturnType<typeof useFindById>;
   getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
-  add: ReturnType<typeof useAdd>;
   remove: ReturnType<typeof useRemove>;
   update: ReturnType<typeof useUpdate>;
 
@@ -37,7 +35,6 @@ export class LivingsController {
     this.getLivingsByPosition = useGetLivingsByPosition(this);
     this.findById = useFindById(this);
     this.getLivingsPositions = useGetLivingsPositions(this);
-    this.add = useAdd(this);
     this.remove = useRemove(this);
     this.update = useUpdate(this);
   }

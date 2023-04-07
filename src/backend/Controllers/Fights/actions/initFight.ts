@@ -1,5 +1,5 @@
 import type { FightController } from '..';
-import type { FightInstance, Target, Targets } from '../types';
+import type { FightInstance, Targets } from '../types';
 
 export const useInitFight =
   (fightController: FightController) =>
