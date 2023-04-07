@@ -1,6 +1,5 @@
-import type { Position } from '@/types';
 import type { LivingsController } from '..';
-import type { Living } from '../types';
+import type { Living, Position } from '../types';
 
 export const useGetLivingsByPosition =
   (livingsController: LivingsController) =>

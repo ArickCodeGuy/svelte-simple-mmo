@@ -7,14 +7,11 @@ export const useInitFight =
       teamOne,
       teamTwo
     );
-    const members = [...teamOne, ...teamTwo].map((id) =>
-      serverController.livingsController.findById(id)
-    );
-    members.forEach((fightMember) =>
-      serverController.livingsController.update(fightMember.id, () => ({
-        ...fightMember,
+    const members = [...teamOne, ...teamTwo].forEach((memberId) => {
+      serverController.livingsController.update(memberId, (member) => ({
+        ...member,
         activity: 'FIGHT',
         fightInstanceId: fightInstance.id,
-      }))
-    );
+      }));
+    });
   };

@@ -33,7 +33,7 @@ export class ServerController {
     this.init();
   }
   init() {
-    this.mapController.maps.forEach((map) => {
+    this.mapController.getState().forEach((map) => {
       if (!map.npcSettings) return;
 
       map.npcSettings.forEach((npcSetting) => {
@@ -53,8 +53,7 @@ export class ServerController {
       });
     });
   }
-  tryDirectionalMove(id: number, direction: DirectionalMove): Living {
-    const living = this.livingsController.findById(id);
+  tryDirectionalMove(id: number, direction: DirectionalMove) {
     const newLivingState = this.livingsController.directionalMove(
       id,
       direction
@@ -63,6 +62,6 @@ export class ServerController {
     if (!this.mapController.isMovable(newLivingState.position))
       throw new Error(`You can't go to ${newLivingState.position}`);
 
-    return this.livingsController.update(id, () => newLivingState);
+    return this.livingsController.update(id, newLivingState);
   }
 }

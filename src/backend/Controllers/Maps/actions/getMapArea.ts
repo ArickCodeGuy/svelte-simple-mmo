@@ -4,7 +4,7 @@ import type { MapArea } from '../types';
 export const useGetMapArea =
   (mapController: MapController) =>
   (id: number): MapArea => {
-    const map = mapController.getMapById(id);
+    const map = mapController.getById(id);
 
     return {
       x: 0,

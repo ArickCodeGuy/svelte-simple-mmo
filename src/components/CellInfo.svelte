@@ -38,7 +38,7 @@
       {
         f: () => {
           Server.initFight([player.id], [i.id]);
-          playerState.update((v) => Server.livingsController.findById(v.id));
+          playerState.update((v) => Server.livingsController.getById(v.id));
         },
         icon: 'sword-cross',
       },

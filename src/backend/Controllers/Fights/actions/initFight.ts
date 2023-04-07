@@ -3,15 +3,15 @@ import type { FightInstance, Targets } from '../types';
 
 export const useInitFight =
   (fightController: FightController) =>
-  (teamOne: number[], teamTwo: number[]): FightInstance => {
+  (teamOne: number[], teamTwo: number[]) => {
     const fightInstance: FightInstance = {
-      id: fightController.idGen(),
       teamOne,
       teamTwo,
       targets: teamsToTargets(teamOne, teamTwo),
     };
-    fightController.fights.push(fightInstance);
-    return fightInstance;
+
+    const id = fightController.add(fightInstance);
+    return fightController.getById(id);
   };
 
 export const teamToTargets = (teamOne: number[], teamTwo: number[]) =>

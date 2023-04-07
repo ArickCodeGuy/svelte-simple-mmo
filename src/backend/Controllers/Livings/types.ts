@@ -1,4 +1,8 @@
-import type { Position } from '@/types';
+export type Position = {
+  mapId: number;
+  x: number;
+  y: number;
+};
 
 export type LivingActivity = 'FIGHT' | 'WALK';
 
@@ -10,7 +14,6 @@ export type LivingProto = {
 };
 
 export type Living = {
-  id: number;
   protoId: number;
   name: string;
   lvl: number;

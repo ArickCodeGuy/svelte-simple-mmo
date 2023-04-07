@@ -18,11 +18,11 @@ const useTeamTurn =
   (team: 'teamOne' | 'teamTwo', fightId: number) => {
     const receiverSide = team === 'teamOne' ? 'teamTwo' : 'teamOne';
 
-    const fight = serverController.fightController.findFightById(fightId);
+    const fight = serverController.fightController.getById(fightId);
 
     fight[team].forEach((memberId) => {
-      const attacker = serverController.livingsController.findById(memberId);
-      const receiver = serverController.livingsController.findById(
+      const attacker = serverController.livingsController.getById(memberId);
+      const receiver = serverController.livingsController.getById(
         fight.targets[memberId]
       );
 

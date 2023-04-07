@@ -20,7 +20,6 @@ export type MapArea = {
 export type MapLayout = MapCell[][];
 
 export type MapInfo = {
-  id: number;
   layout: MapCell[][];
   height: number;
   width: number;

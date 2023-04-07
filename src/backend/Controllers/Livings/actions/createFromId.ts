@@ -9,7 +9,6 @@ export const useCreateFromId =
     const proto = getProtoById(protoId);
 
     const newLiving = {
-      id: livingsController.idGen(),
       protoId: proto.id,
       name: proto.name,
       lvl: proto.lvl,
@@ -18,7 +17,7 @@ export const useCreateFromId =
       position,
     };
 
-    livingsController.livings.push(newLiving);
+    livingsController.add(newLiving);
 
     return newLiving;
   };

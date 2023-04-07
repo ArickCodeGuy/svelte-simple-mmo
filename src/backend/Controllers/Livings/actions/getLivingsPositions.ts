@@ -3,7 +3,7 @@ import type { LivingsPositions } from '../types';
 
 export const useGetLivingsPositions =
   (livingsController: LivingsController) => (): LivingsPositions =>
-    livingsController.livings.reduce<LivingsPositions>((result, living) => {
+    livingsController.getState().reduce<LivingsPositions>((result, living) => {
       const { mapId, x, y } = living.position;
 
       if (!result[mapId]) result[mapId] = {};

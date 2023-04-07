@@ -1,14 +1,11 @@
 import type { LivingsController } from '..';
-import type { Living } from '../types';
 import { getProtoById } from './getProtoById';
 
 export const useCreateNewPlayer =
-  (livingsController: LivingsController) =>
-  (name: string): Living => {
+  (livingsController: LivingsController) => (name: string) => {
     const playerProto = getProtoById(0);
 
     const newPlayer = {
-      id: livingsController.idGen(),
       name,
       lvl: playerProto.lvl,
       protoId: playerProto.id,
@@ -24,7 +21,7 @@ export const useCreateNewPlayer =
       },
     };
 
-    livingsController.livings.push(newPlayer);
+    const id = livingsController.add(newPlayer);
 
-    return newPlayer;
+    return livingsController.getById(id);
   };
