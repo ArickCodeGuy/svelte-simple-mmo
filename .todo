@@ -1,12 +1,18 @@
-map
+## map editor
 
-- editor
+## fight
 
-- generator
-  fight
+- respawn npc in new location
+- respawn playere in spawn point if dies
 
-main page
+## update player health
 
-- char
+## exp
+
+- left
+  - char
+  - stats
 - middle
   - fight info
+
+### items table
