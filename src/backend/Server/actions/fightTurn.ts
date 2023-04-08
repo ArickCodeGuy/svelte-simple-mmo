@@ -24,11 +24,11 @@ const useTeamTurn =
     const attackers = fight[team];
 
     for (let i = 0; i < fight[team].length; i++) {
-      const memberId = fight[team][i];
+      const member = fight[team][i];
 
-      const attacker = serverController.livingsController.getById(memberId)!;
+      const attacker = serverController.livingsController.getById(member.id)!;
       const receiver = serverController.livingsController.getById(
-        fight.targets[memberId]
+        fight.targets[member.id]
       )!;
 
       const chp = receiver.chp - attacker.stats.attack;
@@ -37,7 +37,7 @@ const useTeamTurn =
 
         // remove from fight
         const newReceiverMembers = fight.teamTwo.filter(
-          (i) => i !== receiver.id
+          (i) => i.id !== receiver.id
         );
 
         if (!newReceiverMembers.length) {
@@ -65,7 +65,7 @@ const useTeamTurn =
         serverController.fightController.update(fight.id, (state) => ({
           ...state,
           [receiverSideKey]: state[receiverSideKey].filter(
-            (i) => i !== receiver.id
+            (i) => i.id !== receiver.id
           ),
           targets: newTargets,
           nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,

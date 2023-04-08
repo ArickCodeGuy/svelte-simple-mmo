@@ -1,20 +1,15 @@
-import type { FightInstance } from '@/backend/Controllers/Fights/types';
 import type { ServerController } from '..';
-import type { BaseItem } from '@/backend/Controllers/Base';
+import type { GlobalInfo } from '../types';
 
 export const useGetLivingState =
-  (serverController: ServerController) => (id: number) => {
+  (serverController: ServerController) =>
+  (id: number): GlobalInfo => {
     const living = serverController.livingsController.getById(id);
     if (!living) return;
 
     const map = serverController.mapController.getById(living.position.mapId);
 
-    let fightInstance: BaseItem<FightInstance> | undefined = undefined;
-    if (living.fightInstanceId) {
-      fightInstance = serverController.fightController.getById(
-        living.fightInstanceId
-      );
-    }
+    const fight = serverController.getFightInfo(living.id);
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position
@@ -23,7 +18,7 @@ export const useGetLivingState =
     return {
       living,
       map,
-      fightInstance,
+      fight,
       neighbors,
     };
   };

@@ -6,6 +6,14 @@ import type { MapInfo } from '../Controllers/Maps/types';
 export type GlobalInfo = {
   living: BaseItem<Living>;
   map?: BaseItem<MapInfo>;
-  fightInstance?: BaseItem<FightInstance>;
+  fight?: FightInfo;
   neighbors: BaseItem<Living>[];
+};
+
+export type FightInfo = {
+  instance: BaseItem<FightInstance>;
+  teams: {
+    ally: BaseItem<Living>[];
+    enemy: BaseItem<Living>[];
+  };
 };

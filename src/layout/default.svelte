@@ -1,5 +1,5 @@
 <script lang="ts">
-import '~/assets/styles/style.scss';
+import '@/assets/styles/style.scss';
 import Header from '../components/Header.svelte';
 import Footer from '../components/Footer.svelte';
 import UiPopup from '@/components/UI/Popup/UIPopup.svelte';

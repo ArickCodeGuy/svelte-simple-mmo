@@ -1,13 +1,22 @@
 export type FightInstance = {
-  teamOne: number[];
-  teamTwo: number[];
+  teamOne: TeamMember[];
+  teamTwo: TeamMember[];
   targets: Targets;
-  buffsAndDebuffs?: Record<string, BuffDebuff>;
   nextTurn: number;
 };
 
+export type TeamMember = {
+  id: number;
+  isAlive: boolean;
+  buffsAndDebuffs?: BuffDebuff;
+};
+
 export type BuffDebuff = {
-  //
+  stun?: number;
+  poison?: {
+    dmg: number;
+    duration: number;
+  };
 };
 
 /**

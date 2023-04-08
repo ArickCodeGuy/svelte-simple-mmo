@@ -7,11 +7,10 @@ export const useEndFight =
     const fightInstance = serverController.fightController.getById(id)!;
     const members = [...fightInstance.teamOne, ...fightInstance.teamTwo];
     members.forEach((member) => {
-      serverController.livingsController.update(member, (s) => ({
-        ...s,
-        activity: undefined,
-        fightInstanceId: undefined,
-      }));
+      serverController.livingsController.update(member.id, (s) => {
+        delete s.fightInstanceId;
+        return s;
+      });
     });
 
     serverController.fightController.remove(id);

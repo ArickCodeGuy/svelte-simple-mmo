@@ -3,6 +3,7 @@ import type { LivingsController } from '../Controllers/Livings';
 import type { MapController } from '../Controllers/Maps';
 import { useEndFight } from './actions/endFight';
 import { useFightTurn } from './actions/fightTurn';
+import { useGetFightInfo } from './actions/getFightInfo';
 import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useGetLivingState } from './actions/getLivingState';
 import { useInit } from './actions/init';
@@ -20,6 +21,7 @@ export class ServerController {
   fightTurn: ReturnType<typeof useFightTurn>;
   endFight: ReturnType<typeof useEndFight>;
   getLivingState: ReturnType<typeof useGetLivingState>;
+  getFightInfo: ReturnType<typeof useGetFightInfo>;
   tryDirectionalMove: ReturnType<typeof useTryDirectionalMove>;
   respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
@@ -39,6 +41,7 @@ export class ServerController {
     this.fightTurn = useFightTurn(this);
     this.endFight = useEndFight(this);
     this.getLivingState = useGetLivingState(this);
+    this.getFightInfo = useGetFightInfo(this);
     this.tryDirectionalMove = useTryDirectionalMove(this);
     this.respawn = useRespawn(this);
     this.init = useInit(this);

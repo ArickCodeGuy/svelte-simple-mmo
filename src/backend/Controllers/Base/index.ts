@@ -34,7 +34,10 @@ export class BaseController<T> {
   remove(id: number) {
     this.#state = this.#state.filter((j) => j.id !== id);
   }
-  update(id: number, updater: ((i: BaseItem<T>) => BaseItem<T>) | BaseItem<T>) {
+  update(
+    id: number,
+    updater: ((oldState: BaseItem<T>) => BaseItem<T>) | BaseItem<T>
+  ) {
     const index = this.getIndexById(id);
     if (index === -1)
       throw new Error(`update: ${id} not found in ${this.#tableName} table`);

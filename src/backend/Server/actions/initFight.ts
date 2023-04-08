@@ -9,7 +9,7 @@ export const useInitFight =
       teamOne,
       teamTwo
     );
-    const members = [...teamOne, ...teamTwo].forEach((memberId) => {
+    [...teamOne, ...teamTwo].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({
         ...member,
         activity: 'FIGHT',

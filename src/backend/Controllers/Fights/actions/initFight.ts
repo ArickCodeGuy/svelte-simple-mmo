@@ -6,8 +6,8 @@ export const useInitFight =
   (fightController: FightController) =>
   (teamOne: number[], teamTwo: number[]) => {
     const fightInstance: FightInstance = {
-      teamOne,
-      teamTwo,
+      teamOne: teamOne.map((id) => ({ id, isAlive: true })),
+      teamTwo: teamTwo.map((id) => ({ id, isAlive: true })),
       targets: teamsToTargets(teamOne, teamTwo),
       nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
     };
