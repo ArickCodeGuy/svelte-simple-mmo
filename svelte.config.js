@@ -6,8 +6,6 @@ const config = {
   // for more information about preprocessors
   preprocess: vitePreprocess(),
 
-  publicPath: '/svelte-simple-mmo/',
-
   kit: {
     // adapter: adapter(),
     alias: {

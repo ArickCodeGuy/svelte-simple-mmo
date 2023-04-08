@@ -5,6 +5,8 @@ import { defineConfig } from 'vitest/config';
 const resolve = (path: string) => pathResolve(__dirname, path);
 
 export default defineConfig({
+  base: '/svelte-simple-mmo/',
+
   plugins: [sveltekit()],
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
