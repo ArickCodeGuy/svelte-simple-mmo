@@ -1,9 +1,10 @@
 import type { LivingsController } from '..';
+import type { BaseItem } from '../../Base';
 import type { Living, Position } from '../types';
 
 export const useGetLivingsByPosition =
   (livingsController: LivingsController) =>
-  ({ mapId, y, x }: Position): Living[] => {
+  ({ mapId, y, x }: Position): BaseItem<Living>[] => {
     const livingsPositions = livingsController.getLivingsPositions();
 
     if (

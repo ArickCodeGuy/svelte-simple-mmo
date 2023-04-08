@@ -34,7 +34,7 @@ export class BaseController<T> {
   }
   update(id: number, updater: ((i: BaseItem<T>) => BaseItem<T>) | BaseItem<T>) {
     const index = this.getIndexById(id);
-    if (index === -1) return;
+    if (index === -1) throw new Error(`update: ??`);
     const oldState = this.#state[index];
     const newState =
       typeof updater === 'function' ? updater(oldState) : updater;

@@ -8,8 +8,9 @@
   import { showPopup } from '@/store/popup';
   import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
   import UiCharacter from './UI/Character/UICharacter.svelte';
+  import type { BaseItem } from '@/backend/Controllers/Base';
 
-  let player: Living;
+  let player: BaseItem<Living>;
   playerState.subscribe((v) => (player = v));
   let map: MapInfo;
   mapState.subscribe((v) => (map = v));
@@ -37,8 +38,10 @@
       },
       {
         f: () => {
-          Server.initFight([player.id], [i.id]);
-          playerState.update((v) => Server.livingsController.getById(v.id));
+          const fightInstance = Server.initFight([player.id], [i.id]);
+          setTimeout(() => {
+            playerState.update((v) => Server.livingsController.getById(v.id)!);
+          }, fightInstance.nextTurn);
         },
         icon: 'sword-cross',
       },

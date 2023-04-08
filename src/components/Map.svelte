@@ -9,8 +9,9 @@
     Living,
   } from '@/backend/Controllers/Livings/types';
   import type { MapInfo } from '@/backend/Controllers/Maps/types';
+  import type { BaseItem } from '@/backend/Controllers/Base';
 
-  let player: Living;
+  let player: BaseItem<Living>;
   playerState.subscribe((v) => {
     player = v;
   });

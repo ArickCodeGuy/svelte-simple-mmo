@@ -1,4 +1,5 @@
 import type { FightController } from '..';
+import { FIGHT_TURN_TIMEOUT } from '../constants';
 import type { FightInstance, Targets } from '../types';
 
 export const useInitFight =
@@ -8,10 +9,11 @@ export const useInitFight =
       teamOne,
       teamTwo,
       targets: teamsToTargets(teamOne, teamTwo),
+      nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
     };
 
     const id = fightController.add(fightInstance);
-    return fightController.getById(id);
+    return fightController.getById(id)!;
   };
 
 export const teamToTargets = (teamOne: number[], teamTwo: number[]) =>

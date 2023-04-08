@@ -1,3 +1,5 @@
+import type { BaseItem } from '../Base';
+
 export type Position = {
   mapId: number;
   x: number;
@@ -36,4 +38,7 @@ export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
  */
 export type LivingsPositions = Record<string, MapLivingsPositions>;
 
-export type MapLivingsPositions = Record<string, Record<string, Living[]>>;
+export type MapLivingsPositions = Record<
+  string,
+  Record<string, BaseItem<Living>[]>
+>;

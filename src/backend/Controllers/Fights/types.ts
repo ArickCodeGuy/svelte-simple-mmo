@@ -3,6 +3,7 @@ export type FightInstance = {
   teamTwo: number[];
   targets: Targets;
   buffsAndDebuffs?: Record<string, BuffDebuff>;
+  nextTurn: number;
 };
 
 export type BuffDebuff = {

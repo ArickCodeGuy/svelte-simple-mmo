@@ -1,10 +1,9 @@
 import { Server } from '@/backend';
 import { writable } from 'svelte/store';
 import { playerState } from './player';
-import type { MapInfo } from '@/backend/Controllers/Maps/types';
 
-export const mapState = writable<MapInfo>();
+export const mapState = writable(Server.mapController.getById(1));
 
 playerState.subscribe((v) => {
-  mapState.update(() => Server.mapController.getById(v.position.mapId));
+  mapState.update(() => Server.mapController.getById(v.position.mapId)!);
 });

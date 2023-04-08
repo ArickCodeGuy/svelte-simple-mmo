@@ -1,27 +1,27 @@
 import type { Targets } from '@/backend/Controllers/Fights/types';
 import type { ServerController } from '..';
+import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 
-export const useFightTurn = (serverController: ServerController) => () => {
-  const teamTurn = useTeamTurn(serverController);
+export const useFightTurn =
+  (serverController: ServerController) => (id: number) => {
+    console.log('fight turn');
+    const teamTurn = useTeamTurn(serverController);
 
-  serverController.fightController.getState().forEach((fight) => {
+    const fight = serverController.fightController.getById(id);
+    if (!fight) return;
+
     teamTurn('teamOne', fight.id);
-    if (!serverController.fightController.getById(fight.id)) {
-      console.log('END FIGHT');
-      return;
-    }
-
     teamTurn('teamTwo', fight.id);
-  });
-};
+  };
 
 const useTeamTurn =
   (serverController: ServerController) =>
   (team: 'teamOne' | 'teamTwo', fightId: number) => {
-    const receiverSide = team === 'teamOne' ? 'teamTwo' : 'teamOne';
-
     const fight = serverController.fightController.getById(fightId);
     if (!fight) return;
+
+    const receiverSideKey = team === 'teamOne' ? 'teamTwo' : 'teamOne';
+    const attackers = fight[team];
 
     for (let i = 0; i < fight[team].length; i++) {
       const memberId = fight[team][i];
@@ -41,8 +41,7 @@ const useTeamTurn =
         );
 
         if (!newReceiverMembers.length) {
-          serverController.fightController.remove(fight.id);
-
+          serverController.endFight(fight.id);
           return;
         }
 
@@ -61,8 +60,11 @@ const useTeamTurn =
 
         serverController.fightController.update(fight.id, (state) => ({
           ...state,
-          [receiverSide]: state[receiverSide].filter((i) => i !== receiver.id),
+          [receiverSideKey]: state[receiverSideKey].filter(
+            (i) => i !== receiver.id
+          ),
           targets: newTargets,
+          nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
         }));
       } else {
         serverController.livingsController.update(receiver.id, (s) => ({

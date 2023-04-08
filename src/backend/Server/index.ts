@@ -3,6 +3,7 @@ import type { LivingsController } from '../Controllers/Livings';
 import type { DirectionalMove, Living } from '../Controllers/Livings/types';
 import type { MapController } from '../Controllers/Maps';
 import type { MapArea } from '../Controllers/Maps/types';
+import { useEndFight } from './actions/endFight';
 import { useFightTurn } from './actions/fightTurn';
 import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useInitFight } from './actions/initFight';
@@ -15,6 +16,7 @@ export class ServerController {
   initFight: ReturnType<typeof useInitFight>;
   getFightsLivings: ReturnType<typeof useGetFightsLivings>;
   fightTurn: ReturnType<typeof useFightTurn>;
+  endFight: ReturnType<typeof useEndFight>;
 
   constructor(
     livingsController: LivingsController,
@@ -29,6 +31,7 @@ export class ServerController {
     this.initFight = useInitFight(this);
     this.getFightsLivings = useGetFightsLivings(this);
     this.fightTurn = useFightTurn(this);
+    this.endFight = useEndFight(this);
 
     this.init();
   }
@@ -57,10 +60,16 @@ export class ServerController {
     const newLivingState = this.livingsController.directionalMove(
       id,
       direction
-    );
+    )!;
 
     if (!this.mapController.isMovable(newLivingState.position))
-      throw new Error(`You can't go to ${newLivingState.position}`);
+      // `You can't go to ${newLivingState.position}`
+      return this.livingsController.getById(id)!;
+
+    if (newLivingState.activity) {
+      // `You are busy. You can not walk`;
+      return this.livingsController.getById(id)!;
+    }
 
     return this.livingsController.update(id, newLivingState);
   }
