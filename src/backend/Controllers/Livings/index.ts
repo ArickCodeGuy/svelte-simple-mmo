@@ -13,8 +13,8 @@ export class LivingsController extends BaseController<Living> {
   getLivingsByPosition: ReturnType<typeof useGetLivingsByPosition>;
   getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
 
-  constructor() {
-    super();
+  constructor(tableName: string) {
+    super(tableName);
 
     this.createFromId = useCreateFromId(this);
     this.createNewPlayer = useCreateNewPlayer(this);

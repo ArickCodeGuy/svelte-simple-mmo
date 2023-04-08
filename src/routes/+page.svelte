@@ -1,14 +1,15 @@
 <script lang="ts">
   import Map from '@/components/Map.svelte';
   import CellInfo from '@/components/CellInfo.svelte';
-  import { playerState } from '@/store/player';
   import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
   import type { Living } from '@/backend/Controllers/Livings/types';
+  import type { GlobalInfo } from '@/backend/Server/types';
+  import { globalInfoState } from '@/store/player';
 
-  let player: Living;
-  playerState.subscribe((v) => (player = v));
+  let globalInfo: GlobalInfo;
+  globalInfoState.subscribe((v) => (globalInfo = v));
 
-  $: state = player.activity || 'NO_ACTIVITY';
+  $: state = globalInfo.living.activity || 'NO_ACTIVITY';
 </script>
 
 <svelte:head>
@@ -20,7 +21,7 @@
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
-        <UiCharacter {...player} />
+        <UiCharacter {...globalInfo.living} />
       </div>
       <div class="col-lg-4 main-col">{state}</div>
       <div class="col-lg-4">

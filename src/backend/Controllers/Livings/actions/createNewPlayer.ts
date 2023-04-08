@@ -23,5 +23,5 @@ export const useCreateNewPlayer =
 
     const id = livingsController.add(newPlayer);
 
-    return livingsController.getById(id);
+    return livingsController.getById(id)!;
   };

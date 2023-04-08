@@ -1,28 +1,23 @@
 <script lang="ts">
   import { Server } from '@/backend';
-  import type { Living } from '@/backend/Controllers/Livings/types';
-  import type { MapInfo } from '@/backend/Controllers/Maps/types';
   import UIActionButtonContainer from '@/components/UI/ActionButton/UIActionButtonContainer.svelte';
-  import { mapState } from '@/store/map';
-  import { playerState } from '@/store/player';
   import { showPopup } from '@/store/popup';
   import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
   import UiCharacter from './UI/Character/UICharacter.svelte';
-  import type { BaseItem } from '@/backend/Controllers/Base';
+  import type { GlobalInfo } from '@/backend/Server/types';
+  import { globalInfoState } from '@/store/player';
 
-  let player: BaseItem<Living>;
-  playerState.subscribe((v) => (player = v));
-  let map: MapInfo;
-  mapState.subscribe((v) => (map = v));
+  let globalInfo: GlobalInfo;
+  globalInfoState.subscribe((v) => (globalInfo = v));
 
   $: cellType =
-    map && player && map.layout[player.position.y][player.position.x].type;
+    globalInfo.map &&
+    globalInfo.living &&
+    globalInfo.map.layout[globalInfo.living.position.y][
+      globalInfo.living.position.x
+    ].type;
 
-  $: livingArr = Server.livingsController
-    .getLivingsByPosition(player.position)
-    .filter((living) => living.id !== player.id);
-
-  $: items = livingArr.map((i) => ({
+  $: items = globalInfo.neighbors.map((i) => ({
     ...livingToUIActionButtonProps(i),
     actions: [
       {
@@ -38,10 +33,8 @@
       },
       {
         f: () => {
-          const fightInstance = Server.initFight([player.id], [i.id]);
-          setTimeout(() => {
-            playerState.update((v) => Server.livingsController.getById(v.id)!);
-          }, fightInstance.nextTurn);
+          Server.initFight([globalInfo.living.id], [i.id]);
+          globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
         },
         icon: 'sword-cross',
       },

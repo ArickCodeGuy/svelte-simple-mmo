@@ -3,6 +3,8 @@ import type { ServerController } from '..';
 export const useInitFight =
   (serverController: ServerController) =>
   (teamOne: number[], teamTwo: number[]) => {
+    console.log('INIT FIGHT');
+
     const fightInstance = serverController.fightController.initFight(
       teamOne,
       teamTwo

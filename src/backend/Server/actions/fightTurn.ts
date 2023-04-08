@@ -4,7 +4,7 @@ import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 
 export const useFightTurn =
   (serverController: ServerController) => (id: number) => {
-    console.log('fight turn');
+    console.log('FIGHT TURN');
     const teamTurn = useTeamTurn(serverController);
 
     const fight = serverController.fightController.getById(id);
@@ -41,6 +41,10 @@ const useTeamTurn =
         );
 
         if (!newReceiverMembers.length) {
+          serverController.fightController.update(fight.id, (v) => ({
+            ...v,
+            [receiverSideKey]: [],
+          }));
           serverController.endFight(fight.id);
           return;
         }

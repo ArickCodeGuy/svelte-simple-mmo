@@ -5,8 +5,8 @@ import { BaseController } from '../Base';
 export class FightController extends BaseController<FightInstance> {
   initFight: ReturnType<typeof useInitFight>;
 
-  constructor() {
-    super();
+  constructor(tableName: string) {
+    super(tableName);
 
     // actions
     this.initFight = useInitFight(this);

@@ -7,10 +7,12 @@ export type BaseItem<T> = {
 export class BaseController<T> {
   #state: BaseItem<T>[];
   #idGen: ReturnType<typeof idGen>;
+  #tableName: string;
 
-  constructor() {
+  constructor(tableName: string) {
     this.#idGen = idGen();
     this.#state = [];
+    this.#tableName = tableName;
   }
   getState() {
     return this.#state;
@@ -34,7 +36,8 @@ export class BaseController<T> {
   }
   update(id: number, updater: ((i: BaseItem<T>) => BaseItem<T>) | BaseItem<T>) {
     const index = this.getIndexById(id);
-    if (index === -1) throw new Error(`update: ??`);
+    if (index === -1)
+      throw new Error(`update: ${id} not found in ${this.#tableName} table`);
     const oldState = this.#state[index];
     const newState =
       typeof updater === 'function' ? updater(oldState) : updater;

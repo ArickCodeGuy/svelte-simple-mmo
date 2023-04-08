@@ -10,8 +10,8 @@ export class MapController extends BaseController<MapInfo> {
   getRandomPositionFromArea: ReturnType<typeof useGetRandomPositionFromArea>;
   getMapArea: ReturnType<typeof useGetMapArea>;
 
-  constructor() {
-    super();
+  constructor(tableName: string) {
+    super(tableName);
     this.isMovable = useIsMovable(this);
     this.getRandomPositionFromArea = useGetRandomPositionFromArea(this);
     this.getMapArea = useGetMapArea(this);

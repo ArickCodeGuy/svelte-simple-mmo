@@ -1,26 +1,18 @@
 <script lang="ts">
   import UIMap from '@/components/UI/UIMap/UIMap.svelte';
-  import { playerState } from '@/store/player';
-  import { mapState } from '@/store/map';
+  import { globalInfoState } from '@/store/player';
   import { Server } from '@/backend';
   import { onMount } from 'svelte';
-  import type {
-    DirectionalMove,
-    Living,
-  } from '@/backend/Controllers/Livings/types';
-  import type { MapInfo } from '@/backend/Controllers/Maps/types';
-  import type { BaseItem } from '@/backend/Controllers/Base';
+  import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
+  import type { GlobalInfo } from '@/backend/Server/types';
 
-  let player: BaseItem<Living>;
-  playerState.subscribe((v) => {
-    player = v;
-  });
-
-  let map: MapInfo;
-  mapState.subscribe((v) => (map = v));
+  let globalInfo: GlobalInfo;
+  globalInfoState.subscribe((v) => (globalInfo = v));
 
   const handleMoveClick = (direction: DirectionalMove) => {
-    playerState.update(() => Server.tryDirectionalMove(player.id, direction));
+    globalInfoState.update(
+      (v) => Server.tryDirectionalMove(v.living.id, direction)!
+    );
   };
 
   onMount(() => {
@@ -35,8 +27,12 @@
   });
 </script>
 
-{#if map && player}
-  <UIMap position={player.position} range={4} map={map.layout} />
+{#if globalInfo && globalInfo.map}
+  <UIMap
+    position={globalInfo.living.position}
+    range={4}
+    map={globalInfo.map.layout}
+  />
 {/if}
 <button on:click={() => handleMoveClick('UP')}>UP</button>
 <button on:click={() => handleMoveClick('LEFT')}>LEFT</button>
