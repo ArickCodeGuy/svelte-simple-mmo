@@ -1,11 +1,11 @@
 <script>
 import { Router, Route } from 'svelte-routing';
-import Layout from './routes/+layout.svelte';
-import Page from './routes/+page.svelte';
+import Layout from './layout/default.svelte';
+import Main from './routes/index.svelte';
 </script>
 
 <Router basepath="/svelte-simple-mmo/">
   <Layout>
-    <Route path="/"><Page /></Route>
+    <Route path="/"><Main /></Route>
   </Layout>
 </Router>
