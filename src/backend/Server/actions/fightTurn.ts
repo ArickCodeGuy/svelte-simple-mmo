@@ -33,7 +33,7 @@ const useTeamTurn =
 
       const chp = receiver.chp - attacker.stats.attack;
       if (chp <= 0) {
-        serverController.livingsController.remove(receiver.id);
+        serverController.respawn(receiver.id);
 
         // remove from fight
         const newReceiverMembers = fight.teamTwo.filter(

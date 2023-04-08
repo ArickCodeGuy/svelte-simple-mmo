@@ -1,14 +1,13 @@
 import type { FightController } from '../Controllers/Fights';
 import type { LivingsController } from '../Controllers/Livings';
-import type { DirectionalMove, Living } from '../Controllers/Livings/types';
 import type { MapController } from '../Controllers/Maps';
-import type { MapArea } from '../Controllers/Maps/types';
 import { useEndFight } from './actions/endFight';
 import { useFightTurn } from './actions/fightTurn';
 import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useGetLivingState } from './actions/getLivingState';
 import { useInit } from './actions/init';
 import { useInitFight } from './actions/initFight';
+import { useRespawn } from './actions/respanwn';
 import { useTryDirectionalMove } from './actions/tryDirectionalMove';
 
 export class ServerController {
@@ -22,6 +21,7 @@ export class ServerController {
   endFight: ReturnType<typeof useEndFight>;
   getLivingState: ReturnType<typeof useGetLivingState>;
   tryDirectionalMove: ReturnType<typeof useTryDirectionalMove>;
+  respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
 
   constructor(
@@ -40,6 +40,7 @@ export class ServerController {
     this.endFight = useEndFight(this);
     this.getLivingState = useGetLivingState(this);
     this.tryDirectionalMove = useTryDirectionalMove(this);
+    this.respawn = useRespawn(this);
     this.init = useInit(this);
 
     this.init();

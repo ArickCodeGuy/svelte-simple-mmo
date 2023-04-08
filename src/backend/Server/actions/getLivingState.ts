@@ -1,7 +1,6 @@
 import type { FightInstance } from '@/backend/Controllers/Fights/types';
 import type { ServerController } from '..';
 import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Living } from '@/backend/Controllers/Livings/types';
 
 export const useGetLivingState =
   (serverController: ServerController) => (id: number) => {
