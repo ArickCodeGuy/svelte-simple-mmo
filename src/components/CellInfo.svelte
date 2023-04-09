@@ -17,27 +17,29 @@ $: cellType =
     globalInfo.living.position.x
   ].type;
 
-$: items = globalInfo.neighbors.map((i) => ({
-  ...livingToUIActionButtonProps(i),
-  actions: [
-    {
-      f: () => {
-        showPopup({
-          ...i,
-          component: UiCharacter,
-        });
+$: items = globalInfo.neighbors
+  .filter((i) => i.id !== globalInfo.living.id)
+  .map((i) => ({
+    ...livingToUIActionButtonProps(i),
+    actions: [
+      {
+        f: () => {
+          showPopup({
+            ...i,
+            component: UiCharacter,
+          });
+        },
+        icon: 'information-slab-circle-outline',
       },
-      icon: 'information-slab-circle-outline',
-    },
-    {
-      f: () => {
-        Server.initFight([globalInfo.living.id], [i.id]);
-        globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
+      {
+        f: () => {
+          Server.initFight([globalInfo.living.id], [i.id]);
+          globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
+        },
+        icon: 'sword-cross',
       },
-      icon: 'sword-cross',
-    },
-  ],
-}));
+    ],
+  }));
 </script>
 
 <div class="CellInfo">
@@ -45,7 +47,8 @@ $: items = globalInfo.neighbors.map((i) => ({
     <div class="CellInfo__name">
       Cell type: {cellType}
     </div>
-    {#if Array.isArray(items)}
+    {#if items.length}
+      <div class="CellInfo__title">Enemies:</div>
       <div class="CellInfo__npcArr">
         <UIActionButtonContainer {items} />
       </div>
@@ -57,6 +60,12 @@ $: items = globalInfo.neighbors.map((i) => ({
 
 <style lang="scss">
 .CellInfo {
+  &__name {
+    margin-bottom: 0.5em;
+  }
+  &__title {
+    margin-bottom: 0.5em;
+  }
   &__npcArr {
     margin-top: 1em;
   }
