@@ -1,6 +1,10 @@
 <script lang="ts">
-  export let name: string = '';
-  export let lvl: number = 0;
+import type { LivingStats } from '@/backend/Controllers/Livings/types';
+import UiCharacterStats from './UICharacterStats.svelte';
+
+export let name: string = '';
+export let lvl: number = 0;
+export let stats: LivingStats;
 </script>
 
 <div class="UICharacter">
@@ -19,69 +23,71 @@
     <div class="grid__item grid__item--feet" />
     <div class="grid__item grid__item--profile-picture" />
   </div>
+  <UiCharacterStats {stats} />
 </div>
 
 <style lang="scss">
-  .UICharacter {
-    .title {
-      text-align: center;
-      margin-bottom: 0.5em;
-    }
-    .bars {
-      margin-bottom: 15px;
-    }
-    .grid {
-    }
+.UICharacter {
+  .title {
+    text-align: center;
+    margin-bottom: 0.5em;
   }
   .bars {
-    display: grid;
-    gap: 5px;
-  }
-  .bar {
-    width: 100%;
-    height: 5px;
-    background-color: rgba(var(--rgba-bgc), 0.3);
+    margin-bottom: 15px;
   }
   .grid {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-areas:
-      'neck pp head'
-      'hand-left pp hands'
-      'hand-left pp hand-right'
-      'body pp feet';
-    &__item {
-      &--neck {
-        grid-area: neck;
-      }
-      &--profile-picture {
-        grid-area: pp;
-      }
-      &--head {
-        grid-area: head;
-      }
-      &--hands {
-        grid-area: hands;
-      }
-      &--hand-left {
-        grid-area: hand-left;
-      }
-      &--hand-right {
-        grid-area: hand-right;
-      }
-      &--body {
-        grid-area: body;
-      }
-      &--feet {
-        grid-area: feet;
-      }
-      background-color: rgba(var(--rgba-bgc), 0.3);
-      cursor: pointer;
-      &::after {
-        content: '';
-        display: block;
-        padding-top: 50%;
-      }
+    margin-bottom: 1em;
+  }
+}
+.bars {
+  display: grid;
+  gap: 5px;
+}
+.bar {
+  width: 100%;
+  height: 5px;
+  background-color: rgba(var(--rgba-bgc), 0.3);
+}
+.grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-areas:
+    'neck pp head'
+    'hand-left pp hands'
+    'hand-left pp hand-right'
+    'body pp feet';
+  &__item {
+    &--neck {
+      grid-area: neck;
+    }
+    &--profile-picture {
+      grid-area: pp;
+    }
+    &--head {
+      grid-area: head;
+    }
+    &--hands {
+      grid-area: hands;
+    }
+    &--hand-left {
+      grid-area: hand-left;
+    }
+    &--hand-right {
+      grid-area: hand-right;
+    }
+    &--body {
+      grid-area: body;
+    }
+    &--feet {
+      grid-area: feet;
+    }
+    background-color: rgba(var(--rgba-bgc), 0.3);
+    cursor: pointer;
+    &::after {
+      content: '';
+      display: block;
+      padding-top: 50%;
     }
   }
+}
 </style>

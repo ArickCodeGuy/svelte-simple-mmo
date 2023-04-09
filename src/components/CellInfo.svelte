@@ -22,40 +22,19 @@ $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbors);
 
 $: players = sortedLivings.players.map((i) => ({
   ...livingToUIActionButtonProps(i),
-  actions: [
-    {
-      f: () => {
-        showPopup({
-          ...i,
-          component: UiCharacter,
-        });
-      },
-      icon: 'information-slab-circle-outline',
-    },
-  ],
 }));
 
-$: enemies = sortedLivings.npc.map((i) => ({
-  ...livingToUIActionButtonProps(i),
-  actions: [
-    {
-      f: () => {
-        showPopup({
-          ...i,
-          component: UiCharacter,
-        });
-      },
-      icon: 'information-slab-circle-outline',
+$: enemies = sortedLivings.npc.map((i) => {
+  const res = livingToUIActionButtonProps(i);
+  res.actions?.push({
+    f: () => {
+      Server.initFight([globalInfo.living.id], [i.id]);
+      globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
     },
-    {
-      f: () => {
-        Server.initFight([globalInfo.living.id], [i.id]);
-        globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
-      },
-      icon: 'sword-cross',
-    },
-  ],
-}));
+    icon: 'sword-cross',
+  });
+  return res;
+});
 </script>
 
 <div class="CellInfo">
