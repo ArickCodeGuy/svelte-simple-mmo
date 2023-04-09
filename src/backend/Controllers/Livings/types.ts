@@ -12,6 +12,7 @@ export type LivingProto = {
   id: number;
   name: string;
   lvl: number;
+  expGives: number;
   stats: LivingStats;
 };
 
@@ -19,15 +20,26 @@ export type Living = {
   protoId: number;
   name: string;
   lvl: number;
-  chp: number;
+  exp: number;
+  expGives: number; // amount of exp given on death
   stats: LivingStats;
+  points: number; // spare points for upping stats
+  currentHp: number;
+  computedStats: LivingComputedStats;
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
 };
 
 export type LivingStats = {
-  hp: number;
+  baseHp: number;
+  baseAttack: number;
+  vitality: number;
+  strength: number;
+};
+
+export type LivingComputedStats = {
+  maxHp: number;
   attack: number;
 };
 

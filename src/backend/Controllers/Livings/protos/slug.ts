@@ -4,8 +4,11 @@ export default {
   id: 2,
   name: 'Slug',
   lvl: 1,
+  expGives: 10,
   stats: {
-    hp: 1,
-    attack: 1,
+    baseHp: 10,
+    baseAttack: 1,
+    strength: 1,
+    vitality: 1,
   },
 } as LivingProto;

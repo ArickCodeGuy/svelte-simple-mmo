@@ -1,4 +1,5 @@
 import type { LivingsController } from '..';
+import { protoToDefaultLiving } from '../utils/protoToDefaultLiving';
 import { getProtoById } from './getProtoById';
 
 export const useCreateNewPlayer =
@@ -6,20 +7,16 @@ export const useCreateNewPlayer =
     const playerProto = getProtoById(0);
 
     const newPlayer = {
+      ...protoToDefaultLiving(playerProto),
       name,
-      lvl: playerProto.lvl,
-      protoId: playerProto.id,
-      chp: playerProto.stats.hp,
-      stats: {
-        hp: playerProto.stats.hp,
-        attack: playerProto.stats.attack,
-      },
+      points: 10,
       position: {
+        mapId: 1,
         x: 10,
         y: 10,
-        mapId: 1,
       },
     };
+    console.log(newPlayer);
 
     const id = livingsController.add(newPlayer);
 

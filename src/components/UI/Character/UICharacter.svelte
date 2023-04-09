@@ -1,16 +1,26 @@
 <script lang="ts">
-import type { LivingStats } from '@/backend/Controllers/Livings/types';
+import type {
+  LivingComputedStats,
+  LivingStats,
+} from '@/backend/Controllers/Livings/types';
 import UiCharacterStats from './UICharacterStats.svelte';
 
 export let name: string = '';
 export let lvl: number = 0;
 export let stats: LivingStats;
+export let currentHp: number = 0;
+export let computedStats: LivingComputedStats;
 </script>
 
 <div class="UICharacter">
   <div class="title">{name} <b>[{lvl}]</b></div>
   <div class="bars">
-    <div class="bar" />
+    <div class="bar">
+      <div class="bar__line" />
+      <div class="bar__bottom">
+        {currentHp} / {computedStats.maxHp}
+      </div>
+    </div>
     <div class="bar" />
   </div>
   <div class="grid">
@@ -44,9 +54,15 @@ export let stats: LivingStats;
   gap: 5px;
 }
 .bar {
-  width: 100%;
-  height: 5px;
-  background-color: rgba(var(--rgba-bgc), 0.3);
+  &__line {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(var(--rgba-bgc), 0.3);
+  }
+  &__bottom {
+    font-size: 10px;
+    text-align: right;
+  }
 }
 .grid {
   display: grid;

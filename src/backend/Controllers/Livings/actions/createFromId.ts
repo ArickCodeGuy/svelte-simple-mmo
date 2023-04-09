@@ -1,7 +1,7 @@
-import type { Position } from '@/types';
-import type { Living } from '../types';
+import type { Living, Position } from '../types';
 import { getProtoById } from './getProtoById';
 import type { LivingsController } from '..';
+import { protoToDefaultLiving } from '../utils/protoToDefaultLiving';
 
 export const useCreateFromId =
   (livingsController: LivingsController) =>
@@ -9,11 +9,7 @@ export const useCreateFromId =
     const proto = getProtoById(protoId);
 
     const newLiving = {
-      protoId: proto.id,
-      name: proto.name,
-      lvl: proto.lvl,
-      chp: proto.stats.hp,
-      stats: proto.stats,
+      ...protoToDefaultLiving(proto),
       position,
     };
 

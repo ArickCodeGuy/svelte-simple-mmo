@@ -31,7 +31,7 @@ const useTeamTurn =
         fight.targets[member.id]
       )!;
 
-      const chp = receiver.chp - attacker.stats.attack;
+      const chp = receiver.currentHp - attacker.computedStats.attack;
       if (chp <= 0) {
         serverController.respawn(receiver.id);
 
