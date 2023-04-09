@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { Server } from '@/backend';
-import { showPopup } from './popup';
+import { closePopup, showPopup } from './popup';
 
 const { id } = Server.livingsController.createNewPlayer('admin');
 let timeoutFunc: number;
@@ -9,9 +9,20 @@ export const globalInfoState = writable(Server.getLivingState(id));
 
 globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.living.activity === 'FIGHT' && !globalInfo.fight) {
+    const close = () => {
+      globalInfoState.update(() => Server.leaveFight(id));
+      closePopup();
+    };
     showPopup({
       title: 'FIGHT END',
-      content: '',
+      id: globalInfo.living.id,
+      close,
+      actions: [
+        {
+          f: close,
+          content: 'Leave fight',
+        },
+      ],
     });
   }
 

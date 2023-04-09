@@ -1,20 +1,17 @@
 import type { UIPopupProps, UIPopupState } from '@/components/UI/Popup/types';
 import { writable } from 'svelte/store';
 
-export const popupState = writable<UIPopupState>({
-  close,
-});
+export const popupState = writable<UIPopupState>({});
 
-function close() {
-  popupState.update(({ close }) => ({
+export function closePopup() {
+  popupState.update(() => ({
     shown: false,
-    close,
   }));
 }
 
 export const showPopup = (props: UIPopupProps) => {
   popupState.update((v) => ({
-    ...v,
+    close: props.close || closePopup,
     shown: true,
     props,
   }));

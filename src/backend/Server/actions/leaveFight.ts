@@ -1,11 +1,11 @@
 import { ServerController } from '..';
 
 export const useLeaveFight =
-  (serverController: ServerController) => (id: number) => {
-    serverController.livingsController.update(id, (v) => {
+  (serverController: ServerController) => (playerId: number) => {
+    serverController.livingsController.update(playerId, (v) => {
       delete v.activity;
       return v;
     });
 
-    return serverController.getLivingState(id);
+    return serverController.getLivingState(playerId);
   };

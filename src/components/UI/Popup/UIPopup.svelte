@@ -33,9 +33,17 @@ export let props: UIPopupProps | undefined = undefined;
         {#if props.title}<div class="modal__title">{props.title}</div>{/if}
         {#if props.content}<div class="modal__content">
             {props.content}
-          </div>{/if}
+          </div>
+        {/if}
         {#if props.component}
           <svelte:component this={props.component} {...props} />
+        {/if}
+        {#if props.actions}
+          <div class="modal__bottom">
+            {#each props.actions as action}
+              <button class="btn" on:click={action.f}>{action.content}</button>
+            {/each}
+          </div>
         {/if}
       {/if}
     </div>
@@ -88,7 +96,12 @@ export let props: UIPopupProps | undefined = undefined;
       right: 15px;
     }
     &__inner-box {
-      // overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    &__bottom {
+      margin-top: auto;
     }
   }
 }

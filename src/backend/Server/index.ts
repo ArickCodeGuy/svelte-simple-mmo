@@ -8,6 +8,7 @@ import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useGetLivingState } from './actions/getLivingState';
 import { useInit } from './actions/init';
 import { useInitFight } from './actions/initFight';
+import { useLeaveFight } from './actions/leaveFight';
 import { useRespawn } from './actions/respanwn';
 import { useTryDirectionalMove } from './actions/tryDirectionalMove';
 
@@ -23,6 +24,7 @@ export class ServerController {
   getLivingState: ReturnType<typeof useGetLivingState>;
   getFightInfo: ReturnType<typeof useGetFightInfo>;
   tryDirectionalMove: ReturnType<typeof useTryDirectionalMove>;
+  leaveFight: ReturnType<typeof useLeaveFight>;
   respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
 
@@ -43,6 +45,7 @@ export class ServerController {
     this.getLivingState = useGetLivingState(this);
     this.getFightInfo = useGetFightInfo(this);
     this.tryDirectionalMove = useTryDirectionalMove(this);
+    this.leaveFight = useLeaveFight(this);
     this.respawn = useRespawn(this);
     this.init = useInit(this);
 
