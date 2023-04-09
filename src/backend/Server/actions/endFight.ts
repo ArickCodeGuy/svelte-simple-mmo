@@ -8,9 +8,14 @@ export const useEndFight =
     const members = [...fightInstance.teamOne, ...fightInstance.teamTwo];
     members.forEach((member) => {
       serverController.livingsController.update(member.id, (s) => {
-        delete s.fightInstanceId;
-        return s;
+        const newState = { ...s };
+        delete newState.fightInstanceId;
+        return newState;
       });
+
+      if (!member.isAlive) {
+        serverController.respawn(member.id);
+      }
     });
 
     serverController.fightController.remove(id);

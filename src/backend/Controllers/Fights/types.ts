@@ -25,3 +25,8 @@ export type BuffDebuff = {
 export type Targets = {
   [x: number]: number;
 };
+
+export type ComputedFightInstance = FightInstance & {
+  aliveTeamOne: TeamMember[];
+  aliveTeamTwo: TeamMember[];
+};

@@ -14,7 +14,6 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
 
 <svelte:head>
   <title>Home</title>
-  <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section class="section main-page">
@@ -23,7 +22,27 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
       <div class="col-lg-4">
         <UiCharacter {...globalInfo.living} />
       </div>
-      <div class="col-lg-4 main-col">{state}</div>
+      <div class="col-lg-4 main-col">
+        <div>{state}</div>
+        {#if globalInfo.fight}
+          <div class="fight-instance">
+            <div class="fight-group">
+              {#each globalInfo.fight.teams.ally as member}
+                <div class="fight-char">
+                  [{member.lvl}] {member.name} / {member.currentHp}
+                </div>
+              {/each}
+            </div>
+            <div class="fight-group">
+              {#each globalInfo.fight.teams.enemy as member}
+                <div class="fight-char">
+                  [{member.lvl}] {member.name} / {member.currentHp}
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
+      </div>
       <div class="col-lg-4">
         <div class="map-container">
           <Map />
@@ -47,5 +66,18 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
       border-right: 1px solid var(--contrast);
     }
   }
+}
+.fight-instance {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--column-gap);
+}
+.fight-group {
+  display: grid;
+  gap: var(--column-gap);
+}
+.fight-char {
+  padding: 20px;
+  background-color: rgba(var(--rgba-bgc), 0.5);
 }
 </style>

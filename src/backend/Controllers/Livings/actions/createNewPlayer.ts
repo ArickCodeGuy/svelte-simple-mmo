@@ -16,7 +16,6 @@ export const useCreateNewPlayer =
         y: 10,
       },
     };
-    console.log(newPlayer);
 
     const id = livingsController.add(newPlayer);
 

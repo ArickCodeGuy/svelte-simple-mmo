@@ -12,6 +12,13 @@ export const useFightTurn =
 
     teamTurn('teamOne', fight.id);
     teamTurn('teamTwo', fight.id);
+
+    const newFightState = serverController.fightController.updateTimeout(
+      fight.id
+    );
+    setTimeout(() => {
+      serverController.fightTurn(newFightState.id);
+    }, newFightState.nextTurn - new Date().getTime());
   };
 
 const useTeamTurn =
@@ -31,49 +38,17 @@ const useTeamTurn =
         fight.targets[member.id]
       )!;
 
-      const chp = receiver.currentHp - attacker.computedStats.attack;
-      if (chp <= 0) {
-        serverController.respawn(receiver.id);
-
-        // remove from fight
-        const newReceiverMembers = fight.teamTwo.filter(
-          (i) => i.id !== receiver.id
-        );
-
-        if (!newReceiverMembers.length) {
-          serverController.fightController.update(fight.id, (v) => ({
-            ...v,
-            [receiverSideKey]: [],
-          }));
+      const currentHp = receiver.currentHp - attacker.computedStats.attack;
+      if (currentHp <= 0) {
+        serverController.fightController.markAsDead(fight.id, receiver.id);
+        if (serverController.fightController.isOneTeamDead(fight.id)) {
           serverController.endFight(fight.id);
           return;
         }
-
-        const newTargets = Object.entries(fight.targets).reduce<Targets>(
-          (res, [attackerId, receiverId]) => ({
-            ...res,
-            [attackerId]:
-              receiverId === receiver.id
-                ? newReceiverMembers[
-                    Math.floor(Math.random() * newReceiverMembers.length)
-                  ]
-                : receiverId,
-          }),
-          {}
-        );
-
-        serverController.fightController.update(fight.id, (state) => ({
-          ...state,
-          [receiverSideKey]: state[receiverSideKey].filter(
-            (i) => i.id !== receiver.id
-          ),
-          targets: newTargets,
-          nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
-        }));
       } else {
         serverController.livingsController.update(receiver.id, (s) => ({
           ...s,
-          chp,
+          currentHp,
         }));
       }
     }
