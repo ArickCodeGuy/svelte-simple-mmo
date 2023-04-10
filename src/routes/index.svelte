@@ -20,7 +20,7 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
-        <UiCharacter {...globalInfo.living} />
+        <UiCharacter props={globalInfo.living} />
       </div>
       <div class="col-lg-4 main-col">
         <div>{state}</div>

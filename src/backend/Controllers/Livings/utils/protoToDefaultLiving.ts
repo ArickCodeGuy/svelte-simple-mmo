@@ -12,6 +12,7 @@ export const protoToDefaultLiving = (proto: LivingProto): Living => {
       maxHp: 0,
       attack: 0,
     },
+    lastUpdated: new Date().getTime(),
     stats: { ...proto.stats },
     position: {
       x: 0,

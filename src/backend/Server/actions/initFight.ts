@@ -1,3 +1,4 @@
+import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import type { ServerController } from '..';
 
 export const useInitFight =
@@ -12,6 +13,8 @@ export const useInitFight =
     [...teamOne, ...teamTwo].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({
         ...member,
+        currentHp: livingCurrentHealth(member),
+        lastUpdated: new Date().getTime(),
         activity: 'FIGHT',
         fightInstanceId: fightInstance.id,
       }));

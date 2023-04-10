@@ -29,6 +29,7 @@ export type Living = {
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
+  lastUpdated: number;
 };
 
 export type LivingStats = {

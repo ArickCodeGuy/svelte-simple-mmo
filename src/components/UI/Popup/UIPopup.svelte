@@ -36,7 +36,7 @@ export let props: UIPopupProps | undefined = undefined;
           </div>
         {/if}
         {#if props.component}
-          <svelte:component this={props.component} {...props} />
+          <svelte:component this={props.component} {props} />
         {/if}
         {#if props.actions}
           <div class="modal__bottom">

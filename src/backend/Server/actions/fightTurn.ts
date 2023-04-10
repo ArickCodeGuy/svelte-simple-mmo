@@ -16,6 +16,7 @@ export const useFightTurn =
     const newFightState = serverController.fightController.updateTimeout(
       fight.id
     );
+    if (!newFightState) return;
     setTimeout(() => {
       serverController.fightTurn(newFightState.id);
     }, newFightState.nextTurn - new Date().getTime());
