@@ -42,8 +42,11 @@ const useTeamTurn =
       const currentHp = receiver.currentHp - attacker.computedStats.attack;
       if (currentHp <= 0) {
         serverController.fightController.markAsDead(fight.id, receiver.id);
-        if (serverController.fightController.isOneTeamDead(fight.id)) {
-          serverController.endFight(fight.id);
+        const deadTeam = serverController.fightController.isOneTeamDead(
+          fight.id
+        );
+        if (deadTeam) {
+          serverController.endFight(fight.id, deadTeam);
           return;
         }
       } else {

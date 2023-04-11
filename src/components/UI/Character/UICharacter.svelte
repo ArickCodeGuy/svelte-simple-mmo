@@ -3,6 +3,7 @@ import type { Living } from '@/backend/Controllers/Livings/types';
 import UiCharacterStats from './UICharacterStats.svelte';
 import { onMount } from 'svelte';
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
+import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 
 export let props: Living;
 
@@ -43,6 +44,7 @@ onMount(() => {
       <div class="grid__item grid__item--feet" />
       <div class="grid__item grid__item--profile-picture" />
     </div>
+    <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl]}</div>
     <UiCharacterStats stats={props.stats} />
   {/if}
 </div>

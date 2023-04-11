@@ -6,6 +6,7 @@ import { useFightTurn } from './actions/fightTurn';
 import { useGetFightInfo } from './actions/getFightInfo';
 import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useGetLivingState } from './actions/getLivingState';
+import { useGetTeamExp } from './actions/getTeamExp';
 import { useInit } from './actions/init';
 import { useInitFight } from './actions/initFight';
 import { useLeaveFight } from './actions/leaveFight';
@@ -25,6 +26,7 @@ export class ServerController {
   getFightInfo: ReturnType<typeof useGetFightInfo>;
   tryDirectionalMove: ReturnType<typeof useTryDirectionalMove>;
   leaveFight: ReturnType<typeof useLeaveFight>;
+  getTeamExp: ReturnType<typeof useGetTeamExp>;
   respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
 
@@ -46,6 +48,7 @@ export class ServerController {
     this.getFightInfo = useGetFightInfo(this);
     this.tryDirectionalMove = useTryDirectionalMove(this);
     this.leaveFight = useLeaveFight(this);
+    this.getTeamExp = useGetTeamExp(this);
     this.respawn = useRespawn(this);
     this.init = useInit(this);
 

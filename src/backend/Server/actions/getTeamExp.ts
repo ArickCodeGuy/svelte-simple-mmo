@@ -3,9 +3,10 @@ import { ServerController } from '..';
 
 export const useGetTeamExp =
   (serverController: ServerController) => (team: TeamMember[]) => {
-    return team.reduce(
-      (exp, member) =>
-        exp + serverController.livingsController.getById(member.id)!.expGives,
-      0
-    );
+    return team.reduce((exp, member) => {
+      console.log(serverController.livingsController.getById(member.id));
+      return (
+        exp + serverController.livingsController.getById(member.id)!.expGives
+      );
+    }, 0);
   };

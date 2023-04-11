@@ -5,7 +5,7 @@ export const useIsOneTeamDead =
     const instance = fightController.getById(fightInstanceId);
     if (!instance) return;
 
-    if (!instance.teamOne.filter((i) => i.isAlive).length) return true;
-    if (!instance.teamTwo.filter((i) => i.isAlive).length) return true;
+    if (!instance.teamOne.filter((i) => i.isAlive).length) return 'teamOne';
+    if (!instance.teamTwo.filter((i) => i.isAlive).length) return 'teamTwo';
     return false;
   };
