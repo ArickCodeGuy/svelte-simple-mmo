@@ -55,3 +55,8 @@ export type MapLivingsPositions = Record<
   string,
   Record<string, BaseItem<Living>[]>
 >;
+
+export type LevelUp = {
+  exp: number;
+  points: number;
+};

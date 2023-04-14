@@ -5,6 +5,7 @@ import { useGetLivingsByPosition } from './actions/getLivingsByPosition';
 import { useGetLivingsPositions } from './actions/getLivingsPositions';
 import { BaseController } from '../Base';
 import type { Living } from './types';
+import { useUpdateExp } from './actions/updateExp';
 
 export class LivingsController extends BaseController<Living> {
   createFromId: ReturnType<typeof useCreateFromId>;
@@ -12,6 +13,7 @@ export class LivingsController extends BaseController<Living> {
   directionalMove: ReturnType<typeof useDirectionalMove>;
   getLivingsByPosition: ReturnType<typeof useGetLivingsByPosition>;
   getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
+  updateExp: ReturnType<typeof useUpdateExp>;
 
   constructor(tableName: string) {
     super(tableName);
@@ -21,5 +23,6 @@ export class LivingsController extends BaseController<Living> {
     this.directionalMove = useDirectionalMove(this);
     this.getLivingsByPosition = useGetLivingsByPosition(this);
     this.getLivingsPositions = useGetLivingsPositions(this);
+    this.updateExp = useUpdateExp(this);
   }
 }

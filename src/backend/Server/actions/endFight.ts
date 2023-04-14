@@ -15,10 +15,7 @@ export const useEndFight =
     const expPerMember = Math.round(expOfDeadTeam / winners.length);
 
     winners.forEach((i) =>
-      serverController.livingsController.update(i.id, (v) => ({
-        ...v,
-        exp: v.exp + expPerMember,
-      }))
+      serverController.livingsController.updateExp(i.id, expPerMember)
     );
 
     members.forEach((member) => {

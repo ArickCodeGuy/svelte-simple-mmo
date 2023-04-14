@@ -1,1 +1,12 @@
-export const LIVING_LEVELS = [10, 20, 30, 40, 50, 60, 70, 80];
+import { LevelUp } from './types';
+
+export const LIVING_LEVELS: LevelUp[] = [
+  {
+    exp: 10,
+    points: 10,
+  },
+  {
+    exp: 100,
+    points: 12,
+  },
+];
