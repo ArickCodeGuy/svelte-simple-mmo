@@ -1,23 +1,19 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
 import type { Living } from '@/backend/Controllers/Livings/types';
 import type { UIActionButtonProps } from '@/components/UI/ActionButton/types';
-import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
-import { showPopup } from '@/store/popup';
+import { showCharacterInfoPopup } from '@/store/popup/actions/showCharacterInfoPopup';
 
 export const livingToUIActionButtonProps = (
   living: BaseItem<Living>
 ): UIActionButtonProps => ({
   lvl: living.lvl,
   name: living.name,
-  chp: living.chp,
-  hp: living.stats.hp,
+  chp: living.computedStats.currentHealth,
+  hp: living.computedStats.health,
   actions: [
     {
       f: () => {
-        showPopup({
-          ...living,
-          component: UiCharacter,
-        });
+        showCharacterInfoPopup(living);
       },
       icon: 'information-slab-circle-outline',
     },

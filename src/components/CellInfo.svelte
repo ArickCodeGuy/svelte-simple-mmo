@@ -1,9 +1,7 @@
 <script lang="ts">
 import { Server } from '@/backend';
 import UIActionButtonContainer from '@/components/UI/ActionButton/UIActionButtonContainer.svelte';
-import { showPopup } from '@/store/popup';
 import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
-import UiCharacter from './UI/Character/UICharacter.svelte';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import { livingsArrToNpcAndPlayers } from '@/utils/livingsArrToNpcAndPlayers';

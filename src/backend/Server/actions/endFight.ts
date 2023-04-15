@@ -21,7 +21,7 @@ export const useEndFight =
     members.forEach((member) => {
       serverController.livingsController.update(member.id, (s) => {
         const newState = { ...s };
-        newState.lastUpdated = new Date().getTime();
+        newState.computedStats.lastUpdated = new Date().getTime();
         delete newState.fightInstanceId;
         return newState;
       });

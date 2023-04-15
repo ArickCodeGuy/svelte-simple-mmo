@@ -3,10 +3,10 @@ import '@/assets/styles/style.scss';
 import Header from '../components/Header.svelte';
 import Footer from '../components/Footer.svelte';
 import UiPopup from '@/components/UI/Popup/UIPopup.svelte';
-import { popupState } from '@/store/popup';
-import type { UIPopupState } from '@/components/UI/Popup/types';
+import { popupState } from '@/store/popup/popup';
+import type { UIPopupProps } from '@/components/UI/Popup/types';
 
-let popup: UIPopupState;
+let popup: UIPopupProps;
 popupState.subscribe((v) => (popup = v));
 </script>
 
@@ -19,5 +19,5 @@ popupState.subscribe((v) => (popup = v));
 
   <Footer />
 
-  <UiPopup {...popup} />
+  <UiPopup props={popup} />
 </div>

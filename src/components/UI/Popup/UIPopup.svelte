@@ -5,12 +5,12 @@ import type { UIPopupProps } from './types';
 
 const bgClick = (e: MouseEvent) => {
   if (e.target !== e.currentTarget) return;
-  close();
+  props && props.close && props.close();
 };
 
 onMount(() => {
   const handleEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') props && props.close && props.close();
   };
   document.addEventListener('keydown', handleEsc);
   return () => {
@@ -18,33 +18,24 @@ onMount(() => {
   };
 });
 
-export let shown: boolean = false;
-export let close: () => void = () => {};
-export let props: UIPopupProps | undefined = undefined;
+export let props: UIPopupProps;
 </script>
 
-<div class="UIPopup {shown && 'UIPopup--open'}" on:click={bgClick} on:keydown>
+<div
+  class="UIPopup {props.isOpen && 'UIPopup--open'}"
+  on:click={bgClick}
+  on:keydown
+>
   <div class="modal">
     <div class="modal__inner-box">
       <div class="modal__close">
         <UiIconButton icon={'close'} onClick={close} />
       </div>
-      {#if props}
-        {#if props.title}<div class="modal__title">{props.title}</div>{/if}
-        {#if props.content}<div class="modal__content">
-            {props.content}
-          </div>
-        {/if}
-        {#if props.component}
-          <svelte:component this={props.component} {props} />
-        {/if}
-        {#if props.actions}
-          <div class="modal__bottom">
-            {#each props.actions as action}
-              <button class="btn" on:click={action.f}>{action.content}</button>
-            {/each}
-          </div>
-        {/if}
+      {#if props.title}
+        <div class="modal__title">{props.title}</div>
+      {/if}
+      {#if props.component}
+        <svelte:component this={props.component} props={props.componentProps} />
       {/if}
     </div>
   </div>
@@ -100,8 +91,11 @@ export let props: UIPopupProps | undefined = undefined;
       flex-direction: column;
       min-height: 100%;
     }
-    &__bottom {
-      margin-top: auto;
+    &__title {
+      margin-bottom: 0.5em;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
     }
   }
 }

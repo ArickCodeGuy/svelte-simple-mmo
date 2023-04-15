@@ -19,10 +19,10 @@ export type BuffDebuff = {
   };
 };
 
-/**
- * @description key is is attacker, value is deffender
- */
 export type Targets = {
+  /**
+   * key is is attacker id, value is receiver id
+   */
   [x: number]: number;
 };
 

@@ -1,11 +1,12 @@
 <script lang="ts">
-import type { Living } from '@/backend/Controllers/Livings/types';
 import UiCharacterStats from './UICharacterStats.svelte';
 import { onMount } from 'svelte';
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
+import type { UICharacterProps } from './types';
 
-export let props: Living;
+export let props: UICharacterProps;
+export let isView: boolean = false;
 
 let actualHp = 0;
 onMount(() => {
@@ -29,7 +30,8 @@ onMount(() => {
       <div class="bar">
         <div class="bar__line" />
         <div class="bar__bottom">
-          {actualHp} / {props.computedStats.health}
+          {!isView ? props.computedStats.health : actualHp} / {props
+            .computedStats.health}
         </div>
       </div>
       <div class="bar" />
@@ -44,7 +46,9 @@ onMount(() => {
       <div class="grid__item grid__item--feet" />
       <div class="grid__item grid__item--profile-picture" />
     </div>
-    <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
+    {#if !isView}
+      <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
+    {/if}
     <UiCharacterStats stats={props.stats} />
   {/if}
 </div>
