@@ -6,7 +6,7 @@ export let props: FightEndDialogProps;
 
 <div class="bottom">
   <button class="btn" on:click={props.leaveClick} on:mousedown
-    >Leave fighgt</button
+    >Leave fight</button
   >
 </div>
 
