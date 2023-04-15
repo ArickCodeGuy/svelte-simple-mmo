@@ -2,14 +2,12 @@
 import Map from '@/components/Map.svelte';
 import CellInfo from '@/components/CellInfo.svelte';
 import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
-import type { Living } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
+import FightInstance from '@/components/FightInstance/FightInstance.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
-
-$: state = globalInfo.living.activity || 'NO_ACTIVITY';
 </script>
 
 <svelte:head>
@@ -23,26 +21,8 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
         <UiCharacter props={globalInfo.living} />
       </div>
       <div class="col-lg-4 main-col">
-        <div>{state}</div>
         {#if globalInfo.fight}
-          <div class="fight-instance">
-            <div class="fight-group">
-              {#each globalInfo.fight.teams.ally as member}
-                <div class="fight-char">
-                  [{member.lvl}] {member.name} / {member.computedStats
-                    .currentHealth}
-                </div>
-              {/each}
-            </div>
-            <div class="fight-group">
-              {#each globalInfo.fight.teams.enemy as member}
-                <div class="fight-char">
-                  [{member.lvl}] {member.name} / {member.computedStats
-                    .currentHealth}
-                </div>
-              {/each}
-            </div>
-          </div>
+          <FightInstance />
         {/if}
       </div>
       <div class="col-lg-4">
@@ -68,18 +48,5 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
       border-right: 1px solid var(--contrast);
     }
   }
-}
-.fight-instance {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--column-gap);
-}
-.fight-group {
-  display: grid;
-  gap: var(--column-gap);
-}
-.fight-char {
-  padding: 20px;
-  background-color: rgba(var(--rgba-bgc), 0.5);
 }
 </style>

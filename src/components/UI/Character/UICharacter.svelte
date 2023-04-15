@@ -6,6 +6,9 @@ import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
 
 export let props: UICharacterProps;
+/**
+ * if true show additional info as you are this character
+ */
 export let isView: boolean = false;
 
 let actualHp = 0;
@@ -14,7 +17,6 @@ onMount(() => {
     if (!props) return;
 
     actualHp = livingCurrentHealth(props);
-    // if (actualHp === props.computedStats.maxHp) clearInterval(interval);
   }, 100);
 
   return () => {
@@ -49,7 +51,10 @@ onMount(() => {
     {#if !isView}
       <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
     {/if}
-    <UiCharacterStats stats={props.stats} />
+    <UiCharacterStats
+      stats={props.stats}
+      statPoints={isView ? 0 : props.statPoints}
+    />
   {/if}
 </div>
 
