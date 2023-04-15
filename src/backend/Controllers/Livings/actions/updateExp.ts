@@ -7,16 +7,16 @@ export const useUpdateExp =
       const expToLvlUp = LIVING_LEVELS[v.lvl].exp;
       const updatedExp = v.exp + exp;
       let lvl = v.lvl;
-      let points = v.points;
+      let statPoints = v.statPoints;
 
       if (expToLvlUp < updatedExp) {
         lvl += 1;
-        points += LIVING_LEVELS[v.lvl].points;
+        statPoints += LIVING_LEVELS[v.lvl].statPoints;
       }
 
       return {
         ...v,
-        points,
+        statPoints,
         lvl,
         exp,
       };

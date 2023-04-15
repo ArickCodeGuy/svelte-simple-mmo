@@ -3,30 +3,45 @@ import { FightController } from '..';
 export const useUpdateTargets =
   (fightController: FightController) => (fightInstanceId: number) => {
     const instance = fightController.getComputedInstanceById(fightInstanceId);
-    if (!instance) return;
 
-    const members = [...instance.aliveTeamOne, ...instance.aliveTeamTwo].reduce<
-      Record<string, number>
-    >(
-      (res, i) => ({
-        ...res,
-        [i.id]: i.id,
-      }),
-      {}
-    );
+    /**
+     * key - attacker
+     * value - receiver
+     */
+    const members = {
+      ...instance.aliveTeamOne.reduce<Record<number, 'aliveTeamOne'>>(
+        (res, i) => ({
+          ...res,
+          [i.id]: 'aliveTeamOne',
+        }),
+        {}
+      ),
+      ...instance.aliveTeamTwo.reduce<Record<number, 'aliveTeamTwo'>>(
+        (res, i) => ({
+          ...res,
+          [i.id]: 'aliveTeamTwo',
+        }),
+        {}
+      ),
+    };
 
     const newTargets = { ...instance.targets };
 
-    Object.entries(instance.targets).forEach(([a, receiverId]) => {
-      const attackerId = Number(a);
+    Object.entries(instance.targets).forEach(([attackerId, receiverId]) => {
+      // @ts-ignore
       if (!members[attackerId]) {
+        // @ts-ignore
         delete newTargets[attackerId];
+        return;
       }
       if (!members[receiverId]) {
         const receiverTeam =
-          instance.aliveTeamOne.findIndex((i) => i.id === attackerId) === -1
-            ? 'teamOne'
-            : 'teamTwo';
+          // @ts-ignore
+          members[attackerId] === 'aliveTeamOne'
+            ? 'aliveTeamTwo'
+            : 'aliveTeamOne';
+
+        // @ts-ignore
         newTargets[attackerId] = Math.floor(
           Math.random() * (instance[receiverTeam].length - 1)
         );

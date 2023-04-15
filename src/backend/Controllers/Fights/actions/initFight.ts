@@ -12,8 +12,7 @@ export const useInitFight =
       nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
     };
 
-    const id = fightController.add(fightInstance);
-    return fightController.getById(id)!;
+    return fightController.add(fightInstance);
   };
 
 export const teamToTargets = (teamOne: number[], teamTwo: number[]) =>

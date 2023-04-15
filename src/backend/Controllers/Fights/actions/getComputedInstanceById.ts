@@ -1,10 +1,9 @@
 import { FightController } from '..';
-import { ComputedFightInstance } from '../types';
+import type { ComputedFightInstance } from '../types';
 
 export const useGetComputedInstanceById =
   (fightController: FightController) => (fightInstanceId: number) => {
     const instance = fightController.getById(fightInstanceId);
-    if (!instance) return;
 
     return {
       ...instance,

@@ -5,26 +5,29 @@ export const useFightTurn =
     console.log('FIGHT TURN');
     const teamTurn = useTeamTurn(serverController);
 
-    const fight = serverController.fightController.getById(id);
-    if (!fight) return;
+    try {
+      const fight = serverController.fightController.getById(id);
 
-    teamTurn('teamOne', fight.id);
-    teamTurn('teamTwo', fight.id);
+      teamTurn('teamOne', fight.id);
+      teamTurn('teamTwo', fight.id);
 
-    const newFightState = serverController.fightController.updateTimeout(
-      fight.id
-    );
-    if (!newFightState) return;
-    setTimeout(() => {
-      serverController.fightTurn(newFightState.id);
-    }, newFightState.nextTurn - new Date().getTime());
+      const newFightState = serverController.fightController.updateTimeout(
+        fight.id
+      );
+
+      window.setTimeout(() => {
+        serverController.fightTurn(id);
+      }, newFightState.nextTurn - new Date().getTime());
+    } catch (e) {
+      // caused when teamTurn('teamTwo') is dead
+      // or fightTurn when fight is over
+    }
   };
 
 const useTeamTurn =
   (serverController: ServerController) =>
   (team: 'teamOne' | 'teamTwo', fightId: number) => {
     const fight = serverController.fightController.getById(fightId);
-    if (!fight) return;
 
     for (let i = 0; i < fight[team].length; i++) {
       const member = fight[team][i];

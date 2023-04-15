@@ -9,12 +9,15 @@ export const useTryDirectionalMove =
       direction
     )!;
 
-    if (!serverController.mapController.isMovable(newLivingState.position))
-      // You can't go to ${newLivingState.position}
+    if (!serverController.mapController.isMovable(newLivingState.position)) {
+      console.warn(
+        `tryDirectionalMove: You can't go to ${newLivingState.position}`
+      );
       return serverController.getLivingState(id);
+    }
 
     if (newLivingState.activity) {
-      // You are busy. You can not walk
+      console.warn('tryDirectionalMove: You are busy. You can not walk');
       return serverController.getLivingState(id);
     }
 

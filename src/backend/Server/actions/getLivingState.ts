@@ -2,9 +2,9 @@ import type { ServerController } from '..';
 import type { GlobalInfo } from '../types';
 
 export const useGetLivingState =
-  (serverController: ServerController) => (id: number) => {
+  (serverController: ServerController) =>
+  (id: number): GlobalInfo => {
     const living = serverController.livingsController.getById(id);
-    if (!living) return;
 
     const map = serverController.mapController.getById(living.position.mapId);
 
@@ -19,5 +19,5 @@ export const useGetLivingState =
       map,
       fight,
       neighbors,
-    } as GlobalInfo;
+    };
   };

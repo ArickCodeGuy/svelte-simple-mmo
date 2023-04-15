@@ -4,7 +4,6 @@ import type { MapController } from '../Controllers/Maps';
 import { useEndFight } from './actions/endFight';
 import { useFightTurn } from './actions/fightTurn';
 import { useGetFightInfo } from './actions/getFightInfo';
-import { useGetFightsLivings } from './actions/getFightsLivings';
 import { useGetLivingState } from './actions/getLivingState';
 import { useGetTeamExp } from './actions/getTeamExp';
 import { useInit } from './actions/init';
@@ -19,7 +18,6 @@ export class ServerController {
   fightController: FightController;
 
   initFight: ReturnType<typeof useInitFight>;
-  getFightsLivings: ReturnType<typeof useGetFightsLivings>;
   fightTurn: ReturnType<typeof useFightTurn>;
   endFight: ReturnType<typeof useEndFight>;
   getLivingState: ReturnType<typeof useGetLivingState>;
@@ -41,7 +39,6 @@ export class ServerController {
 
     // actions
     this.initFight = useInitFight(this);
-    this.getFightsLivings = useGetFightsLivings(this);
     this.fightTurn = useFightTurn(this);
     this.endFight = useEndFight(this);
     this.getLivingState = useGetLivingState(this);

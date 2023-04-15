@@ -18,18 +18,23 @@ export class BaseController<T> {
     return this.#state;
   }
   getById(id: number) {
-    return this.#state.find((i) => i.id === id);
+    const i = this.#state.find((i) => i.id === id);
+    if (!i) throw new Error(`getById: ${id}, in ${this.#tableName}`);
+    return i;
   }
   getIndexById(id: number) {
-    return this.#state.findIndex((i) => i.id === id);
+    const i = this.#state.findIndex((i) => i.id === id);
+    if (i === -1) throw new Error(`getIndexById: ${id}, in ${this.#tableName}`);
+    return i;
   }
   add(i: T) {
-    const id = this.#idGen();
-    this.#state.push({
+    const newItem = {
       ...i,
-      id,
-    });
-    return id;
+      id: this.#idGen(),
+    };
+    this.#state.push(newItem);
+
+    return newItem as BaseItem<T>;
   }
   remove(id: number) {
     this.#state = this.#state.filter((j) => j.id !== id);
@@ -39,8 +44,6 @@ export class BaseController<T> {
     updater: ((oldState: BaseItem<T>) => BaseItem<T>) | BaseItem<T>
   ) {
     const index = this.getIndexById(id);
-    if (index === -1)
-      throw new Error(`update: ${id} not found in ${this.#tableName} table`);
     const oldState = this.#state[index];
     const newState =
       typeof updater === 'function' ? updater(oldState) : updater;

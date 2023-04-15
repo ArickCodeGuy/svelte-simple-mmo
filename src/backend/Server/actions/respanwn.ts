@@ -5,7 +5,6 @@ import type { Living } from '@/backend/Controllers/Livings/types';
 export const useRespawn =
   (serverController: ServerController) => (id: number) => {
     const living = serverController.livingsController.getById(id);
-    if (!living) return;
 
     if (!living.protoId) {
       respawnPlayer(serverController, living);

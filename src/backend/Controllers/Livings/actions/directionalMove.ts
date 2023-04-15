@@ -5,7 +5,7 @@ import type { DirectionalMove, Living } from '../types';
 export const useDirectionalMove =
   (livingsController: LivingsController) =>
   (id: number, direction: DirectionalMove) => {
-    const living = livingsController.getById(id)!;
+    const living = livingsController.getById(id);
 
     const newLivingState = JSON.parse(
       JSON.stringify(living)

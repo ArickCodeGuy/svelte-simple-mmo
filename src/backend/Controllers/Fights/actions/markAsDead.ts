@@ -10,9 +10,11 @@ export const useMarkAsDead =
         (i) => i.id === livingId
       );
       const removeTeam = livingIndex === -1 ? 'teamTwo' : 'teamOne';
+
       if (livingIndex === -1) {
         livingIndex = fightInstance.teamTwo.findIndex((i) => i.id === livingId);
       }
+
       fightInstance[removeTeam][livingIndex] = {
         ...fightInstance[removeTeam][livingIndex],
         isAlive: false,

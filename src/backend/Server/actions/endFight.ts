@@ -6,7 +6,7 @@ export const useEndFight =
     console.log('END FIGHT');
     const winnerTeam = deadTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
 
-    const fightInstance = serverController.fightController.getById(id)!;
+    const fightInstance = serverController.fightController.getById(id);
     const winners = fightInstance[winnerTeam];
     const loosers = fightInstance[deadTeam];
     const members = [...winners, ...loosers];

@@ -1,5 +1,5 @@
 import { LivingsController } from '..';
-import { LivingComputedStats } from '../types';
+import type { LivingComputedStats } from '../types';
 
 export const useUpdateCurrentHealth =
   (livingsController: LivingsController) =>
@@ -10,7 +10,7 @@ export const useUpdateCurrentHealth =
           ? updater(v.computedStats.currentHealth)
           : updater;
 
-      const computedStats = {
+      const computedStats: LivingComputedStats = {
         ...v.computedStats,
         currentHealth,
         lastUpdated: new Date().getTime(),
