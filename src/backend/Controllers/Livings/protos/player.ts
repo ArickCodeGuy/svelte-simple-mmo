@@ -5,10 +5,15 @@ export default {
   name: 'Player',
   lvl: 1,
   expGives: 0,
+  baseStats: {
+    health: 100,
+    attack: 10,
+  },
   stats: {
-    baseHp: 100,
-    baseAttack: 10,
     vitality: 1,
     strength: 1,
+    dexterity: 1,
+    intelligence: 1,
+    mind: 1,
   },
 } as LivingProto;

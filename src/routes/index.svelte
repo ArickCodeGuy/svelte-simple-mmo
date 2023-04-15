@@ -29,14 +29,16 @@ $: state = globalInfo.living.activity || 'NO_ACTIVITY';
             <div class="fight-group">
               {#each globalInfo.fight.teams.ally as member}
                 <div class="fight-char">
-                  [{member.lvl}] {member.name} / {member.currentHp}
+                  [{member.lvl}] {member.name} / {member.computedStats
+                    .currentHealth}
                 </div>
               {/each}
             </div>
             <div class="fight-group">
               {#each globalInfo.fight.teams.enemy as member}
                 <div class="fight-char">
-                  [{member.lvl}] {member.name} / {member.currentHp}
+                  [{member.lvl}] {member.name} / {member.computedStats
+                    .currentHealth}
                 </div>
               {/each}
             </div>

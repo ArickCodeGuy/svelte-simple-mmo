@@ -13,6 +13,7 @@ export type LivingProto = {
   name: string;
   lvl: number;
   expGives: number;
+  baseStats: LivingBaseStats;
   stats: LivingStats;
 };
 
@@ -21,27 +22,48 @@ export type Living = {
   name: string;
   lvl: number;
   exp: number;
-  expGives: number; // amount of exp given on death
+  /**
+   * exp given upon death
+   */
+  expGives: number;
+  /**
+   * points to spare on stats
+   */
+  statPoints: number;
   stats: LivingStats;
-  points: number; // spare points for upping stats
-  currentHp: number;
+  /**
+   * points to spare on skills
+   */
+  skillPoints: number;
+  /**
+   * ids of skills
+   */
+  skills: number[];
+  baseStats: LivingBaseStats;
   computedStats: LivingComputedStats;
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
-  lastUpdated: number;
+};
+
+export type LivingBaseStats = {
+  health: number;
+  attack: number;
 };
 
 export type LivingStats = {
-  baseHp: number;
-  baseAttack: number;
   vitality: number;
   strength: number;
+  dexterity: number;
+  mind: number;
+  intelligence: number;
 };
 
 export type LivingComputedStats = {
-  maxHp: number;
+  health: number;
+  currentHealth: number;
   attack: number;
+  lastUpdated: number;
 };
 
 export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
@@ -58,5 +80,6 @@ export type MapLivingsPositions = Record<
 
 export type LevelUp = {
   exp: number;
-  points: number;
+  statPoints: number;
+  skillPoints?: number;
 };

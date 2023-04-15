@@ -4,16 +4,18 @@ import { livingStatsToComputedStats } from './livingStatsToComputedStats';
 export const protoToDefaultLiving = (proto: LivingProto): Living => {
   const living: Living = {
     ...proto,
+    stats: { ...proto.stats },
     protoId: proto.id,
     exp: 0,
-    currentHp: 0,
-    points: 0,
+    statPoints: 0,
+    skillPoints: 0,
+    skills: [],
     computedStats: {
-      maxHp: 0,
+      health: 0,
+      currentHealth: 0,
       attack: 0,
+      lastUpdated: 0, // so that currentHealth would be max
     },
-    lastUpdated: new Date().getTime(),
-    stats: { ...proto.stats },
     position: {
       x: 0,
       y: 0,
@@ -21,7 +23,7 @@ export const protoToDefaultLiving = (proto: LivingProto): Living => {
     },
   };
   living.computedStats = livingStatsToComputedStats(living);
-  living.currentHp = living.computedStats.maxHp;
+  living.computedStats.currentHealth = living.computedStats.health;
 
   return living;
 };

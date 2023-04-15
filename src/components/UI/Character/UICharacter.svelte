@@ -29,7 +29,7 @@ onMount(() => {
       <div class="bar">
         <div class="bar__line" />
         <div class="bar__bottom">
-          {actualHp} / {props.computedStats.maxHp}
+          {actualHp} / {props.computedStats.health}
         </div>
       </div>
       <div class="bar" />
@@ -44,7 +44,7 @@ onMount(() => {
       <div class="grid__item grid__item--feet" />
       <div class="grid__item grid__item--profile-picture" />
     </div>
-    <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl]}</div>
+    <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
     <UiCharacterStats stats={props.stats} />
   {/if}
 </div>

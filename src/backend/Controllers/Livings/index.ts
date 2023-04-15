@@ -6,6 +6,7 @@ import { useGetLivingsPositions } from './actions/getLivingsPositions';
 import { BaseController } from '../Base';
 import type { Living } from './types';
 import { useUpdateExp } from './actions/updateExp';
+import { useUpdateCurrentHealth } from './actions/updateComputedStats';
 
 export class LivingsController extends BaseController<Living> {
   createFromId: ReturnType<typeof useCreateFromId>;
@@ -14,6 +15,7 @@ export class LivingsController extends BaseController<Living> {
   getLivingsByPosition: ReturnType<typeof useGetLivingsByPosition>;
   getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
   updateExp: ReturnType<typeof useUpdateExp>;
+  updateCurrentHealth: ReturnType<typeof useUpdateCurrentHealth>;
 
   constructor(tableName: string) {
     super(tableName);
@@ -24,5 +26,6 @@ export class LivingsController extends BaseController<Living> {
     this.getLivingsByPosition = useGetLivingsByPosition(this);
     this.getLivingsPositions = useGetLivingsPositions(this);
     this.updateExp = useUpdateExp(this);
+    this.updateCurrentHealth = useUpdateCurrentHealth(this);
   }
 }

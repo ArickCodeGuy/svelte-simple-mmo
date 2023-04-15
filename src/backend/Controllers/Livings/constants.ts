@@ -2,11 +2,11 @@ import { LevelUp } from './types';
 
 export const LIVING_LEVELS: LevelUp[] = [
   {
-    exp: 10,
-    points: 10,
+    exp: 0,
+    statPoints: 10,
   },
   {
     exp: 100,
-    points: 12,
+    statPoints: 12,
   },
 ];

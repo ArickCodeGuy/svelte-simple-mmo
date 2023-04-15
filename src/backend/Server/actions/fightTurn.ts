@@ -1,6 +1,4 @@
-import type { Targets } from '@/backend/Controllers/Fights/types';
 import type { ServerController } from '..';
-import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 
 export const useFightTurn =
   (serverController: ServerController) => (id: number) => {
@@ -28,9 +26,6 @@ const useTeamTurn =
     const fight = serverController.fightController.getById(fightId);
     if (!fight) return;
 
-    const receiverSideKey = team === 'teamOne' ? 'teamTwo' : 'teamOne';
-    const attackers = fight[team];
-
     for (let i = 0; i < fight[team].length; i++) {
       const member = fight[team][i];
 
@@ -39,21 +34,17 @@ const useTeamTurn =
         fight.targets[member.id]
       )!;
 
-      const currentHp = receiver.currentHp - attacker.computedStats.attack;
-      if (currentHp <= 0) {
-        serverController.fightController.markAsDead(fight.id, receiver.id);
-        const deadTeam = serverController.fightController.isOneTeamDead(
-          fight.id
+      const newReceiverState =
+        serverController.livingsController.updateCurrentHealth(
+          receiver.id,
+          (v) => v - attacker.computedStats.attack
         );
-        if (deadTeam) {
-          serverController.endFight(fight.id, deadTeam);
-          return;
-        }
-      } else {
-        serverController.livingsController.update(receiver.id, (s) => ({
-          ...s,
-          currentHp,
-        }));
+      if (newReceiverState.computedStats.currentHealth > 0) return;
+
+      serverController.fightController.markAsDead(fight.id, receiver.id);
+      const deadTeam = serverController.fightController.isOneTeamDead(fight.id);
+      if (deadTeam) {
+        serverController.endFight(fight.id, deadTeam);
       }
     }
   };
