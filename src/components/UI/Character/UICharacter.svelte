@@ -51,13 +51,12 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
       <div class="grid__item grid__item--profile-picture" />
     </div>
     {#if !isView}
-      <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
+      <div class="extra">
+        <div>Exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
+        <div>Stat points: {props.statPoints}</div>
+      </div>
     {/if}
-    <UiCharacterStats
-      {isView}
-      stats={props.stats}
-      statPoints={isView ? 0 : props.statPoints}
-    />
+    <UiCharacterStats stats={props.stats} />
   {/if}
 </div>
 
@@ -72,6 +71,9 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
   }
   .grid {
     margin-bottom: 1em;
+  }
+  .extra {
+    margin-bottom: 0.5em;
   }
 }
 .bars {

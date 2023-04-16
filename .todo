@@ -1,17 +1,16 @@
 # Relevance
 
-- fight-time-bar animation
+- fight-time-bar animation https://svelte.dev/tutorial/animate
+- fight log table
 - respawn npc in new location
 - respawn player in spawn point if dies
-- fight log table
+- char stats update
+- fight attack calculator
 
 ## Wait list
 
 - map editor
 - draw map with canvas
-- fight attack calculator
-- char stats
-- fight info in middle
 
 ### items table
 
