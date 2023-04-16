@@ -1,23 +1,19 @@
-## map
+# Relevance
 
-- editor
-- draw with canvas
-
-## fight
-
+- fight-time-bar animation
 - respawn npc in new location
 - respawn player in spawn point if dies
+- fight log table
 
-## extra
+## Wait list
 
-- update player health
+- map editor
+- draw map with canvas
 - fight attack calculator
-- exp
-- char info
 - char stats
 - fight info in middle
 
-## items table
+### items table
 
 - protos
 - generation

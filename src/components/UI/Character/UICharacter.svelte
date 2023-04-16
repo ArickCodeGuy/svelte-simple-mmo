@@ -12,6 +12,7 @@ export let props: UICharacterProps;
 export let isView: boolean = false;
 
 let actualHp = 0;
+$: characterHealth = isView ? props.computedStats.health : actualHp;
 onMount(() => {
   const interval = window.setInterval(() => {
     if (!props) return;
@@ -32,8 +33,7 @@ onMount(() => {
       <div class="bar">
         <div class="bar__line" />
         <div class="bar__bottom">
-          {!isView ? props.computedStats.health : actualHp} / {props
-            .computedStats.health}
+          {characterHealth} / {props.computedStats.health}
         </div>
       </div>
       <div class="bar" />

@@ -9,7 +9,7 @@ export const useUpdateExp =
       let lvl = v.lvl;
       let statPoints = v.statPoints;
 
-      if (expToLvlUp < updatedExp) {
+      if (updatedExp >= expToLvlUp) {
         lvl += 1;
         statPoints += LIVING_LEVELS[v.lvl].statPoints;
       }
@@ -18,7 +18,7 @@ export const useUpdateExp =
         ...v,
         statPoints,
         lvl,
-        exp,
+        exp: updatedExp,
       };
     });
   };
