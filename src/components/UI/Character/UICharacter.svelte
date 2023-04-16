@@ -11,8 +11,9 @@ export let props: UICharacterProps;
  */
 export let isView: boolean = false;
 
-let actualHp = 0;
+let actualHp = 1;
 $: characterHealth = isView ? props.computedStats.health : actualHp;
+$: healthPercent = characterHealth / props.computedStats.health;
 onMount(() => {
   const interval = window.setInterval(() => {
     if (!props) return;
@@ -24,6 +25,8 @@ onMount(() => {
     clearInterval(interval);
   };
 });
+
+$: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
 </script>
 
 <div class="UICharacter">
@@ -31,12 +34,11 @@ onMount(() => {
     <div class="title">{props.name} <b>[{props.lvl}]</b></div>
     <div class="bars">
       <div class="bar">
-        <div class="bar__line" />
+        <div class="bar__line" style={healthBarStyle} />
         <div class="bar__bottom">
           {characterHealth} / {props.computedStats.health}
         </div>
       </div>
-      <div class="bar" />
     </div>
     <div class="grid">
       <div class="grid__item grid__item--neck" />
@@ -52,6 +54,7 @@ onMount(() => {
       <div>exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
     {/if}
     <UiCharacterStats
+      {isView}
       stats={props.stats}
       statPoints={isView ? 0 : props.statPoints}
     />
@@ -80,6 +83,15 @@ onMount(() => {
     width: 100%;
     height: 5px;
     background-color: rgba(var(--rgba-bgc), 0.3);
+    &::after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+      transform-origin: left;
+      background-color: currentColor;
+      transform: scaleX(var(--scale));
+    }
   }
   &__bottom {
     font-size: 10px;

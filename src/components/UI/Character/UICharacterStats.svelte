@@ -2,13 +2,14 @@
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 
 export let stats: LivingStats;
-export let statPoints: number | undefined = undefined;
+export let statPoints: number = 0;
+export let isView: boolean = false;
 
 $: statsArr = Object.entries(stats);
 </script>
 
 <div class="UICharacterStats">
-  {#if statPoints !== undefined}
+  {#if !isView}
     <div class="UICharacterStats__title">Stat points: {statPoints}</div>
   {/if}
   <div class="stats">
