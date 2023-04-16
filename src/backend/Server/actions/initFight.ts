@@ -3,14 +3,14 @@ import type { ServerController } from '..';
 
 export const useInitFight =
   (serverController: ServerController) =>
-  (teamOne: number[], teamTwo: number[]) => {
+  (teamOneIds: number[], teamTwoIds: number[]) => {
     console.log('INIT FIGHT');
 
     const fightInstance = serverController.fightController.initFight(
-      teamOne,
-      teamTwo
+      teamOneIds,
+      teamTwoIds
     );
-    [...teamOne, ...teamTwo].forEach((memberId) => {
+    [...teamOneIds, ...teamTwoIds].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({
         ...member,
         computedStats: {
