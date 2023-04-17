@@ -1,6 +1,6 @@
 import type { BaseItem } from '../Controllers/Base';
 import type { FightInstance } from '../Controllers/Fights/types';
-import type { Living } from '../Controllers/Livings/types';
+import type { Living, MapLivingsPositions } from '../Controllers/Livings/types';
 import type { MapInfo } from '../Controllers/Maps/types';
 
 export type GlobalInfo = {
@@ -8,6 +8,7 @@ export type GlobalInfo = {
   map?: BaseItem<MapInfo>;
   fight?: FightInfo;
   neighbors: BaseItem<Living>[];
+  distantLivings: MapLivingsPositions;
 };
 
 export type FightInfo = {

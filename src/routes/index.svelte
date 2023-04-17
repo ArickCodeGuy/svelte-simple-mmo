@@ -1,5 +1,5 @@
 <script lang="ts">
-import Map from '@/components/Map.svelte';
+import Map from '@/components/Map/Map.svelte';
 import CellInfo from '@/components/CellInfo.svelte';
 import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
 import type { GlobalInfo } from '@/backend/Server/types';

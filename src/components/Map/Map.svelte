@@ -5,7 +5,8 @@ import { Server } from '@/backend';
 import { onMount } from 'svelte';
 import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
-import UiIcon from './UI/Icon/UIIcon.svelte';
+import UiIcon from '../UI/Icon/UIIcon.svelte';
+import { globalInfoToUIMapProps } from './globalInfoToUIMapProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -15,6 +16,8 @@ const handleMoveClick = (direction: DirectionalMove) => {
     (v) => Server.tryDirectionalMove(v.living.id, direction)!
   );
 };
+
+$: props = globalInfoToUIMapProps(globalInfo);
 
 onMount(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -29,11 +32,7 @@ onMount(() => {
 </script>
 
 {#if globalInfo && globalInfo.map}
-  <UIMap
-    position={globalInfo.living.position}
-    range={4}
-    map={globalInfo.map.layout}
-  />
+  <UIMap {props} />
 {/if}
 <div class="buttons">
   <button on:click={() => handleMoveClick('UP')}

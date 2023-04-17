@@ -73,6 +73,9 @@ export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
  */
 export type LivingsPositions = Record<string, MapLivingsPositions>;
 
+/**
+ * Livings on certain mapId as [y position][x position] => BaseItem<Living>[]
+ */
 export type MapLivingsPositions = Record<
   string,
   Record<string, BaseItem<Living>[]>

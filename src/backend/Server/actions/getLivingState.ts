@@ -14,10 +14,16 @@ export const useGetLivingState =
       living.position
     );
 
+    const distantLivings =
+      serverController.livingsController.getLivingsPositions()[
+        living.position.mapId
+      ];
+
     return {
       living,
       map,
       fight,
       neighbors,
+      distantLivings,
     };
   };

@@ -1,6 +1,19 @@
-import type { MapCell } from '@/backend/MapController/types';
+export type UIMapProps = {
+  cells: UIMapCellProps[][];
+  range?: number;
+  position: {
+    x: number;
+    y: number;
+  };
+};
 
-export type UIMapCell = {
-  type?: MapCell['type'];
+export type UIMapPosition = {
+  x: number;
+  y: number;
+};
+
+export type UIMapCellProps = {
+  color?: string;
+  icon?: string;
   backgroundColor?: string;
 };
