@@ -1,15 +1,15 @@
 # Relevance
 
-- draw map with canvas
 - fight log table
-- respawn player in spawn point if dies
 - char stats update
 - fight attack calculator
 - fight-time-bar animation https://svelte.dev/tutorial/animate
 
 ## Wait list
 
+- draw map with canvas
 - map editor
+- respawn player in spawn point if dies
 
 ### items table
 
