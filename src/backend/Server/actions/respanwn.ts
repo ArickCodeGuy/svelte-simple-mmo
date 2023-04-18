@@ -20,9 +20,9 @@ export const respawnNPC = (
   serverController.livingsController.remove(living.id);
   serverController.livingsController.createFromId(
     living.protoId,
-    living.position
+    living.position,
+    living.mapArea
   );
-  // serverController.fightController.remove(id);
 };
 
 export const respawnPlayer = (

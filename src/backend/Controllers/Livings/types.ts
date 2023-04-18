@@ -1,4 +1,5 @@
 import type { BaseItem } from '../Base';
+import type { MapArea } from '../Maps/types';
 
 export type Position = {
   mapId: number;
@@ -44,6 +45,7 @@ export type Living = {
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
+  mapArea?: MapArea;
 };
 
 export type LivingBaseStats = {

@@ -1,5 +1,6 @@
 import type { MapArea } from '@/backend/Controllers/Maps/types';
 import type { ServerController } from '..';
+import { getRandomPositionFromArea } from '@/backend/Controllers/Maps/utils/getRandomPositionFromArea';
 
 export const useInit = (serverController: ServerController) => () => {
   serverController.mapController.getState().forEach((map) => {
@@ -10,8 +11,7 @@ export const useInit = (serverController: ServerController) => () => {
         npcSetting.area || serverController.mapController.getMapArea(map.id);
 
       for (let i = 0; i < npcSetting.amount; i++) {
-        const { x, y } =
-          serverController.mapController.getRandomPositionFromArea(area);
+        const { x, y } = getRandomPositionFromArea(area);
 
         const position = {
           mapId: map.id,
@@ -20,7 +20,8 @@ export const useInit = (serverController: ServerController) => () => {
         };
         serverController.livingsController.createFromId(
           npcSetting.id,
-          position
+          position,
+          area
         );
       }
     });
