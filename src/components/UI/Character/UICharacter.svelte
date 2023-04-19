@@ -53,10 +53,13 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
     {#if !isView}
       <div class="extra">
         <div>Exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
-        <div>Stat points: {props.statPoints}</div>
       </div>
     {/if}
-    <UiCharacterStats stats={props.stats} />
+    <UiCharacterStats
+      stats={props.stats}
+      {isView}
+      statPoints={props.statPoints}
+    />
   {/if}
 </div>
 

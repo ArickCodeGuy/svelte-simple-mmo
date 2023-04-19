@@ -1,4 +1,5 @@
 export type Log = {
+  name: string;
   actions: LogAction[];
 };
 
