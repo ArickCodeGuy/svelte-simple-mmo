@@ -7,6 +7,7 @@ import { BaseController } from '../Base';
 import type { Living } from './types';
 import { useUpdateExp } from './actions/updateExp';
 import { useUpdateCurrentHealth } from './actions/updateComputedStats';
+import { useUpdateStats } from './actions/updateStats';
 
 export class LivingsController extends BaseController<Living> {
   createFromId: ReturnType<typeof useCreateFromId>;
@@ -16,6 +17,7 @@ export class LivingsController extends BaseController<Living> {
   getLivingsPositions: ReturnType<typeof useGetLivingsPositions>;
   updateExp: ReturnType<typeof useUpdateExp>;
   updateCurrentHealth: ReturnType<typeof useUpdateCurrentHealth>;
+  updateStats: ReturnType<typeof useUpdateStats>;
 
   constructor(tableName: string) {
     super(tableName);
@@ -27,5 +29,6 @@ export class LivingsController extends BaseController<Living> {
     this.getLivingsPositions = useGetLivingsPositions(this);
     this.updateExp = useUpdateExp(this);
     this.updateCurrentHealth = useUpdateCurrentHealth(this);
+    this.updateStats = useUpdateStats(this);
   }
 }
