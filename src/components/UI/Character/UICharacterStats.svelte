@@ -5,6 +5,8 @@ import UiIcon from '../Icon/UIIcon.svelte';
 export let stats: LivingStats;
 export let isView: boolean = false;
 export let statPoints: number = 0;
+export let statsConfirm: (newStats: LivingStats) => void = () => undefined;
+
 const spentStats: LivingStats = {
   vitality: 0,
   strength: 0,
@@ -24,7 +26,15 @@ $: statsArr = Object.entries(stats) as [
 ][];
 
 const confirm = () => {
-  // @@TODO
+  const updatedStats = {
+    ...stats,
+  };
+  for (const key in updatedStats) {
+    updatedStats[key as keyof LivingStats] +=
+      spentStats[key as keyof LivingStats];
+  }
+
+  statsConfirm(updatedStats);
 };
 </script>
 

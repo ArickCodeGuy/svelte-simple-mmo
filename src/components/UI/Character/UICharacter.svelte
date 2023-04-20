@@ -4,12 +4,14 @@ import { onMount } from 'svelte';
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
+import type { LivingStats } from '@/backend/Controllers/Livings/types';
 
 export let props: UICharacterProps;
 /**
  * if true show additional info as you are this character
  */
 export let isView: boolean = false;
+export let statsConfirm: (updatedStats: LivingStats) => void = () => undefined;
 
 let actualHp = 1;
 $: characterHealth = isView ? props.computedStats.health : actualHp;
@@ -59,6 +61,7 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
       stats={props.stats}
       {isView}
       statPoints={props.statPoints}
+      {statsConfirm}
     />
   {/if}
 </div>

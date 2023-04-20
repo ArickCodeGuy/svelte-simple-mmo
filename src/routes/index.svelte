@@ -5,9 +5,16 @@ import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import FightInstance from '@/components/FightInstance/FightInstance.svelte';
+import type { LivingStats } from '@/backend/Controllers/Livings/types';
+import { Server } from '@/backend';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
+
+const statsConfirm = (updatedStats: LivingStats) => {
+  Server.livingsController.updateStats(globalInfo.living.id, updatedStats);
+  globalInfoState.update((v) => Server.getLivingState(v.living.id));
+};
 </script>
 
 <svelte:head>
@@ -18,7 +25,7 @@ globalInfoState.subscribe((v) => (globalInfo = v));
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
-        <UiCharacter props={globalInfo.living} />
+        <UiCharacter props={globalInfo.living} {statsConfirm} />
       </div>
       <div class="col-lg-4 main-col">
         {#if globalInfo.fight}
