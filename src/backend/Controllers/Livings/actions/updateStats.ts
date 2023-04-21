@@ -1,5 +1,6 @@
 import type { LivingsController } from '..';
 import type { LivingStats } from '../types';
+import { livingStatsToComputedStats } from '../utils/livingStatsToComputedStats';
 
 export const useUpdateStats =
   (livingsController: LivingsController) =>
@@ -17,9 +18,15 @@ export const useUpdateStats =
 
     if (spentPoints > statPoints) throw new Error(`Spent more points than has`);
 
-    livingsController.update(id, (v) => ({
-      ...v,
-      statPoints: v.statPoints - spentPoints,
-      stats: updatedStats,
-    }));
+    return livingsController.update(id, (v) => {
+      const newState = {
+        ...v,
+        statPoints: v.statPoints - spentPoints,
+        stats: updatedStats,
+      };
+      newState.computedStats = livingStatsToComputedStats(v);
+      console.log(newState.computedStats.health, newState.stats.vitality);
+
+      return newState;
+    });
   };

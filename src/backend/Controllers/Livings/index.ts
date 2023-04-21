@@ -6,7 +6,7 @@ import { useGetLivingsPositions } from './actions/getLivingsPositions';
 import { BaseController } from '../Base';
 import type { Living } from './types';
 import { useUpdateExp } from './actions/updateExp';
-import { useUpdateCurrentHealth } from './actions/updateComputedStats';
+import { useUpdateCurrentHealth } from './actions/updateCurrentHealth';
 import { useUpdateStats } from './actions/updateStats';
 
 export class LivingsController extends BaseController<Living> {

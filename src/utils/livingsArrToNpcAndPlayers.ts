@@ -1,5 +1,5 @@
-import { BaseItem } from '@/backend/Controllers/Base';
-import { Living } from '@/backend/Controllers/Livings/types';
+import type { BaseItem } from '@/backend/Controllers/Base';
+import type { Living } from '@/backend/Controllers/Livings/types';
 
 export const livingsArrToNpcAndPlayers = (livingsArr: BaseItem<Living>[]) =>
   livingsArr.reduce<{ players: BaseItem<Living>[]; npc: BaseItem<Living>[] }>(

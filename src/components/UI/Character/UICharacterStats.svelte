@@ -32,6 +32,7 @@ const confirm = () => {
   for (const key in updatedStats) {
     updatedStats[key as keyof LivingStats] +=
       spentStats[key as keyof LivingStats];
+    spentStats[key as keyof LivingStats] = 0;
   }
 
   statsConfirm(updatedStats);

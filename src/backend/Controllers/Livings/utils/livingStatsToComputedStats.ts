@@ -1,4 +1,4 @@
-import { Living, LivingComputedStats } from '../types';
+import type { Living, LivingComputedStats } from '../types';
 import { livingCurrentHealth } from './livingCurrentHealth';
 
 export const livingStatsToComputedStats = (
