@@ -12,8 +12,9 @@ let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 const statsConfirm = (updatedStats: LivingStats) => {
-  Server.livingsController.updateStats(globalInfo.living.id, updatedStats);
-  globalInfoState.update((v) => Server.getLivingState(v.living.id));
+  globalInfoState.update((v) =>
+    Server.updateStats(globalInfo.living.id, updatedStats)
+  );
 };
 </script>
 
