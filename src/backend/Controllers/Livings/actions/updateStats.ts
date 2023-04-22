@@ -24,8 +24,7 @@ export const useUpdateStats =
         statPoints: v.statPoints - spentPoints,
         stats: updatedStats,
       };
-      newState.computedStats = livingStatsToComputedStats(v);
-      console.log(newState.computedStats.health, newState.stats.vitality);
+      newState.computedStats = livingStatsToComputedStats(newState);
 
       return newState;
     });
