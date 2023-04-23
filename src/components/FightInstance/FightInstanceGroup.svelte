@@ -13,6 +13,7 @@ export let group: Living[];
 
 <style lang="scss">
 .FightInstanceGroup {
+  width: 100%;
   display: grid;
   gap: var(--column-gap);
 }

@@ -7,27 +7,34 @@ import FightInstanceGroup from './FightInstanceGroup.svelte';
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
-/**
- * transition-duration
- */
-$: timeUntilNextTurn =
-  (globalInfo.fight &&
-    globalInfo.fight.instance.nextTurn - new Date().getTime()) ||
-  0;
+$: nextTurnTime = (globalInfo.fight && globalInfo.fight.instance.nextTurn) || 0;
 
-/**
- * used as offset of bar
- */
-$: percentOfTimePassed = FIGHT_TURN_TIMEOUT / (timeUntilNextTurn * 100);
+let barElStyle: string;
+let barElRequestAnimation: number;
+const barAnimation = () => {
+  barElRequestAnimation = window.requestAnimationFrame(barAnimation);
+  const scaleX = 1 - (nextTurnTime - new Date().getTime()) / FIGHT_TURN_TIMEOUT;
 
-$: barInnerStyle = `transition: transform ${timeUntilNextTurn}ms linear`;
-$: barOffsetStyle = `width: ${percentOfTimePassed}%`;
+  barElStyle = `transform: scaleX(${scaleX})`;
+
+  if (scaleX < 0) {
+    endBarAnimation();
+  }
+};
+const endBarAnimation = () => {
+  cancelAnimationFrame(barElRequestAnimation);
+};
+$: {
+  if (nextTurnTime) {
+    endBarAnimation();
+    barAnimation();
+  }
+}
 </script>
 
 {#if globalInfo && globalInfo.fight}
   <div class="fight-time-bar">
-    <div class="fight-time-bar__offset" style={barOffsetStyle} />
-    <div class="fight-time-bar__inner" style={barInnerStyle} />
+    <div class="fight-time-bar__inner" style={barElStyle} />
   </div>
   <div class="fight-instance">
     <FightInstanceGroup group={globalInfo.fight.teams.ally} />
@@ -47,11 +54,6 @@ $: barOffsetStyle = `width: ${percentOfTimePassed}%`;
   width: 100%;
   height: 5px;
   background-color: rgba(var(--rgba-bgc), 0.5);
-  &__offset {
-    flex-shrink: 0;
-    height: 100%;
-    background-color: var(--contrast);
-  }
   &__inner {
     width: 100%;
     height: 100%;
