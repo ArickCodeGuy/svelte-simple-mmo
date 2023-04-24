@@ -1,14 +1,16 @@
+import { FightLogsController } from './Controllers/FightLogs';
 import { FightController } from './Controllers/Fights';
 import { LivingsController } from './Controllers/Livings';
 import { MapController } from './Controllers/Maps';
 import { ServerController } from './Server';
 
-const ServerLivingsController = new LivingsController('LIVINGS');
-const ServerMapController = new MapController('MAPS');
-const ServerFightController = new FightController('FIGHTS');
+const livingsController = new LivingsController('LIVINGS');
+const mapController = new MapController('MAPS');
+const fightController = new FightController('FIGHTS');
+const fightLogsController = new FightLogsController('FIGHT_LOGS');
 
 export const Server = new ServerController(
-  ServerLivingsController,
-  ServerMapController,
-  ServerFightController
+  livingsController,
+  mapController,
+  fightController
 );

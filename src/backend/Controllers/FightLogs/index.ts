@@ -1,8 +1,8 @@
 import { BaseController } from '../Base';
 import { usePushAction } from './actions/pushAction';
-import type { Log } from './types';
+import type { FightLog } from './types';
 
-export class LogsController extends BaseController<Log> {
+export class FightLogsController extends BaseController<FightLog> {
   pushAction: ReturnType<typeof usePushAction>;
 
   constructor(tableName: string) {
