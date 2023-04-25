@@ -6,9 +6,20 @@ export const useInitFight =
   (teamOneIds: number[], teamTwoIds: number[]) => {
     console.log('INIT FIGHT');
 
+    const fightLogInstance = serverController.fightLogController.add({
+      teamOne: teamOneIds.map((id) =>
+        serverController.livingsController.getById(id)
+      ),
+      teamTwo: teamOneIds.map((id) =>
+        serverController.livingsController.getById(id)
+      ),
+      turns: [],
+    });
+
     const fightInstance = serverController.fightController.initFight(
       teamOneIds,
-      teamTwoIds
+      teamTwoIds,
+      fightLogInstance.id
     );
     [...teamOneIds, ...teamTwoIds].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({

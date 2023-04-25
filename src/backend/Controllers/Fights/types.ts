@@ -3,6 +3,7 @@ export type FightInstance = {
   teamTwo: TeamMember[];
   targets: Targets;
   nextTurn: number;
+  logId: number;
 };
 
 export type TeamMember = {

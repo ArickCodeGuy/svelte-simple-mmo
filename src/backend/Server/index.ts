@@ -12,11 +12,13 @@ import { useLeaveFight } from './api/leaveFight';
 import { useRespawn } from './actions/respanwn';
 import { useTryDirectionalMove } from './api/tryDirectionalMove';
 import { useUpdateStats } from './api/updateStats';
+import type { FightLogController } from '../Controllers/FightLogs';
 
 export class ServerController {
   livingsController: LivingsController;
   mapController: MapController;
   fightController: FightController;
+  fightLogController: FightLogController;
 
   fightTurn: ReturnType<typeof useFightTurn>;
   endFight: ReturnType<typeof useEndFight>;
@@ -34,11 +36,13 @@ export class ServerController {
   constructor(
     livingsController: LivingsController,
     mapController: MapController,
-    fightController: FightController
+    fightController: FightController,
+    fightLogController: FightLogController
   ) {
     this.livingsController = livingsController;
     this.mapController = mapController;
     this.fightController = fightController;
+    this.fightLogController = fightLogController;
 
     // actions
     this.fightTurn = useFightTurn(this);

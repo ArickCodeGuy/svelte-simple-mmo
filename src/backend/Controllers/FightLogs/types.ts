@@ -1,8 +1,17 @@
 export type FightLog = {
-  fightId: string;
-  teamOneIds: string[];
-  teamTwoIds: string[];
-  actions: LogAction[];
+  teamOne: FightLogMember[];
+  teamTwo: FightLogMember[];
+  /**
+   * each turn contains array of actions
+   */
+  turns: FightLogTurn[];
 };
 
-export type LogAction = string;
+export type FightLogMember = {
+  id: number;
+  lvl: number;
+  chp: number;
+  mhp: number;
+};
+
+export type FightLogTurn = string[];
