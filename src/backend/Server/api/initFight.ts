@@ -1,5 +1,6 @@
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import type { ServerController } from '..';
+import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 
 export const useInitFight =
   (serverController: ServerController) =>
@@ -8,10 +9,10 @@ export const useInitFight =
 
     const fightLogInstance = serverController.fightLogController.add({
       teamOne: teamOneIds.map((id) =>
-        serverController.livingsController.getById(id)
+        livingToFightLogMember(serverController.livingsController.getById(id))
       ),
       teamTwo: teamOneIds.map((id) =>
-        serverController.livingsController.getById(id)
+        livingToFightLogMember(serverController.livingsController.getById(id))
       ),
       turns: [],
     });

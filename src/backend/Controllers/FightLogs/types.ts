@@ -9,9 +9,10 @@ export type FightLog = {
 
 export type FightLogMember = {
   id: number;
+  name: string;
   lvl: number;
-  chp: number;
-  mhp: number;
+  currentHealth: number;
+  health: number;
 };
 
 export type FightLogTurn = string[];
