@@ -1,8 +1,8 @@
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
-import type { ServerController } from '..';
+import type { ServerController } from '../..';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 
-export const useInitFight =
+export const useFightInit =
   (serverController: ServerController) =>
   (teamOneIds: number[], teamTwoIds: number[]) => {
     console.log('INIT FIGHT');
@@ -32,11 +32,14 @@ export const useInitFight =
         },
         activity: 'FIGHT',
         fightInstanceId: fightInstance.id,
+        fightLogs: member.fightLogs
+          ? [...member.fightLogs, fightLogInstance.id]
+          : [fightLogInstance.id],
       }));
     });
 
     setTimeout(() => {
-      serverController.fightTurn(fightInstance.id);
+      serverController.fightActions.turn(fightInstance.id);
     }, fightInstance.nextTurn - new Date().getTime());
     return fightInstance;
   };

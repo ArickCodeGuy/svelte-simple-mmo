@@ -1,4 +1,4 @@
-import type { ServerController } from '..';
+import type { ServerController } from '../..';
 
 export const useFightTurn =
   (serverController: ServerController) => (id: number) => {

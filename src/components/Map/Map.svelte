@@ -12,9 +12,7 @@ let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 const handleMoveClick = (direction: DirectionalMove) => {
-  globalInfoState.update(
-    (v) => Server.tryDirectionalMove(v.living.id, direction)!
-  );
+  globalInfoState.update((v) => Server.publicApi.move(v.living.id, direction));
 };
 
 $: props = globalInfoToUIMapProps(globalInfo);

@@ -46,6 +46,7 @@ export type Living = {
   activity?: LivingActivity;
   fightInstanceId?: number;
   mapArea?: MapArea;
+  fightLogs?: number[];
 };
 
 export type LivingBaseStats = {

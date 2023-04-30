@@ -5,7 +5,7 @@ import { showFightEndPopup } from './popup/actions/showFightEndPopup';
 const { id } = Server.livingsController.createNewPlayer('admin');
 let timeoutFunc: number;
 
-export const globalInfoState = writable(Server.getLivingState(id));
+export const globalInfoState = writable(Server.publicApi.getState(id));
 
 globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.living.activity === 'FIGHT' && !globalInfo.fight) {
@@ -15,7 +15,7 @@ globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.fight) {
     clearTimeout(timeoutFunc);
     timeoutFunc = window.setTimeout(() => {
-      globalInfoState.update((v) => Server.getLivingState(v.living.id)!);
+      globalInfoState.update((v) => Server.publicApi.getState(v.living.id)!);
     }, globalInfo.fight.instance.nextTurn - new Date().getTime());
   }
 });

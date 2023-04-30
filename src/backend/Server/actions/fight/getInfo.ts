@@ -1,5 +1,5 @@
-import type { ServerController } from '..';
-import type { FightInfo } from '../types';
+import type { ServerController } from '../..';
+import type { FightInfo } from '../../types';
 
 export const useGetFightInfo =
   (serverController: ServerController) =>

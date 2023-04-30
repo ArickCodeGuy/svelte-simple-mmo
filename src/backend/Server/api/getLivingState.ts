@@ -8,7 +8,7 @@ export const useGetLivingState =
 
     const map = serverController.mapController.getById(living.position.mapId);
 
-    const fight = serverController.getFightInfo(living.id);
+    const fight = serverController.fightActions.info(living.id);
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position

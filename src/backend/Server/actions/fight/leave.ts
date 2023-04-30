@@ -1,11 +1,11 @@
-import { ServerController } from '..';
+import { ServerController } from '../..';
 
-export const useLeaveFight =
+export const useFightLeave =
   (serverController: ServerController) => (playerId: number) => {
     serverController.livingsController.update(playerId, (v) => {
       delete v.activity;
       return v;
     });
 
-    return serverController.getLivingState(playerId);
+    return serverController.publicApi.getState(playerId);
   };

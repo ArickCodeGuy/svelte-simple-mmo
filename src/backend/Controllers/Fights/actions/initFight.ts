@@ -1,9 +1,9 @@
-import type { FightController } from '..';
+import type { ServerController } from '@/backend/Server';
 import { FIGHT_TURN_TIMEOUT } from '../constants';
 import type { FightInstance, Targets } from '../types';
 
 export const useInitFight =
-  (fightController: FightController) =>
+  (serverController: ServerController) =>
   (teamOne: number[], teamTwo: number[], logId: number) => {
     const fightInstance: FightInstance = {
       teamOne: teamOne.map((id) => ({ id, isAlive: true })),
@@ -13,7 +13,7 @@ export const useInitFight =
       logId,
     };
 
-    return fightController.add(fightInstance);
+    return serverController.fightController.add(fightInstance);
   };
 
 export const teamToTargets = (teamOne: number[], teamTwo: number[]) =>

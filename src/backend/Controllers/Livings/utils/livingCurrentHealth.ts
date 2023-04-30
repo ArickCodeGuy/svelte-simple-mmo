@@ -1,4 +1,4 @@
-import { Living } from '../types';
+import type { Living } from '../types';
 
 export const livingCurrentHealth = (living: Living) => {
   /**

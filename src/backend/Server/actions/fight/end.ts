@@ -1,6 +1,6 @@
-import type { ServerController } from '..';
+import type { ServerController } from '../..';
 
-export const useEndFight =
+export const useFightEnd =
   (serverController: ServerController) =>
   (id: number, deadTeam: 'teamOne' | 'teamTwo') => {
     console.log('END FIGHT');
@@ -11,7 +11,9 @@ export const useEndFight =
     const loosers = fightInstance[deadTeam];
     const members = [...winners, ...loosers];
 
-    const expOfDeadTeam = serverController.getTeamExp(fightInstance[deadTeam]);
+    const expOfDeadTeam = serverController.fightActions.getTeamExp(
+      fightInstance[deadTeam]
+    );
     const expPerMember = Math.round(expOfDeadTeam / winners.length);
 
     winners.forEach((i) =>

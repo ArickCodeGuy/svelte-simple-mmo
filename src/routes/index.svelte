@@ -13,7 +13,7 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 
 const statsConfirm = (updatedStats: LivingStats) => {
   globalInfoState.update((v) =>
-    Server.updateStats(globalInfo.living.id, updatedStats)
+    Server.publicApi.updateStats(globalInfo.living.id, updatedStats)
   );
 };
 </script>

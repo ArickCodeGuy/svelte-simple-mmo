@@ -10,5 +10,5 @@ export const useUpdateStats =
       //
     }
 
-    return serverController.getLivingState(id);
+    return serverController.publicApi.getState(id);
   };

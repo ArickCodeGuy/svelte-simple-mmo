@@ -13,14 +13,14 @@ export const useTryDirectionalMove =
       console.warn(
         `tryDirectionalMove: You can't go to ${newLivingState.position}`
       );
-      return serverController.getLivingState(id);
+      return serverController.publicApi.getState(id);
     }
 
     if (newLivingState.activity) {
       console.warn('tryDirectionalMove: You are busy. You can not walk');
-      return serverController.getLivingState(id);
+      return serverController.publicApi.getState(id);
     }
 
     serverController.livingsController.update(id, newLivingState);
-    return serverController.getLivingState(id);
+    return serverController.publicApi.getState(id);
   };
