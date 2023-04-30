@@ -1,6 +1,9 @@
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import type { ServerController } from '../..';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
+import type { FightInstance } from '@/backend/Controllers/Fights/types';
+import { teamsToTargets } from '@/backend/Controllers/Fights/utils/teamsToTargets';
+import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 
 export const useFightInit =
   (serverController: ServerController) =>
@@ -17,11 +20,17 @@ export const useFightInit =
       turns: [],
     });
 
-    const fightInstance = serverController.fightController.initFight(
-      teamOneIds,
-      teamTwoIds,
-      fightLogInstance.id
-    );
+    const fightInstance: FightInstance = {
+      teamOne: teamOneIds.map((id) => ({ id, isAlive: true })),
+      teamTwo: teamTwoIds.map((id) => ({ id, isAlive: true })),
+      targets: teamsToTargets(teamOneIds, teamTwoIds),
+      nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
+      logId: fightLogInstance.id,
+    };
+
+    const { id: fightInstanceId } =
+      serverController.fightController.add(fightInstance);
+
     [...teamOneIds, ...teamTwoIds].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({
         ...member,
@@ -31,7 +40,7 @@ export const useFightInit =
           lastUpdated: new Date().getTime(),
         },
         activity: 'FIGHT',
-        fightInstanceId: fightInstance.id,
+        fightInstanceId,
         fightLogs: member.fightLogs
           ? [...member.fightLogs, fightLogInstance.id]
           : [fightLogInstance.id],
@@ -39,7 +48,6 @@ export const useFightInit =
     });
 
     setTimeout(() => {
-      serverController.fightActions.turn(fightInstance.id);
+      serverController.fightActions.turn(fightInstanceId);
     }, fightInstance.nextTurn - new Date().getTime());
-    return fightInstance;
   };

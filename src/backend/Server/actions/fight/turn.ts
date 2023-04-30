@@ -16,7 +16,7 @@ export const useFightTurn =
       );
 
       window.setTimeout(() => {
-        serverController.fightTurn(id);
+        serverController.fightActions.turn(id);
       }, newFightState.nextTurn - new Date().getTime());
     } catch (e) {
       // caused when teamTurn('teamTwo') is dead
@@ -47,7 +47,7 @@ const useTeamTurn =
       serverController.fightController.markAsDead(fight.id, receiver.id);
       const deadTeam = serverController.fightController.isOneTeamDead(fight.id);
       if (deadTeam) {
-        serverController.endFight(fight.id, deadTeam);
+        serverController.fightActions.end(fight.id, deadTeam);
       }
     }
   };

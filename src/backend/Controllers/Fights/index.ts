@@ -1,5 +1,4 @@
 import type { FightInstance } from './types';
-import { useInitFight } from './actions/initFight';
 import { BaseController } from '../Base';
 import { useMarkAsDead } from './actions/markAsDead';
 import { useGetComputedInstanceById } from './actions/getComputedInstanceById';
@@ -13,13 +12,11 @@ export class FightController extends BaseController<FightInstance> {
   updateTargets: ReturnType<typeof useUpdateTargets>;
   isOneTeamDead: ReturnType<typeof useIsOneTeamDead>;
   updateTimeout: ReturnType<typeof useUpdateTimeout>;
-  initFight: ReturnType<typeof useInitFight>;
 
   constructor(tableName: string) {
     super(tableName);
 
     // actions
-    this.initFight = useInitFight(this);
     this.getComputedInstanceById = useGetComputedInstanceById(this);
     this.updateTargets = useUpdateTargets(this);
     this.isOneTeamDead = useIsOneTeamDead(this);

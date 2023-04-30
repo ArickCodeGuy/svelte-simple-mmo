@@ -5,7 +5,7 @@ import { Server } from '@/backend';
 import { globalInfoState } from '@/store/player';
 
 const leaveFight = () => {
-  globalInfoState.update((v) => Server.leaveFight(v.living.id)!);
+  globalInfoState.update((v) => Server.publicApi.leaveFight(v.living.id));
   closePopup();
 };
 
