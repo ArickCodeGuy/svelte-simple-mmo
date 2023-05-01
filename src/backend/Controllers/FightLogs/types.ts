@@ -16,3 +16,11 @@ export type FightLogMember = {
 };
 
 export type FightLogTurn = string[];
+export type FightLogTurns = FightLogTurn[];
+
+export type FightTurnAction = {
+  attacker: FightLogMember;
+  receiver: FightLogMember;
+  damage: number;
+  attackType: number;
+};

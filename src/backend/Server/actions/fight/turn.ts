@@ -1,12 +1,14 @@
+import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 import type { ServerController } from '../..';
 
 export const useFightTurn =
-  (serverController: ServerController) => (id: number) => {
+  (serverController: ServerController) => (fightInstanceId: number) => {
     console.log('FIGHT TURN');
     const teamTurn = useTeamTurn(serverController);
 
     try {
-      const fight = serverController.fightController.getById(id);
+      const fight = serverController.fightController.getById(fightInstanceId);
+      serverController.fightLogActions.pushTurn(fight.logId);
 
       teamTurn('teamOne', fight.id);
       teamTurn('teamTwo', fight.id);
@@ -16,7 +18,7 @@ export const useFightTurn =
       );
 
       window.setTimeout(() => {
-        serverController.fightActions.turn(id);
+        serverController.fightActions.turn(fight.id);
       }, newFightState.nextTurn - new Date().getTime());
     } catch (e) {
       // caused when teamTurn('teamTwo') is dead
@@ -37,11 +39,21 @@ const useTeamTurn =
         fight.targets[member.id]
       )!;
 
+      const damage = attacker.computedStats.attack;
+
       const newReceiverState =
         serverController.livingsController.updateCurrentHealth(
           receiver.id,
-          (v) => v - attacker.computedStats.attack
+          (v) => v - damage
         );
+
+      serverController.fightLogActions.pushTurnAction(fight.logId, {
+        attacker: livingToFightLogMember(attacker),
+        receiver: livingToFightLogMember(receiver),
+        damage,
+        attackType: 0,
+      });
+
       if (newReceiverState.computedStats.currentHealth > 0) return;
 
       serverController.fightController.markAsDead(fight.id, receiver.id);

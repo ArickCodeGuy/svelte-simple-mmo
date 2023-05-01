@@ -1,4 +1,5 @@
 import type { BaseItem } from '../Controllers/Base';
+import type { FightLogTurns } from '../Controllers/FightLogs/types';
 import type { FightInstance } from '../Controllers/Fights/types';
 import type { Living, MapLivingsPositions } from '../Controllers/Livings/types';
 import type { MapInfo } from '../Controllers/Maps/types';
@@ -7,6 +8,7 @@ export type GlobalInfo = {
   living: BaseItem<Living>;
   map?: BaseItem<MapInfo>;
   fight?: FightInfo;
+  fightLog?: FightLogInfo;
   neighbors: BaseItem<Living>[];
   distantLivings: MapLivingsPositions;
 };
@@ -18,3 +20,5 @@ export type FightInfo = {
     enemy: BaseItem<Living>[];
   };
 };
+
+export type FightLogInfo = FightLogTurns[];

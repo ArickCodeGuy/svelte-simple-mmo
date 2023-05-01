@@ -1,5 +1,5 @@
 import type { ServerController } from '..';
-import type { GlobalInfo } from '../types';
+import type { FightLogInfo, GlobalInfo } from '../types';
 
 export const useGetLivingState =
   (serverController: ServerController) =>
@@ -9,6 +9,11 @@ export const useGetLivingState =
     const map = serverController.mapController.getById(living.position.mapId);
 
     const fight = serverController.fightActions.info(living.id);
+
+    // let fightLog: FightLogInfo
+    // if (fight.logId) {
+
+    // }
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position
