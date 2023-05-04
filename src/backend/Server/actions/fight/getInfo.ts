@@ -7,26 +7,31 @@ export const useGetFightInfo =
     const living = serverController.livingsController.getById(livingId);
     if (!living.fightInstanceId) return;
 
-    const instance = serverController.fightController.getById(
+    const fightInstance = serverController.fightController.getById(
       living.fightInstanceId
     );
 
     const allyTeam =
-      instance.teamOne.findIndex((i) => i.id === living.id) === -1
+      fightInstance.teamOne.findIndex((i) => i.id === living.id) === -1
         ? 'teamTwo'
         : 'teamOne';
     const enemyTeam = allyTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
     const teams = {
-      ally: instance[allyTeam].map(
+      ally: fightInstance[allyTeam].map(
         (i) => serverController.livingsController.getById(i.id)!
       ),
-      enemy: instance[enemyTeam].map(
+      enemy: fightInstance[enemyTeam].map(
         (i) => serverController.livingsController.getById(i.id)!
       ),
     };
 
+    const log = serverController.fightLogController.getById(
+      fightInstance.logId
+    );
+
     return {
-      instance,
+      instance: fightInstance,
       teams,
+      log,
     };
   };

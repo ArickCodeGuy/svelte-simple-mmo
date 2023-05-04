@@ -40,6 +40,11 @@ $: {
     <FightInstanceGroup group={globalInfo.fight.teams.ally} />
     <FightInstanceGroup group={globalInfo.fight.teams.enemy} />
   </div>
+  <div class="fight-log">
+    {#each globalInfo.fight.log.turns as logItem}
+      {JSON.stringify(logItem)}
+    {/each}
+  </div>
 {/if}
 
 <style lang="scss">
