@@ -41,8 +41,14 @@ $: {
     <FightInstanceGroup group={globalInfo.fight.teams.enemy} />
   </div>
   <div class="fight-log">
-    {#each globalInfo.fight.log.turns as logItem}
-      {JSON.stringify(logItem)}
+    {#each globalInfo.fight.log.turns as logTurn}
+      <div class="fight-log-turn">
+        {#each logTurn as logAction}
+          <div class="fight-log-action">
+            {@html logAction}
+          </div>
+        {/each}
+      </div>
     {/each}
   </div>
 {/if}
@@ -66,5 +72,25 @@ $: {
     transform: scaleX(0);
     transform-origin: left;
   }
+}
+.fight-log {
+  display: grid;
+  gap: var(--column-gap);
+}
+.fight-log-turn {
+  position: relative;
+  display: grid;
+  gap: 5px;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--contrast);
+    bottom: calc(-var(--column-gap) / 2);
+    left: 0;
+  }
+}
+.fight-log-action {
 }
 </style>
