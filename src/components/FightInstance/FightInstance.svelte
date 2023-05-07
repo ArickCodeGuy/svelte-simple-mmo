@@ -30,6 +30,9 @@ $: {
     barAnimation();
   }
 }
+
+$: fightTurns =
+  (globalInfo.fight && globalInfo.fight.log.turns.reverse()) || [];
 </script>
 
 {#if globalInfo && globalInfo.fight}
@@ -41,7 +44,7 @@ $: {
     <FightInstanceGroup group={globalInfo.fight.teams.enemy} />
   </div>
   <div class="fight-log">
-    {#each globalInfo.fight.log.turns as logTurn}
+    {#each fightTurns as logTurn}
       <div class="fight-log-turn">
         {#each logTurn as logAction}
           <div class="fight-log-action">
@@ -74,6 +77,7 @@ $: {
   }
 }
 .fight-log {
+  margin-top: var(--column-gap);
   display: grid;
   gap: var(--column-gap);
 }

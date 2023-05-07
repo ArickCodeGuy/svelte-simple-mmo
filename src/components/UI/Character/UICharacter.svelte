@@ -8,27 +8,30 @@ import type { LivingStats } from '@/backend/Controllers/Livings/types';
 
 export let props: UICharacterProps;
 /**
- * if true show additional info as you are this character
+ * if false show additional info as you are this character
  */
 export let isView: boolean = false;
 export let statsConfirm: (updatedStats: LivingStats) => void = () => undefined;
 
-let actualHp = 1;
+let actualHp = livingCurrentHealth(props);
 $: characterHealth = isView ? props.computedStats.health : actualHp;
 $: healthPercent = characterHealth / props.computedStats.health;
+
 onMount(() => {
   const interval = window.setInterval(() => {
     if (!props) return;
 
     actualHp = livingCurrentHealth(props);
+
+    if (actualHp === props.computedStats.health) {
+      clearInterval(interval);
+    }
   }, 100);
 
   return () => {
     clearInterval(interval);
   };
 });
-
-$: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
 </script>
 
 <div class="UICharacter">
@@ -36,7 +39,7 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
     <div class="title">{props.name} <b>[{props.lvl}]</b></div>
     <div class="bars">
       <div class="bar">
-        <div class="bar__line" style={healthBarStyle} />
+        <div class="bar__line" style:--scale={healthPercent} />
         <div class="bar__bottom">
           {characterHealth} / {props.computedStats.health}
         </div>
@@ -91,6 +94,7 @@ $: healthBarStyle = `--scale: ${healthPercent}; color: aquamarine;`;
     width: 100%;
     height: 5px;
     background-color: rgba(var(--rgba-bgc), 0.3);
+    color: aquamarine;
     &::after {
       content: '';
       display: block;
