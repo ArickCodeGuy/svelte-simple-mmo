@@ -7,12 +7,14 @@ import type { FightLogController } from '../Controllers/FightLogs';
 import { useFightActions } from './actions/fight';
 import { usePublicApi } from './api';
 import { useFightLogActions } from './actions/fightLog';
+import type { ItemsController } from '../Controllers/Items';
 
 export class ServerController {
   livingsController: LivingsController;
   mapController: MapController;
   fightController: FightController;
   fightLogController: FightLogController;
+  itemsController: ItemsController;
 
   fightActions: ReturnType<typeof useFightActions>;
   fightLogActions: ReturnType<typeof useFightLogActions>;
@@ -24,12 +26,14 @@ export class ServerController {
     livingsController: LivingsController,
     mapController: MapController,
     fightController: FightController,
-    fightLogController: FightLogController
+    fightLogController: FightLogController,
+    itemsController: ItemsController
   ) {
     this.livingsController = livingsController;
     this.mapController = mapController;
     this.fightController = fightController;
     this.fightLogController = fightLogController;
+    this.itemsController = itemsController;
 
     // actions
     this.fightActions = useFightActions(this);
