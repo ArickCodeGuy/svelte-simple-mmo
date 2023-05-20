@@ -8,5 +8,4 @@ export const useInit =
    */
   () => {
     items.forEach((i) => controller.add(i));
-    console.log(controller.getState());
   };

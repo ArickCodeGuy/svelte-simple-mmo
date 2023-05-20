@@ -5,6 +5,7 @@ import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingC
 import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
+import type { ItemType } from '@/backend/Controllers/Items/types';
 
 export let props: UICharacterProps;
 /**
@@ -32,6 +33,10 @@ onMount(() => {
     clearInterval(interval);
   };
 });
+
+const handleInventoryCellClick = (type: ItemType) => {
+  props.inventoryClick && props.inventoryClick(type);
+};
 </script>
 
 <div class="UICharacter">
@@ -46,7 +51,11 @@ onMount(() => {
       </div>
     </div>
     <div class="grid">
-      <div class="grid__item grid__item--neck" />
+      <div
+        class="grid__item grid__item--neck"
+        on:keydown
+        on:click={() => handleInventoryCellClick('head')}
+      />
       <div class="grid__item grid__item--head" />
       <div class="grid__item grid__item--hands" />
       <div class="grid__item grid__item--hand-left" />

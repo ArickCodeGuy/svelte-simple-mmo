@@ -1,24 +1,19 @@
 <script lang="ts">
-import type { Item } from '@/backend/Controllers/Items/types';
+import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
 import type { InventoryItemsProps } from './types';
+import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
 
 export let props: InventoryItemsProps;
 </script>
 
 <div class="InventoryItemsDialog">
-  {#each props.items as item}
-    <div class="InventoryItem">
-      <div class="InventoryItem__left">
-        <img src={item.img} alt={item.name} />
-      </div>
-      <div class="InventoryItem__right">
-        <div class="InventoryItem__name">{item.name}</div>
-        <div class="InventoryItem__stats">
-          {JSON.stringify(item.bonuses)}
-        </div>
-      </div>
-    </div>
-  {/each}
+  {#if props.items.length}
+    {#each props.items as item}
+      <UiInventoryItem props={itemToUIInventoryItemProps(item)} />
+    {/each}
+  {:else}
+    <div>No items to display</div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -27,14 +22,5 @@ export let props: InventoryItemsProps;
 .InventoryItemContainer {
   display: grid;
   gap: var(--column-gap);
-}
-.InventoryItem {
-  display: flex;
-  gap: var(--column-gap);
-  &__left {
-    width: 100px;
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
 }
 </style>

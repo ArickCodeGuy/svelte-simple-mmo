@@ -1,11 +1,17 @@
 import { writable } from 'svelte/store';
 import { Server } from '@/backend';
 import { showFightEndPopup } from './popup/actions/showFightEndPopup';
+import type { CreateNewPlayerParams } from '@/backend/Server/api/createNewPlayer';
 
-const { id } = Server.livingsController.createNewPlayer('admin');
+const newPlayerParams: CreateNewPlayerParams = {
+  name: 'admin',
+};
+
 let timeoutFunc: number;
 
-export const globalInfoState = writable(Server.publicApi.getState(id));
+export const globalInfoState = writable(
+  Server.publicApi.createNewPlayer(newPlayerParams)
+);
 
 globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.living.activity === 'FIGHT' && !globalInfo.fight) {
