@@ -1,8 +1,8 @@
 import type { ComponentType } from 'svelte';
 
-export type UIPopupProps = {
+export type ModalProps = {
   component?: ComponentType;
-  close?: () => void;
   componentProps?: unknown;
-  isOpen: boolean;
-};
+  close?: () => void;
+  title?: string;
+} | null;

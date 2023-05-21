@@ -2,11 +2,10 @@
 import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
 import type { InventoryItemsProps } from './types';
 import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
-
 export let props: InventoryItemsProps;
 </script>
 
-<div class="InventoryItemsDialog">
+<div class="InventoryItems">
   {#if props.items.length}
     {#each props.items as item}
       <UiInventoryItem props={itemToUIInventoryItemProps(item)} />
@@ -17,7 +16,7 @@ export let props: InventoryItemsProps;
 </div>
 
 <style lang="scss">
-.InventoryItemsDialog {
+.InventoryItems {
 }
 .InventoryItemContainer {
   display: grid;

@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { Server } from '@/backend';
-import { showFightEndPopup } from './popup/actions/showFightEndPopup';
 import type { CreateNewPlayerParams } from '@/backend/Server/api/createNewPlayer';
+import { showFightEndPopup } from '@/modal/components/FightEndModal/show';
 
 const newPlayerParams: CreateNewPlayerParams = {
   name: 'admin',

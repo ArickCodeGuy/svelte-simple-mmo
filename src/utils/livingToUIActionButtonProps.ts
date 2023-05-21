@@ -1,7 +1,7 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
 import type { Living } from '@/backend/Controllers/Livings/types';
 import type { UIActionButtonProps } from '@/components/UI/ActionButton/types';
-import { showCharacterInfoPopup } from '@/store/popup/actions/showCharacterInfoPopup';
+import { showCharacterInfoPopup } from '@/modal/components/CharacterInfoModal/show';
 
 export const livingToUIActionButtonProps = (
   living: BaseItem<Living>

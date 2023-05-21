@@ -7,6 +7,8 @@ import { globalInfoState } from '@/store/player';
 import FightInstance from '@/components/FightInstance/FightInstance.svelte';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import { Server } from '@/backend';
+import { showItemInfoModal } from '@/modal/components/ItemInfoModal/show';
+import type { ItemType } from '@/backend/Controllers/Items/types';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -15,6 +17,16 @@ const statsConfirm = (updatedStats: LivingStats) => {
   globalInfoState.update((v) =>
     Server.publicApi.updateStats(globalInfo.living.id, updatedStats)
   );
+};
+
+const handleInventoryClick = (type: ItemType) => {
+  showItemInfoModal({ type });
+};
+
+$: props = {
+  ...globalInfo.living,
+  statsConfirm,
+  inventoryClick: handleInventoryClick,
 };
 </script>
 
@@ -26,7 +38,7 @@ const statsConfirm = (updatedStats: LivingStats) => {
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
-        <UiCharacter props={globalInfo.living} {statsConfirm} />
+        <UiCharacter {props} />
       </div>
       <div class="col-lg-4 main-col">
         {#if globalInfo.fight}

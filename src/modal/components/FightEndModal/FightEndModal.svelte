@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { FightEndDialogProps } from './types';
+import type { FightEndModalProps } from './types';
 
-export let props: FightEndDialogProps;
+export let props: FightEndModalProps;
 </script>
 
 <div class="bottom">

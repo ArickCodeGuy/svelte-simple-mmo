@@ -2,13 +2,8 @@
 import '@/assets/styles/style.scss';
 import Header from '../components/Header/Header.svelte';
 import Footer from '../components/Footer.svelte';
-import UiPopup from '@/components/UI/Popup/UIPopup.svelte';
-import { popupState } from '@/store/popup/popup';
-import type { UIPopupProps } from '@/components/UI/Popup/types';
 import type { HeaderProps } from '@/components/Header/types';
-
-let popup: UIPopupProps;
-popupState.subscribe((v) => (popup = v));
+import Modal from '@/modal/Modal.svelte';
 
 const headerProps: HeaderProps = {
   links: [
@@ -33,5 +28,5 @@ const headerProps: HeaderProps = {
 
   <Footer />
 
-  <UiPopup props={popup} />
+  <Modal />
 </div>

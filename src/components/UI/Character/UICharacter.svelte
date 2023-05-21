@@ -1,25 +1,22 @@
 <script lang="ts">
 import UiCharacterStats from './UICharacterStats.svelte';
-import { onMount } from 'svelte';
 import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
-import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
 
 export let props: UICharacterProps;
-/**
- * if false show additional info as you are this character
- */
-export let isView: boolean = false;
-export let statsConfirm: (updatedStats: LivingStats) => void = () => undefined;
 
 let actualHp = livingCurrentHealth(props);
-$: characterHealth = isView ? props.computedStats.health : actualHp;
+$: characterHealth = props.isView ? props.computedStats.health : actualHp;
 $: healthPercent = characterHealth / props.computedStats.health;
 
-onMount(() => {
-  const interval = window.setInterval(() => {
+// @@TODO: i don't think this is how it should look
+let interval: number;
+$: {
+  clearInterval(interval);
+
+  interval = window.setInterval(() => {
     if (!props) return;
 
     actualHp = livingCurrentHealth(props);
@@ -28,11 +25,7 @@ onMount(() => {
       clearInterval(interval);
     }
   }, 100);
-
-  return () => {
-    clearInterval(interval);
-  };
-});
+}
 
 const handleInventoryCellClick = (type: ItemType) => {
   props.inventoryClick && props.inventoryClick(type);
@@ -55,7 +48,9 @@ const handleInventoryCellClick = (type: ItemType) => {
         class="grid__item grid__item--neck"
         on:keydown
         on:click={() => handleInventoryCellClick('head')}
-      />
+      >
+        123
+      </div>
       <div class="grid__item grid__item--head" />
       <div class="grid__item grid__item--hands" />
       <div class="grid__item grid__item--hand-left" />
@@ -64,16 +59,16 @@ const handleInventoryCellClick = (type: ItemType) => {
       <div class="grid__item grid__item--feet" />
       <div class="grid__item grid__item--profile-picture" />
     </div>
-    {#if !isView}
+    {#if !props.isView}
       <div class="extra">
         <div>Exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
       </div>
     {/if}
     <UiCharacterStats
       stats={props.stats}
-      {isView}
+      isView={props.isView}
       statPoints={props.statPoints}
-      {statsConfirm}
+      statsConfirm={props.statsConfirm}
     />
   {/if}
 </div>
