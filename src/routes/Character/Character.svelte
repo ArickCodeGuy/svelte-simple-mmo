@@ -11,6 +11,10 @@ $: props = {
 };
 </script>
 
+<svelte:head>
+  <title>Character</title>
+</svelte:head>
+
 <section class="section">
   <div class="container">
     <div class="h1">{globalInfo.living.name} [{globalInfo.living.lvl}]</div>

@@ -1,5 +1,5 @@
 import type { ServerController } from '..';
-import type { FightLogInfo, GlobalInfo } from '../types';
+import type { GlobalInfo } from '../types';
 
 export const useGetLivingState =
   (serverController: ServerController) =>
@@ -14,6 +14,7 @@ export const useGetLivingState =
     // if (fight.logId) {
 
     // }
+    const items = serverController.itemsController.getByPlayerId(living.id);
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position
@@ -30,5 +31,6 @@ export const useGetLivingState =
       fight,
       neighbors,
       distantLivings,
+      items,
     };
   };

@@ -1,7 +1,11 @@
 import type { LivingComputedStats } from '../Livings/types';
 import type { LivingStats } from '../Livings/types';
 
-export type Item = {
+export type Item = ItemProto & {
+  playerId?: number;
+};
+
+export type ItemProto = {
   name: string;
   img: string;
   type: ItemType;
