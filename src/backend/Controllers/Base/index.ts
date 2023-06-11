@@ -5,49 +5,49 @@ export type BaseItem<T> = {
 } & T;
 
 export class BaseController<T> {
-  #state: BaseItem<T>[];
+  #state: Record<string, BaseItem<T>>;
   #idGen: ReturnType<typeof idGen>;
   #tableName: string;
 
   constructor(tableName: string) {
     this.#idGen = idGen();
-    this.#state = [];
+    this.#state = {};
     this.#tableName = tableName;
   }
-  getState() {
-    return this.#state;
+  getState(): BaseItem<T>[] {
+    return Object.values(this.#state);
   }
   getById(id: number) {
-    const i = this.#state.find((i) => i.id === id);
+    const i = this.#state[id];
     if (!i) throw new Error(`getById: ${id}, in ${this.#tableName}`);
     return i;
   }
-  getIndexById(id: number) {
-    const i = this.#state.findIndex((i) => i.id === id);
-    if (i === -1) throw new Error(`getIndexById: ${id}, in ${this.#tableName}`);
-    return i;
-  }
-  add(i: T) {
-    const newItem = {
-      ...i,
-      id: this.#idGen(),
-    };
-    this.#state.push(newItem);
+  add(item: T): BaseItem<T> {
+    const id = this.#idGen();
 
-    return newItem as BaseItem<T>;
+    const itemToAdd = {
+      ...item,
+      id,
+    };
+    this.#state[id] = itemToAdd;
+
+    return itemToAdd;
   }
   remove(id: number) {
-    this.#state = this.#state.filter((j) => j.id !== id);
+    if (!this.#state[id]) return;
+
+    delete this.#state[id];
+  }
+  replace(id: number, item: BaseItem<T>) {
+    this.#state[id] = item;
   }
   update(
     id: number,
     updater: ((oldState: BaseItem<T>) => BaseItem<T>) | BaseItem<T>
   ) {
-    const index = this.getIndexById(id);
-    const oldState = this.#state[index];
-    const newState =
-      typeof updater === 'function' ? updater(oldState) : updater;
-    this.#state[index] = newState;
+    const item = this.getById(id);
+    const newState = typeof updater === 'function' ? updater(item) : updater;
+    this.replace(id, newState);
 
     return newState;
   }

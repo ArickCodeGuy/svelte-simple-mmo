@@ -14,7 +14,9 @@ export const useGetLivingState =
     // if (fight.logId) {
 
     // }
-    const items = serverController.itemsController.getByPlayerId(living.id);
+    const items = serverController.itemsController
+      .getPlayerItems(living.id)
+      .map((i) => serverController.itemsController.getById(i));
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position

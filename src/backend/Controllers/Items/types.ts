@@ -2,7 +2,7 @@ import type { LivingComputedStats } from '../Livings/types';
 import type { LivingStats } from '../Livings/types';
 
 export type Item = ItemProto & {
-  playerId?: number;
+  playerId: number;
 };
 
 export type ItemProto = {
