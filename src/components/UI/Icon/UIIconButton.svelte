@@ -1,25 +1,24 @@
 <script lang="ts">
-  import UiIcon from './UIIcon.svelte';
+import { createEventDispatcher } from 'svelte';
+import UiIcon from './UIIcon.svelte';
 
-  export let icon: string;
-  export let onClick: () => void = () => {};
+const dispatch = createEventDispatcher();
+export let icon: string;
 </script>
 
 <button
   class="button UIIconButton"
   type="button"
-  on:click={() => {
-    onClick && onClick();
-  }}
+  on:click={(e) => dispatch('click', e)}
 >
   <UiIcon {icon} />
   <slot />
 </button>
 
 <style lang="scss">
-  .UIIconButton {
-    cursor: pointer;
-    display: flex;
-    gap: 15px;
-  }
+.UIIconButton {
+  cursor: pointer;
+  display: flex;
+  gap: 15px;
+}
 </style>

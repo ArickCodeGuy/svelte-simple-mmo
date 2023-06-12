@@ -29,7 +29,7 @@ export let props: UIPopupProps;
   <div class="modal">
     <div class="modal__inner-box">
       <div class="modal__close">
-        <UiIconButton icon={'close'} onClick={close} />
+        <UiIconButton icon={'close'} on:click={props.close} />
       </div>
       {#if props.component}
         <svelte:component this={props.component} props={props.componentProps} />
