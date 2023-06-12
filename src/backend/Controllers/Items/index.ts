@@ -8,20 +8,18 @@ export class ItemsController extends BaseController<Item> {
   };
 
   init: ReturnType<typeof useInit>;
-  #add: (item: Item) => BaseItem<Item>;
 
   constructor(tableName: string) {
     super(tableName);
 
     this.init = useInit(this);
-    this.#add = this.add;
     this.#playerItems = {};
 
     this.init();
   }
 
   add(item: Item) {
-    const newItem = this.#add(item);
+    const newItem = super.add(item);
 
     if (!this.#playerItems[newItem.playerId]) {
       this.#playerItems[newItem.playerId] = [];
