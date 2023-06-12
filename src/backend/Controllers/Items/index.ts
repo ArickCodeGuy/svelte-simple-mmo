@@ -1,25 +1,25 @@
-import { BaseController, type BaseItem } from '../Base';
-import { useInit } from './actions/init';
-import type { Item } from './types';
+import { BaseController } from '../Base';
+import type { Item, ItemProto } from './types';
+import { itemProtoToItem } from './utils/itemProtoToItem';
 
 export class ItemsController extends BaseController<Item> {
   #playerItems: {
     [playerId: string]: number[];
   };
 
-  init: ReturnType<typeof useInit>;
-
   constructor(tableName: string) {
     super(tableName);
 
-    this.init = useInit(this);
     this.#playerItems = {};
-
-    this.init();
   }
 
-  add(item: Item) {
-    const newItem = super.add(item);
+  // @@TODO: fix
+  add(proto: ItemProto, playerId: number) {
+    const item = itemProtoToItem(proto);
+    const newItem = super.add({
+      ...item,
+      playerId,
+    });
 
     if (!this.#playerItems[newItem.playerId]) {
       this.#playerItems[newItem.playerId] = [];
@@ -29,6 +29,7 @@ export class ItemsController extends BaseController<Item> {
 
     return newItem;
   }
+
   getPlayerItems(playerId: number) {
     return this.#playerItems[playerId] || [];
   }

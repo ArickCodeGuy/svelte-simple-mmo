@@ -38,6 +38,7 @@ $: props = {
   <div class="container container--stretch">
     <div class="row">
       <div class="col-lg-4">
+        {JSON.stringify(globalInfo.items)}
         <UiCharacter {props} />
       </div>
       <div class="col-lg-4 main-col">

@@ -1,3 +1,4 @@
+import woodenSword from '@/backend/Controllers/Items/protos/woodenSword';
 import type { ServerController } from '..';
 import type { GlobalInfo } from '../types';
 
@@ -11,6 +12,8 @@ export const useCreateNewPlayer =
     const player = serverController.livingsController.createNewPlayer(
       params.name
     );
+
+    serverController.itemsController.add(woodenSword, player.id);
 
     return serverController.publicApi.getState(player.id);
   };

@@ -1,4 +1,4 @@
-import type { Item } from '../types';
+import type { ItemProto } from '../types';
 
 export default {
   name: 'Wooden Sword',
@@ -14,4 +14,4 @@ export default {
     },
   },
   dropRate: 0.1,
-} as Item;
+} as ItemProto;
