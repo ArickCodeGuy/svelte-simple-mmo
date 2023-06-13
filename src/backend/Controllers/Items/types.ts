@@ -1,7 +1,7 @@
 import type { LivingComputedStats } from '../Livings/types';
 import type { LivingStats } from '../Livings/types';
 
-export type Item = ItemProto & {
+export type Item = Omit<ItemProto, 'dropRate'> & {
   playerId: number;
 };
 
