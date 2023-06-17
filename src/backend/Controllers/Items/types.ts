@@ -1,8 +1,16 @@
-import type { LivingComputedStats } from '../Livings/types';
 import type { LivingStats } from '../Livings/types';
 
-export type Item = Omit<ItemProto, 'dropRate'> & {
+export type Item = {
+  name: string;
+  img: string;
+  type: ItemType;
   playerId: number;
+  requirements?: ItemRequirements;
+  statsBonuses?: Partial<LivingStats>;
+  computedStatsBonuses?: {
+    health?: number;
+    attack?: number;
+  };
 };
 
 export type ItemProto = {
@@ -10,7 +18,11 @@ export type ItemProto = {
   img: string;
   type: ItemType;
   requirements?: ItemRequirements;
-  bonuses: ItemBonus;
+  statsBonuses?: Partial<Record<keyof LivingStats, ItemProtoStatBonus>>;
+  computedStatsBonuses?: {
+    health?: ItemProtoStatBonus;
+    attack?: ItemProtoStatBonus;
+  };
   dropRate: number;
 };
 
@@ -21,17 +33,6 @@ export type ItemRequirements = {
 
 export type ItemType = 'head' | 'hand' | 'feet' | 'body';
 
-export type ItemBonus = {
-  stats?: Partial<Record<keyof LivingStats, ItemStatBonus>>;
-  computedStats?: ItemComputedStatBonus;
-};
-
-export type ItemStatBonus = {
-  f: () => number;
-  description: string;
-};
-
-export type ItemComputedStatBonus = {
-  f: (v: LivingComputedStats) => LivingComputedStats;
-  description: string;
+export type ItemProtoStatBonus = {
+  value: [number, number] | number;
 };

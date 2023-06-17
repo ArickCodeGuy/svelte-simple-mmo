@@ -1,17 +1,15 @@
 import type { ItemProto } from '../types';
 
-export default {
+const proto: ItemProto = {
   name: 'Wooden Sword',
   img: '/items/woodenSword.png',
   type: 'hand',
-  bonuses: {
-    computedStats: {
-      f: (v) => ({
-        ...v,
-        attack: v.attack + 5,
-      }),
-      description: '5 dmg',
+  computedStatsBonuses: {
+    attack: {
+      value: [5, 10],
     },
   },
   dropRate: 0.1,
-} as ItemProto;
+};
+
+export default proto;

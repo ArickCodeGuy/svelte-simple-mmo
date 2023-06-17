@@ -15,19 +15,18 @@ export class ItemsController extends BaseController<Item> {
 
   // @@TODO: fix
   add(proto: ItemProto, playerId: number) {
-    const item = itemProtoToItem(proto);
-    const newItem = super.add({
-      ...item,
+    const item = super.add({
+      ...itemProtoToItem(proto),
       playerId,
     });
 
-    if (!this.#playerItems[newItem.playerId]) {
-      this.#playerItems[newItem.playerId] = [];
+    if (!this.#playerItems[item.playerId]) {
+      this.#playerItems[item.playerId] = [];
     }
 
-    this.#playerItems[newItem.playerId].push(newItem.id);
+    this.#playerItems[item.playerId].push(item.id);
 
-    return newItem;
+    return item;
   }
 
   getPlayerItems(playerId: number) {
