@@ -44,20 +44,38 @@ const handleInventoryCellClick = (type: ItemType) => {
       </div>
     </div>
     <div class="grid">
+      <div class="grid__item grid__item--neck" />
       <div
-        class="grid__item grid__item--neck"
+        class="grid__item grid__item--head"
         on:keydown
         on:click={() => handleInventoryCellClick('head')}
       >
-        123
+        head
       </div>
-      <div class="grid__item grid__item--head" />
-      <div class="grid__item grid__item--hands" />
+      <div
+        class="grid__item grid__item--hands"
+        on:keydown
+        on:click={() => handleInventoryCellClick('hand')}
+      >
+        hand
+      </div>
       <div class="grid__item grid__item--hand-left" />
       <div class="grid__item grid__item--hand-right" />
-      <div class="grid__item grid__item--body" />
-      <div class="grid__item grid__item--feet" />
-      <div class="grid__item grid__item--profile-picture" />
+      <div
+        class="grid__item grid__item--body"
+        on:keydown
+        on:click={() => handleInventoryCellClick('body')}
+      >
+        body
+      </div>
+      <div
+        class="grid__item grid__item--feet"
+        on:keydown
+        on:click={() => handleInventoryCellClick('feet')}
+      >
+        feet
+      </div>
+      <div class="grid__item grid__item--profile-picture">profile-picture</div>
     </div>
     {#if !props.isView}
       <div class="extra">

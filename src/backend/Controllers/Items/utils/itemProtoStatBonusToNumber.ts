@@ -10,3 +10,13 @@ export const itemProtoStatBonusToNumber = (
   }
   return bonus.value;
 };
+
+export const itemProtoStatBonusRecordToRecord = (
+  bonuses: Record<string, ItemProtoStatBonus>
+): Record<string, number> => {
+  const res: Record<string, number> = {};
+  for (const key in bonuses) {
+    res[key] = itemProtoStatBonusToNumber(bonuses[key]);
+  }
+  return res;
+};
