@@ -47,13 +47,13 @@ export type Living = {
   fightInstanceId?: number;
   mapArea?: MapArea;
   fightLogs?: number[];
-  equipment?: Equipment;
+  equipment?: LivingEquipment;
 };
 
 /**
  * value is item id
  */
-export type Equipment = {
+export type LivingEquipment = {
   head?: number;
   body?: number;
   leftHand?: number;
@@ -61,7 +61,7 @@ export type Equipment = {
   feet?: number;
 };
 
-export type EquipmentType = keyof Equipment;
+export type LivingEquipmentType = keyof LivingEquipment;
 
 export type LivingBaseStats = {
   health: number;

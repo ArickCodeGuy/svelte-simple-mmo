@@ -1,4 +1,4 @@
-import type { LivingStats } from '../Livings/types';
+import type { LivingEquipmentType, LivingStats } from '../Livings/types';
 
 export type Item = {
   name: string;
@@ -31,7 +31,10 @@ export type ItemRequirements = {
   stats: Partial<LivingStats>;
 };
 
-export type ItemType = 'head' | 'hand' | 'feet' | 'body';
+/**
+ * will include unequipable items
+ */
+export type ItemType = LivingEquipmentType;
 
 export type ItemProtoStatBonus = {
   value: [number, number] | number;

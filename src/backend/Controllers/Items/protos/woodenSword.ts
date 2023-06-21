@@ -3,7 +3,7 @@ import type { ItemProto } from '../types';
 const proto: ItemProto = {
   name: 'Wooden Sword',
   img: '/items/woodenSword.png',
-  type: 'hand',
+  type: 'leftHand',
   computedStatsBonuses: {
     attack: {
       value: [5, 10],
