@@ -6,7 +6,7 @@ import type { ServerController } from '..';
 import type { GlobalInfo } from '../types';
 import { isPlayerCanEquipItem } from '../utils/isPlayerCanEquipItem';
 
-export const equipItem =
+export const useEquipItem =
   (contorller: ServerController) =>
   (playerId: number, itemId: number): GlobalInfo => {
     // @@TODO

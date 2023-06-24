@@ -8,4 +8,12 @@ export type UICharacterProps = Living & {
    */
   isView?: boolean;
   statsConfirm?: (updatedStats: LivingStats) => void;
+  items?: UICharacterItems;
+};
+
+export type UICharacterItems = {
+  head?: string;
+  body?: string;
+  leftHand?: string;
+  rightHand?: string;
 };

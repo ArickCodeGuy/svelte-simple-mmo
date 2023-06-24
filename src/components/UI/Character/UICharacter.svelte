@@ -54,8 +54,9 @@ const handleInventoryCellClick = (type: ItemType) => {
       </div>
       <div
         class="grid__item grid__item--hands"
+        style={`background-image: url(${props.items?.leftHand})`}
         on:keydown
-        on:click={() => handleInventoryCellClick('hand')}
+        on:click={() => handleInventoryCellClick('leftHand')}
       >
         hand
       </div>
