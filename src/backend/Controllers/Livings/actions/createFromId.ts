@@ -6,8 +6,8 @@ import type { MapArea } from '../../Maps/types';
 import { getRandomPositionFromArea } from '../../Maps/utils/getRandomPositionFromArea';
 
 export const useCreateFromId =
-  (livingsController: LivingsController) =>
-  (protoId: number, position: Position, mapArea?: MapArea): Living => {
+  (controller: LivingsController) =>
+  (protoId: number, position: Position, mapArea?: MapArea) => {
     const proto = getProtoById(protoId);
 
     let pos = { ...position };
@@ -24,7 +24,5 @@ export const useCreateFromId =
       mapArea,
     };
 
-    livingsController.add(newLiving);
-
-    return newLiving;
+    return controller.add(newLiving);
   };

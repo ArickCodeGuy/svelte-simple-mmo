@@ -14,8 +14,7 @@ export type LivingProto = {
   name: string;
   lvl: number;
   expGives: number;
-  baseStats: LivingBaseStats;
-  stats: LivingStats;
+  stats: Partial<LivingStats> & LivingBaseStats;
 };
 
 export type Living = {
@@ -31,7 +30,7 @@ export type Living = {
    * points to spare on stats
    */
   statPoints: number;
-  stats: LivingStats;
+  stats: LivingStats & LivingBaseStats;
   /**
    * points to spare on skills
    */
@@ -39,9 +38,12 @@ export type Living = {
   /**
    * ids of skills
    */
-  skills: number[];
-  baseStats: LivingBaseStats;
-  computedStats: LivingComputedStats;
+  skills: LivingSkills;
+  health: LivingHealth;
+  /**
+   * timestamp
+   */
+  lastUpdated: number;
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
@@ -49,6 +51,16 @@ export type Living = {
   fightLogs?: number[];
   equipment?: LivingEquipment;
 };
+
+export type LivingHealth = {
+  max: number;
+  current: number;
+};
+
+/**
+ * skill id[]
+ */
+export type LivingSkills = number[];
 
 /**
  * value is item id

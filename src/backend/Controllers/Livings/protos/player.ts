@@ -5,11 +5,9 @@ const proto: LivingProto = {
   name: 'Player',
   lvl: 1,
   expGives: 0,
-  baseStats: {
+  stats: {
     health: 100,
     attack: 10,
-  },
-  stats: {
     vitality: 1,
     strength: 1,
     dexterity: 1,

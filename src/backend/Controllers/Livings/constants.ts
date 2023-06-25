@@ -1,4 +1,4 @@
-import type { LevelUp } from './types';
+import type { LevelUp, LivingStats } from './types';
 
 export const LIVING_LEVELS: LevelUp[] = [
   {
@@ -13,4 +13,12 @@ export const LIVING_LEVELS: LevelUp[] = [
     exp: 1000,
     statPoints: 15,
   },
+];
+
+export const LIVING_UPGRADABLE_STATS: (keyof LivingStats)[] = [
+  'vitality',
+  'strength',
+  'dexterity',
+  'intelligence',
+  'mind',
 ];
