@@ -14,7 +14,7 @@ export let props: UIInventoryItemProps;
       {JSON.stringify(props.bonuses)}
     </div>
     <div class="UIInventoryItem__btn">
-      <button class="btn" on:click={() => props.equip && props.equip()}>
+      <button class="button" on:click={() => props.equip && props.equip()}>
         Equip
       </button>
     </div>

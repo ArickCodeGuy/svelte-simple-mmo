@@ -1,14 +1,23 @@
 import type { ItemType } from '@/backend/Controllers/Items/types';
 import type { Living, LivingStats } from '@/backend/Controllers/Livings/types';
 
-export type UICharacterProps = Living & {
-  inventoryClick?: (type: ItemType) => void;
-  /**
-   * if false show additional info as you are this character
-   */
+export type UICharacterProps = {
+  name: string;
+  lvl: number;
+  exp: number;
+  health: {
+    max: number;
+    current: number;
+  };
+  lastUpdated: number;
+  statPoints: number;
+  stats: LivingStats;
+
   isView?: boolean;
+  items: UICharacterItems;
+
+  inventoryClick?: (type: ItemType) => void;
   statsConfirm?: (updatedStats: LivingStats) => void;
-  items?: UICharacterItems;
 };
 
 export type UICharacterItems = {
@@ -16,4 +25,5 @@ export type UICharacterItems = {
   body?: string;
   leftHand?: string;
   rightHand?: string;
+  feet?: string;
 };

@@ -1,9 +1,11 @@
-import type { Item, ItemEquipableType } from '../types';
+import type { Item } from '../types';
 
-export const equipableTypes: Record<ItemEquipableType, true> = {
+export const equipableTypes: Record<string, true> = {
   head: true,
   body: true,
   hand: true,
+  leftHand: true,
+  rightHand: true,
   feet: true,
 };
 

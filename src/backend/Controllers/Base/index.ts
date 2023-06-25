@@ -44,7 +44,7 @@ export class BaseController<T> {
   update(
     id: number,
     updater: ((oldState: BaseItem<T>) => BaseItem<T>) | BaseItem<T>
-  ) {
+  ): BaseItem<T> {
     const item = this.getById(id);
     const newState = typeof updater === 'function' ? updater(item) : updater;
     this.replace(id, newState);

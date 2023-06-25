@@ -2,28 +2,25 @@ import type { Living } from '../types';
 
 export const livingCurrentHealth = (living: Living) => {
   /**
-   * @description Don't update npc health or if max
+   * Don't update if already max
+   * Don't update npc health
+   * Don't update if player in fight
    */
   if (
-    living.computedStats.currentHealth === living.computedStats.health ||
-    living.protoId !== 0
+    living.health.current === living.health.max ||
+    living.protoId !== 0 ||
+    living.activity === 'FIGHT'
   )
-    return living.computedStats.currentHealth;
+    return living.health.current;
 
   /**
-   * @description health/s. 1% of max health per second
+   * health/s. 1% of max health per second
    */
-  const healthGrowth = living.computedStats.health / 100;
+  const healthGrowth = living.health.max / 100;
 
-  if (living.activity === 'FIGHT') {
-    return living.computedStats.currentHealth;
-  }
-  const secondsPassed =
-    (new Date().getTime() - living.computedStats.lastUpdated) / 1000;
-  const hp = Math.floor(
-    living.computedStats.currentHealth + healthGrowth * secondsPassed
-  );
-  const maxHp = living.computedStats.health;
+  const secondsPassed = (new Date().getTime() - living.lastUpdated) / 1000;
+  const hp = Math.floor(living.health.current + healthGrowth * secondsPassed);
+  const maxHp = living.health.max;
 
   return hp > maxHp ? maxHp : hp;
 };

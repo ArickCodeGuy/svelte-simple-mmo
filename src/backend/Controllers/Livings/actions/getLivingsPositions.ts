@@ -1,6 +1,9 @@
 import type { LivingsController } from '..';
 import type { LivingsPositions } from '../types';
 
+/**
+ * @@TODO: fix optimize
+ */
 export const useGetLivingsPositions =
   (livingsController: LivingsController) => (): LivingsPositions =>
     livingsController.getState().reduce<LivingsPositions>((result, living) => {

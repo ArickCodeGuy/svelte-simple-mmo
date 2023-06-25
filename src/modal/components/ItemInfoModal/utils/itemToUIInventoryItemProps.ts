@@ -3,6 +3,7 @@ import type { BaseItem } from '@/backend/Controllers/Base';
 import type { Item } from '@/backend/Controllers/Items/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import type { UIInventoryItemProps } from '@/components/UI/InventoryItem/types';
+import { closePopup } from '@/modal/store';
 import { globalInfoState } from '@/store/player';
 
 let globalInfo: GlobalInfo;
@@ -18,5 +19,6 @@ export const itemToUIInventoryItemProps = (
     globalInfoState.update(() =>
       Server.publicApi.equipItem(globalInfo.living.id, item.id)
     );
+    closePopup();
   },
 });

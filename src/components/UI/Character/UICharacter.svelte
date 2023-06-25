@@ -1,17 +1,17 @@
 <script lang="ts">
 import UiCharacterStats from './UICharacterStats.svelte';
-import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
+import { currentHealth } from './utils/currentHealth';
 
 export let props: UICharacterProps;
 
-let actualHp = livingCurrentHealth(props);
-$: characterHealth = props.isView ? props.computedStats.health : actualHp;
-$: healthPercent = characterHealth / props.computedStats.health;
+let actualHp = currentHealth(props);
+$: characterHealth = props.isView ? props.health.current : actualHp;
+$: healthPercent = characterHealth / props.health.max;
 
-// @@TODO: i don't think this is how it should look
+// @@TODO: fix optimize
 let interval: number;
 $: {
   clearInterval(interval);
@@ -19,15 +19,17 @@ $: {
   interval = window.setInterval(() => {
     if (!props) return;
 
-    actualHp = livingCurrentHealth(props);
+    actualHp = currentHealth(props);
 
-    if (actualHp === props.computedStats.health) {
+    if (actualHp === props.health.max) {
       clearInterval(interval);
     }
   }, 100);
 }
 
 const handleInventoryCellClick = (type: ItemType) => {
+  if (props.isView) return;
+
   props.inventoryClick && props.inventoryClick(type);
 };
 </script>
@@ -39,7 +41,7 @@ const handleInventoryCellClick = (type: ItemType) => {
       <div class="bar">
         <div class="bar__line" style:--scale={healthPercent} />
         <div class="bar__bottom">
-          {characterHealth} / {props.computedStats.health}
+          {characterHealth} / {props.health.max}
         </div>
       </div>
     </div>

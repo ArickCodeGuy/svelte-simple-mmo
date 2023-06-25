@@ -6,19 +6,14 @@ export const useUpdateCurrentHealth =
   (id: number, updater: ((updater: number) => number) | number) => {
     return livingsController.update(id, (v) => {
       const currentHealth =
-        typeof updater === 'function'
-          ? updater(v.computedStats.currentHealth)
-          : updater;
-
-      const computedStats: LivingComputedStats = {
-        ...v.computedStats,
-        currentHealth,
-        lastUpdated: new Date().getTime(),
-      };
+        typeof updater === 'function' ? updater(v.health.current) : updater;
 
       return {
         ...v,
-        computedStats,
+        health: {
+          ...v.health,
+          current: currentHealth,
+        },
       };
     });
   };

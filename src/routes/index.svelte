@@ -9,6 +9,7 @@ import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import { Server } from '@/backend';
 import { showItemInfoModal } from '@/modal/components/ItemInfoModal/show';
 import type { ItemType } from '@/backend/Controllers/Items/types';
+import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -24,7 +25,8 @@ const handleInventoryClick = (type: ItemType) => {
 };
 
 $: props = {
-  ...globalInfo.living,
+  ...livingToUICharacterProps(globalInfo.living),
+  isView: false,
   statsConfirm,
   inventoryClick: handleInventoryClick,
 };
