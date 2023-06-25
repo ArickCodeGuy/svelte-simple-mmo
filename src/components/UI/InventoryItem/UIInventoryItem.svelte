@@ -13,6 +13,11 @@ export let props: UIInventoryItemProps;
     <div class="UIInventoryItem__stats">
       {JSON.stringify(props.bonuses)}
     </div>
+    <div class="UIInventoryItem__btn">
+      <button class="btn" on:click={() => props.equip && props.equip()}>
+        Equip
+      </button>
+    </div>
   </div>
 </div>
 

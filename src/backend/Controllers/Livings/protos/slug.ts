@@ -1,6 +1,6 @@
 import type { LivingProto } from '../types';
 
-export default {
+const proto: LivingProto = {
   id: 2,
   name: 'Slug',
   lvl: 1,
@@ -16,4 +16,6 @@ export default {
     intelligence: 1,
     mind: 1,
   },
-} as LivingProto;
+};
+
+export default proto;

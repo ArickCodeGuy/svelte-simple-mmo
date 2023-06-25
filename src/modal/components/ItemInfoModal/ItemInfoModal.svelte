@@ -2,6 +2,7 @@
 import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
 import type { InventoryItemsProps } from './types';
 import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
+
 export let props: InventoryItemsProps;
 </script>
 
