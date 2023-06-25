@@ -25,7 +25,7 @@ const handleInventoryClick = (type: ItemType) => {
 };
 
 $: props = {
-  ...livingToUICharacterProps(globalInfo.living),
+  ...livingToUICharacterProps(globalInfo.living, globalInfo.equipment),
   isView: false,
   statsConfirm,
   inventoryClick: handleInventoryClick,

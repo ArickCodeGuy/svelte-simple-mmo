@@ -2,7 +2,11 @@ import type { BaseItem } from '../Controllers/Base';
 import type { FightLog } from '../Controllers/FightLogs/types';
 import type { FightInstance } from '../Controllers/Fights/types';
 import type { Item } from '../Controllers/Items/types';
-import type { Living, MapLivingsPositions } from '../Controllers/Livings/types';
+import type {
+  Living,
+  LivingEquipmentType,
+  MapLivingsPositions,
+} from '../Controllers/Livings/types';
 import type { MapInfo } from '../Controllers/Maps/types';
 
 export type GlobalInfo = {
@@ -12,6 +16,7 @@ export type GlobalInfo = {
   neighbors: BaseItem<Living>[];
   distantLivings: MapLivingsPositions;
   items?: BaseItem<Item>[];
+  equipment?: Equipment;
 };
 
 export type FightInfo = {
@@ -22,3 +27,5 @@ export type FightInfo = {
   };
   log: BaseItem<FightLog>;
 };
+
+export type Equipment = Partial<Record<LivingEquipmentType, BaseItem<Item>>>;

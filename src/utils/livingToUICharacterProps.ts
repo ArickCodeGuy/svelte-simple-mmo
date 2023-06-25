@@ -1,9 +1,30 @@
-import type { Living } from '@/backend/Controllers/Livings/types';
+import type { BaseItem } from '@/backend/Controllers/Base';
+import type { Item } from '@/backend/Controllers/Items/types';
+import type {
+  Living,
+  LivingEquipmentType,
+} from '@/backend/Controllers/Livings/types';
 import { livingStats } from '@/backend/Controllers/Livings/utils/livingStats';
-import type { UICharacterProps } from '@/components/UI/Character/types';
-import { livingEquipmentToUICharacterItems } from './livingEquipmentToUICharacterItems';
+import type { Equipment } from '@/backend/Server/types';
+import type {
+  UICharacterItems,
+  UICharacterProps,
+} from '@/components/UI/Character/types';
 
-export const livingToUICharacterProps = (living: Living): UICharacterProps => {
+export const livingToUICharacterProps = (
+  living: Living,
+  equipment?: Equipment
+): UICharacterProps => {
+  const items: UICharacterItems = {};
+
+  if (equipment) {
+    (
+      Object.entries(equipment) as [LivingEquipmentType, BaseItem<Item>][]
+    ).forEach(([place, item]) => {
+      items[place] = item.img;
+    });
+  }
+
   return {
     name: living.name,
     lvl: living.lvl,
@@ -13,6 +34,6 @@ export const livingToUICharacterProps = (living: Living): UICharacterProps => {
     statPoints: living.statPoints,
     stats: livingStats(living),
     isView: true,
-    items: livingEquipmentToUICharacterItems(living.equipment),
+    items,
   };
 };

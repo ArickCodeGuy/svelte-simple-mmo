@@ -10,13 +10,11 @@ export const useGetLivingState =
 
     const fight = serverController.fightActions.info(living.id);
 
-    // let fightLog: FightLogInfo
-    // if (fight.logId) {
-
-    // }
     const items = serverController.itemsController
       .getPlayerItems(living.id)
       .map((i) => serverController.itemsController.getById(i));
+
+    const equipment = serverController.publicApi.getEquipment(id);
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position
@@ -34,5 +32,6 @@ export const useGetLivingState =
       neighbors,
       distantLivings,
       items,
+      equipment,
     };
   };

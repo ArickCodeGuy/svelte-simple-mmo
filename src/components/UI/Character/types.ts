@@ -20,10 +20,21 @@ export type UICharacterProps = {
   statsConfirm?: (updatedStats: LivingStats) => void;
 };
 
+/**
+ * [x: body part]: img url
+ */
 export type UICharacterItems = {
+  pp?: string;
+  hands?: string;
+  neck?: string;
   head?: string;
   body?: string;
   leftHand?: string;
   rightHand?: string;
   feet?: string;
+};
+
+export type UICharacterGridItemProps = {
+  type: keyof UICharacterItems;
+  image?: string;
 };

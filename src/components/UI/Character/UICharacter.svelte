@@ -4,6 +4,7 @@ import { LIVING_LEVELS } from '@/backend/Controllers/Livings/constants';
 import type { UICharacterProps } from './types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
 import { currentHealth } from './utils/currentHealth';
+import UiCharacterGridItem from './UICharacterGridItem.svelte';
 
 export let props: UICharacterProps;
 
@@ -46,39 +47,38 @@ const handleInventoryCellClick = (type: ItemType) => {
       </div>
     </div>
     <div class="grid">
-      <div class="grid__item grid__item--neck" />
-      <div
-        class="grid__item grid__item--head"
-        on:keydown
-        on:click={() => handleInventoryCellClick('head')}
-      >
-        head
-      </div>
-      <div
-        class="grid__item grid__item--hands"
-        style={`background-image: url(${props.items?.leftHand})`}
-        on:keydown
-        on:click={() => handleInventoryCellClick('leftHand')}
-      >
-        hand
-      </div>
-      <div class="grid__item grid__item--hand-left" />
-      <div class="grid__item grid__item--hand-right" />
-      <div
-        class="grid__item grid__item--body"
-        on:keydown
-        on:click={() => handleInventoryCellClick('body')}
-      >
-        body
-      </div>
-      <div
-        class="grid__item grid__item--feet"
-        on:keydown
-        on:click={() => handleInventoryCellClick('feet')}
-      >
-        feet
-      </div>
-      <div class="grid__item grid__item--profile-picture">profile-picture</div>
+      <UiCharacterGridItem
+        props={{ type: 'neck' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'head' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'hands' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'leftHand', image: props.items.leftHand }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'rightHand' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'body' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'feet' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
+      <UiCharacterGridItem
+        props={{ type: 'pp' }}
+        on:click={(e) => handleInventoryCellClick(e.detail)}
+      />
     </div>
     {#if !props.isView}
       <div class="extra">
@@ -140,41 +140,8 @@ const handleInventoryCellClick = (type: ItemType) => {
   grid-gap: 10px;
   grid-template-areas:
     'neck pp head'
-    'hand-left pp hands'
-    'hand-left pp hand-right'
+    'leftHand pp hands'
+    'leftHand pp rightHand'
     'body pp feet';
-  &__item {
-    &--neck {
-      grid-area: neck;
-    }
-    &--profile-picture {
-      grid-area: pp;
-    }
-    &--head {
-      grid-area: head;
-    }
-    &--hands {
-      grid-area: hands;
-    }
-    &--hand-left {
-      grid-area: hand-left;
-    }
-    &--hand-right {
-      grid-area: hand-right;
-    }
-    &--body {
-      grid-area: body;
-    }
-    &--feet {
-      grid-area: feet;
-    }
-    background-color: rgba(var(--rgba-bgc), 0.3);
-    cursor: pointer;
-    &::after {
-      content: '';
-      display: block;
-      padding-top: 50%;
-    }
-  }
 }
 </style>

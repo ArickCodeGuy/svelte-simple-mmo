@@ -11,7 +11,6 @@ export const useEquipItem =
   (playerId: number, itemId: number): GlobalInfo => {
     const item = contorller.itemsController.getById(itemId);
     const player = contorller.livingsController.getById(playerId);
-    console.log(player, item);
 
     if (isPlayerCanEquipItem(player, item)) {
       contorller.livingsController.update(playerId, (v) => {
