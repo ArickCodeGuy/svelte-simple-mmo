@@ -4,7 +4,7 @@ const proto: ItemProto = {
   name: 'Wooden Sword',
   img: '/items/woodenSword.png',
   type: 'leftHand',
-  computedStatsBonuses: {
+  statsBonuses: {
     attack: {
       value: [5, 10],
     },

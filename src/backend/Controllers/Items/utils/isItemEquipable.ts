@@ -1,13 +1,16 @@
+import type { LivingEquipmentType } from '../../Livings/types';
 import type { Item } from '../types';
 
-export const equipableTypes: Record<string, true> = {
-  head: true,
-  body: true,
-  hand: true,
-  leftHand: true,
-  rightHand: true,
-  feet: true,
-};
+const equipableTypes: LivingEquipmentType[] = [
+  'body',
+  'feet',
+  'head',
+  'hands',
+  'leftHand',
+  'rightHand',
+];
+
+const equipableTypesRegExp = RegExp(`^${equipableTypes.join('|')}$`);
 
 export const isItemEquipable = (item: Item): Boolean =>
-  Boolean(equipableTypes[item.type]);
+  Boolean(equipableTypesRegExp.test(item.type));

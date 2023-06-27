@@ -1,4 +1,8 @@
-import type { LivingEquipmentType, LivingStats } from '../Livings/types';
+import type {
+  LivingCompleteStats,
+  LivingEquipmentType,
+  LivingStats,
+} from '../Livings/types';
 
 export type Item = {
   name: string;
@@ -6,11 +10,8 @@ export type Item = {
   type: ItemType;
   playerId: number;
   requirements?: ItemRequirements;
-  statsBonuses?: Partial<LivingStats>;
-  computedStatsBonuses?: {
-    health?: number;
-    attack?: number;
-  };
+  statsBonuses?: Partial<LivingCompleteStats>;
+  price: number;
 };
 
 export type ItemProto = {
@@ -18,12 +19,9 @@ export type ItemProto = {
   img: string;
   type: ItemType;
   requirements?: ItemRequirements;
-  statsBonuses?: Partial<Record<keyof LivingStats, ItemProtoStatBonus>>;
-  computedStatsBonuses?: {
-    health?: ItemProtoStatBonus;
-    attack?: ItemProtoStatBonus;
-  };
+  statsBonuses?: Partial<Record<keyof LivingCompleteStats, ItemProtoStatBonus>>;
   dropRate: number;
+  price: number;
 };
 
 export type ItemRequirements = {
@@ -32,9 +30,9 @@ export type ItemRequirements = {
 };
 
 /**
- * will include unequipable items
+ * Will include unequipable items
  */
-export type ItemType = LivingEquipmentType;
+export type ItemType = LivingEquipmentType | 'other';
 
 export type ItemProtoStatBonus = {
   value: [number, number] | number;

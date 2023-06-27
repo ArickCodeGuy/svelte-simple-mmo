@@ -30,7 +30,7 @@ export type Living = {
    * points to spare on stats
    */
   statPoints: number;
-  stats: LivingStats & LivingBaseStats;
+  stats: LivingCompleteStats;
   /**
    * points to spare on skills
    */
@@ -52,6 +52,8 @@ export type Living = {
   equipment?: LivingEquipment;
 };
 
+export type LivingCompleteStats = LivingStats & LivingBaseStats;
+
 export type LivingHealth = {
   max: number;
   current: number;
@@ -68,6 +70,7 @@ export type LivingSkills = number[];
 export type LivingEquipment = {
   head?: number;
   body?: number;
+  hands?: number;
   leftHand?: number;
   rightHand?: number;
   feet?: number;

@@ -34,11 +34,6 @@ export const useFightInit =
     [...teamOneIds, ...teamTwoIds].forEach((memberId) => {
       serverController.livingsController.update(memberId, (member) => ({
         ...member,
-        computedStats: {
-          ...member.computedStats,
-          currentHealth: livingCurrentHealth(member),
-          lastUpdated: new Date().getTime(),
-        },
         activity: 'FIGHT',
         fightInstanceId,
         fightLogs: member.fightLogs

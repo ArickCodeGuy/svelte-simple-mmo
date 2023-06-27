@@ -42,8 +42,10 @@ export class LivingsController extends BaseController<Living> {
     const item = this.getById(id);
     const newState = typeof updater === 'function' ? updater(item) : updater;
 
-    newState.health.current = livingCurrentHealth(newState);
-    newState.lastUpdated = new Date().getTime();
+    if (!item.activity) {
+      newState.health.current = livingCurrentHealth(newState);
+      newState.lastUpdated = new Date().getTime();
+    }
 
     return super.update(id, newState);
   }
