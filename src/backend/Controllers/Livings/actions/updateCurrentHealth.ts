@@ -1,5 +1,4 @@
 import { LivingsController } from '..';
-import type { LivingComputedStats } from '../types';
 
 export const useUpdateCurrentHealth =
   (livingsController: LivingsController) =>

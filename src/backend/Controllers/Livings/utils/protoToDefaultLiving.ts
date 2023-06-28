@@ -1,6 +1,5 @@
 import type { Living, LivingProto } from '../types';
 import { calculateLivingMaxHealth } from './calculateLivingMaxHealth';
-import { livingStatsToComputedStats } from './livingStatsToComputedStats';
 
 export const protoToDefaultLiving = (proto: LivingProto): Living => {
   const living: Living = {

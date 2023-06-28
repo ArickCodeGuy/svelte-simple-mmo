@@ -10,7 +10,7 @@ export let member: Living;
     {member.name}
   </div>
   <div class="FightInstanceMember__health">
-    {member.computedStats.currentHealth} / {member.computedStats.health}
+    {member.health.current} / {member.health.max}
   </div>
 </div>
 

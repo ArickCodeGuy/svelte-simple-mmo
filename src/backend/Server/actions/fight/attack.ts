@@ -1,14 +1,19 @@
+import type { FightTurnAction } from '@/backend/Controllers/FightLogs/types';
 import type { ServerController } from '../..';
 import { calculatePlayerAttack } from '../../utils/calculatePlayerAttack';
+import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 
 /**
  * attackType - is spell id. if attackType === 0 then it's a normal attack
  */
 export const useFightAttack =
   (serverController: ServerController) =>
-  (attackerId: number, receiverId: number, attackType: number) => {
+  (
+    attackerId: number,
+    receiverId: number,
+    attackType: number
+  ): FightTurnAction => {
     const attacker = serverController.livingsController.getById(attackerId);
-
     const receiver = serverController.livingsController.getById(receiverId);
 
     let damage: number = 0;
@@ -27,4 +32,11 @@ export const useFightAttack =
         receiver.id,
         (v) => v - damage
       );
+
+    return {
+      attacker: livingToFightLogMember(attacker),
+      receiver: livingToFightLogMember(receiver),
+      damage,
+      attackType,
+    };
   };

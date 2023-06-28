@@ -91,13 +91,6 @@ export type LivingStats = {
   intelligence: number;
 };
 
-export type LivingComputedStats = {
-  health: number;
-  currentHealth: number;
-  attack: number;
-  lastUpdated: number;
-};
-
 export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 
 /**

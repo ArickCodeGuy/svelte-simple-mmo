@@ -8,6 +8,6 @@ export const livingToFightLogMember = (
   id: living.id,
   name: living.name,
   lvl: living.lvl,
-  currentHealth: living.computedStats.currentHealth,
-  health: living.computedStats.health,
+  currentHealth: living.health.current,
+  health: living.health.max,
 });

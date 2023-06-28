@@ -33,30 +33,23 @@ const useTeamTurn =
 
     for (let i = 0; i < fight[team].length; i++) {
       const member = fight[team][i];
+      const receiverId = fight.targets[member.id];
+      const attackType = 0;
 
-      const attacker = serverController.livingsController.getById(member.id)!;
-      const receiver = serverController.livingsController.getById(
+      const log = serverController.fightActions.attack(
+        member.id,
+        fight.targets[member.id],
+        attackType
+      );
+
+      serverController.fightLogActions.pushTurnAction(fight.logId, log);
+
+      const receiverAfterAttack = serverController.livingsController.getById(
         fight.targets[member.id]
-      )!;
+      );
+      if (receiverAfterAttack.health.current > 0) return;
 
-      const damage = attacker.computedStats.attack;
-
-      const newReceiverState =
-        serverController.livingsController.updateCurrentHealth(
-          receiver.id,
-          (v) => v - damage
-        );
-
-      serverController.fightLogActions.pushTurnAction(fight.logId, {
-        attacker: livingToFightLogMember(attacker),
-        receiver: livingToFightLogMember(receiver),
-        damage,
-        attackType: 0,
-      });
-
-      if (newReceiverState.computedStats.currentHealth > 0) return;
-
-      serverController.fightController.markAsDead(fight.id, receiver.id);
+      serverController.fightController.markAsDead(fight.id, receiverId);
       const deadTeam = serverController.fightController.isOneTeamDead(fight.id);
       if (deadTeam) {
         serverController.fightActions.end(fight.id, deadTeam);
