@@ -132,11 +132,13 @@ export class LivingsController extends BaseController<Living> {
     if (previousPosition) {
       const p = previousPosition;
       let arr = lp[p.mapId]![p.y]![p.x]!;
-      arr = arr.filter((i) => i !== id);
+      lp[p.mapId]![p.y]![p.x]! = lp[p.mapId]![p.y]![p.x]!.filter(
+        (i) => i !== id
+      );
       /**
        * @@TODO: full reset check
        */
-      if (!arr.length) {
+      if (!lp[p.mapId]![p.y]![p.x]!.length) {
         lp[p.mapId]![p.y]![p.x] = undefined;
       }
     }

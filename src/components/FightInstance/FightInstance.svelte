@@ -13,7 +13,9 @@ let barElStyle: string;
 let barElRequestAnimation: number;
 const barAnimation = () => {
   barElRequestAnimation = window.requestAnimationFrame(barAnimation);
-  const scaleX = 1 - (nextTurnTime - new Date().getTime()) / FIGHT_TURN_TIMEOUT;
+  const percent =
+    1 - (nextTurnTime - new Date().getTime()) / FIGHT_TURN_TIMEOUT;
+  const scaleX = percent < 1 ? percent : 1;
 
   barElStyle = `transform: scaleX(${scaleX})`;
 
