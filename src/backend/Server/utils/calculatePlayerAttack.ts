@@ -9,6 +9,10 @@ export type PlayerAttack = {
    */
   critRate: number;
   /**
+   * Chance to miss float from 0 to 1
+   */
+  missRate: number;
+  /**
    * Attack range float from 0 to 1
    */
   range: number;
@@ -26,23 +30,29 @@ export const calculatePlayerAttack = (
   const stats = calculatePlayerCompleteStats(player, options.equipment);
 
   const damage = stats.attack + stats.dexterity + stats.strength * 3;
-  const critRate = 0.1;
-  const range = 0.8;
+  const critRate = 0.05;
+  const missRate = 0.05;
+  const range = 0.6;
 
   return {
     damage,
     critRate,
+    missRate,
     range,
   };
 };
 
 /**
- * Returns random attack
+ * Returns random damage from attack
  */
 export const rantomizeAttack = (playerAttack: PlayerAttack): number => {
   let dmg = playerAttack.damage;
 
-  if (playerAttack.critRate !== 0 && Math.random() > playerAttack.critRate) {
+  if (Math.random() < playerAttack.missRate) {
+    return 0;
+  }
+
+  if (Math.random() < playerAttack.critRate) {
     dmg *= 2;
   }
 
@@ -51,5 +61,6 @@ export const rantomizeAttack = (playerAttack: PlayerAttack): number => {
   const min = Math.floor(dmg * playerAttack.range);
   const range = dmg - min;
 
-  return min * Math.floor(Math.random() * range);
+  const damage = min + Math.floor(Math.random() * range);
+  return damage;
 };

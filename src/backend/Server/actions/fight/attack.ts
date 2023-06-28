@@ -1,6 +1,9 @@
 import type { FightTurnAction } from '@/backend/Controllers/FightLogs/types';
 import type { ServerController } from '../..';
-import { calculatePlayerAttack } from '../../utils/calculatePlayerAttack';
+import {
+  calculatePlayerAttack,
+  rantomizeAttack,
+} from '../../utils/calculatePlayerAttack';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 
 /**
@@ -24,14 +27,13 @@ export const useFightAttack =
         equipment: attackerEquipment,
       });
 
-      damage = attackerAttack.damage;
+      damage = rantomizeAttack(attackerAttack);
     }
 
-    const newReceiverState =
-      serverController.livingsController.updateCurrentHealth(
-        receiver.id,
-        (v) => v - damage
-      );
+    serverController.livingsController.updateCurrentHealth(
+      receiver.id,
+      (v) => v - damage
+    );
 
     return {
       attacker: livingToFightLogMember(attacker),
