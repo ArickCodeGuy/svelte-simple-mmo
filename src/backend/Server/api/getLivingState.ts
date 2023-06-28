@@ -21,12 +21,14 @@ export const useGetLivingState =
     );
 
     const distantLivings =
-      serverController.livingsController.getLivingsPositions()[
-        living.position.mapId
-      ];
+      serverController.livingsController.getLivingsPositions(living.position);
 
     return {
       living,
+      /**
+       * @@TODO: Front don't need all map info
+       * like "npcSettings"
+       */
       map,
       fight,
       neighbors,

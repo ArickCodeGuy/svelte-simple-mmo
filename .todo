@@ -1,16 +1,9 @@
 # Relevance
 
-- items table
+- livings positions optimize
 
 ## Wait list
 
 - draw map with canvas
 - map editor
 - respawn player in spawn point if dies
-
-### items table
-
-- protos
-- generation
-- items popup (filtering)
-- applying to players

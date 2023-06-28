@@ -6,6 +6,7 @@ import type {
   Living,
   LivingEquipmentType,
   MapLivingsPositions,
+  NearbyLivings,
 } from '../Controllers/Livings/types';
 import type { MapInfo } from '../Controllers/Maps/types';
 
@@ -14,7 +15,7 @@ export type GlobalInfo = {
   map?: BaseItem<MapInfo>;
   fight?: FightInfo;
   neighbors: BaseItem<Living>[];
-  distantLivings: MapLivingsPositions;
+  distantLivings: NearbyLivings;
   items?: BaseItem<Item>[];
   equipment?: Equipment;
 };

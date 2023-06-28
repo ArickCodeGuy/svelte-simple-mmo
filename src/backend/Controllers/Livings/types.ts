@@ -99,11 +99,19 @@ export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 export type LivingsPositions = Record<string, MapLivingsPositions>;
 
 /**
- * Livings on certain mapId as [y position][x position] => BaseItem<Living>[]
+ * Livings on certain mapId as [y position][x position] => living.id[]
  */
-export type MapLivingsPositions = Record<
+export type MapLivingsPositions =
+  | Record<string, Record<string, number[] | undefined> | undefined>
+  | undefined;
+
+/**
+ * Used for indicating for nearby enemies
+ * { [y position]: { [x position]: boolean } }
+ */
+export type NearbyLivings = Record<
   string,
-  Record<string, BaseItem<Living>[]>
+  Record<string, boolean | undefined> | undefined
 >;
 
 export type LevelUp = {
