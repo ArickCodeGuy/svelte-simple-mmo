@@ -1,9 +1,12 @@
 # Relevance
 
-- livings positions optimize
+- respawn player in spawn point if dies
+- unequip item
+- more protos
 
 ## Wait list
 
 - draw map with canvas
+- map buildings & actions
 - map editor
-- respawn player in spawn point if dies
+- drops from npc
