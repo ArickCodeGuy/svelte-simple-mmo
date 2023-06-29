@@ -2,11 +2,13 @@
 
 - respawn player in spawn point if dies
 - unequip item
-- more protos
+- more npc protos
+- more item protos
+- drops from npc
+- map buildings & actions
 
 ## Wait list
 
 - draw map with canvas
-- map buildings & actions
+- make map fixed
 - map editor
-- drops from npc
