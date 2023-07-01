@@ -2,6 +2,10 @@ export type CellType = 'LAND' | 'BLOCK' | 'WATER';
 
 export type MapCell = {
   type: CellType;
+  /**
+   * id from MapCellTypesController
+   */
+  typeId: number;
 };
 
 export type MapNpcSettings = {
