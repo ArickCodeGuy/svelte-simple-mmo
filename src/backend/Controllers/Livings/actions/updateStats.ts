@@ -1,3 +1,4 @@
+import type { ValueOf } from '@/types/types';
 import type { LivingsController } from '..';
 import type { LivingStats } from '../types';
 import { calculateLivingMaxHealth } from '../utils/calculateLivingMaxHealth';

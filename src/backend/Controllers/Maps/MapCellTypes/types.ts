@@ -5,10 +5,9 @@ export type MapCellType = {
    */
   actions?: MapCellTypeAction[];
   /**
-   * style applied to cell on front
-   * like background-color, background-image
+   * color applied to cell on front
    */
-  style?: string;
+  color?: string;
   /**
    * icon applied to cell on map
    */
@@ -17,6 +16,10 @@ export type MapCellType = {
    * walk time in seconds to cell
    */
   walkTime?: number;
+  /**
+   * if true then walking to this is not allowed
+   */
+  blocked?: boolean;
 };
 
 export type MapCellTypeAction = {

@@ -8,13 +8,13 @@ import { MapCellTypesController } from './MapCellTypes';
 export class MapController extends BaseController<MapInfo> {
   isMovable: ReturnType<typeof useIsMovable>;
   getMapArea: ReturnType<typeof useGetMapArea>;
-  MapCellTypes: MapCellTypesController;
+  mapCellTypes: MapCellTypesController;
 
   constructor(tableName: string) {
     super(tableName);
     this.isMovable = useIsMovable(this);
     this.getMapArea = useGetMapArea(this);
-    this.MapCellTypes = new MapCellTypesController('MapCellTypes');
+    this.mapCellTypes = new MapCellTypesController('MapCellTypes');
 
     this.add(createDefaultMap());
   }

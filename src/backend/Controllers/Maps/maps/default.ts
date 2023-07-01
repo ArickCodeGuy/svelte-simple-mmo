@@ -7,9 +7,17 @@ export const createDefaultMap = (): Omit<MapInfo, 'id'> => {
   for (let i = 0; i < mapSize; i++) {
     layout.push([]);
     for (let j = 0; j < mapSize; j++) {
-      const type = Math.random() > 0.1 ? 'LAND' : 'WATER';
+      let typeId = 1;
+      const rand = Math.random();
+      if (rand < 0.1) {
+        typeId = 2;
+      }
+      if (rand < 0.05) {
+        typeId = 3;
+      }
+
       layout[i][j] = {
-        type,
+        typeId,
       };
     }
   }

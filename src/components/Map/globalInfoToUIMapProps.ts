@@ -1,5 +1,10 @@
 import type { GlobalInfo } from '@/backend/Server/types';
 import type { UIMapCellProps, UIMapProps } from '../UI/UIMap/types';
+import { frontDictionaryState } from '@/store/dictionary';
+import type { Dictionary } from '@/types/types';
+
+let dictionary: Dictionary;
+frontDictionaryState.subscribe((v) => (dictionary = v));
 
 export const globalInfoToUIMapProps = (
   globalInfo: GlobalInfo
@@ -12,10 +17,12 @@ export const globalInfoToUIMapProps = (
   const cells = globalInfo.map.layout.map((row, y) =>
     row.map<UIMapCellProps>((cell, x) => {
       let backgroundColor = '';
-      if (cell.type === 'WATER') {
-        backgroundColor = 'lightblue';
+
+      if (dictionary?.cellTypeColor?.[cell.typeId]) {
+        backgroundColor = dictionary.cellTypeColor[cell.typeId];
       }
-      if (globalInfo.distantLivings[y] && globalInfo.distantLivings[y][x]) {
+
+      if (globalInfo.distantLivings[y] && globalInfo.distantLivings[y]![x]) {
         backgroundColor = 'red';
       }
       if (xPos === x && yPos === y) {

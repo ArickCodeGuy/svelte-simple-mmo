@@ -5,16 +5,32 @@ import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import { livingsArrToNpcAndPlayers } from '@/utils/livingsArrToNpcAndPlayers';
+import { frontDictionaryState } from '@/store/dictionary';
+import type { Dictionary } from '@/types/types';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
-$: cellType =
-  globalInfo.map &&
-  globalInfo.living &&
-  globalInfo.map.layout[globalInfo.living.position.y][
-    globalInfo.living.position.x
-  ].type;
+let dictionary: Dictionary;
+frontDictionaryState.subscribe((v) => (dictionary = v));
+
+const getCurrentCellName = (globalInfo: GlobalInfo, dictionary: Dictionary) => {
+  if (!globalInfo.map || !globalInfo.living || !dictionary) {
+    return '';
+  }
+
+  const cellTypeId =
+    globalInfo.map.layout[globalInfo.living.position.y][
+      globalInfo.living.position.x
+    ].typeId;
+
+  return dictionary['cellTypeName'][cellTypeId];
+};
+
+let cellType = '';
+$: {
+  cellType = getCurrentCellName(globalInfo, dictionary);
+}
 
 $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbors);
 
