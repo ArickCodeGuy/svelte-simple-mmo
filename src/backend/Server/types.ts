@@ -16,7 +16,6 @@ export type GlobalInfo = {
   fight?: FightInfo;
   neighbors: BaseItem<Living>[];
   distantLivings: NearbyLivings;
-  items?: BaseItem<Item>[];
   equipment?: Equipment;
 };
 

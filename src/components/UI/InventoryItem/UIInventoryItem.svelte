@@ -10,13 +10,29 @@ export let props: UIInventoryItemProps;
   </div>
   <div class="UIInventoryItem__right">
     <div class="UIInventoryItem__name">{props.name}</div>
-    <div class="UIInventoryItem__stats">
-      {JSON.stringify(props.bonuses)}
+    <div class="UIInventoryItem__bonuses">
+      {#each props.bonuses as bonus}
+        <div>{bonus}</div>
+      {/each}
     </div>
-    <div class="UIInventoryItem__btn">
-      <button class="button" on:click={() => props.equip && props.equip()}>
-        Equip
-      </button>
+    <div class="UIInventoryItem__btns">
+      {#if !props.isView}
+        {#if props.equippable}
+          <button
+            type="button"
+            class="button"
+            on:click={() => props.equip && props.equip()}
+          >
+            {#if props.equipped}
+              Unquip
+            {:else}
+              Equip
+            {/if}
+          </button>
+        {/if}
+        <!-- @@TODO: throw away -->
+        <button type="button" class="button"> Throw away </button>
+      {/if}
     </div>
   </div>
 </div>
@@ -25,10 +41,21 @@ export let props: UIInventoryItemProps;
 .UIInventoryItem {
   display: flex;
   gap: var(--column-gap);
+  &__name {
+    margin-bottom: 5px;
+  }
   &__left {
     width: 100px;
     flex-grow: 0;
     flex-shrink: 0;
+  }
+  &__bonuses {
+    text-transform: capitalize;
+  }
+  &__btns {
+    margin-top: 10px;
+    display: flex;
+    gap: var(--column-gutter);
   }
 }
 </style>

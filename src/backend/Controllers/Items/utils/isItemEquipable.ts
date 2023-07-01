@@ -12,5 +12,5 @@ const equipableTypes: LivingEquipmentType[] = [
 
 const equipableTypesRegExp = RegExp(`^${equipableTypes.join('|')}$`);
 
-export const isItemEquipable = (item: Item): Boolean =>
+export const isItemEquipable = (item: Item): boolean =>
   Boolean(equipableTypesRegExp.test(item.type));

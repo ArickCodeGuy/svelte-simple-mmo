@@ -21,7 +21,7 @@ const statsConfirm = (updatedStats: LivingStats) => {
 };
 
 const handleInventoryClick = (type: ItemType) => {
-  showItemInfoModal({ type });
+  showItemInfoModal(type);
 };
 
 $: props = {

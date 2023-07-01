@@ -1,12 +1,15 @@
-import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Item } from '@/backend/Controllers/Items/types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
 
 export type ItemInfoModalProps = {
-  type: ItemType;
-};
-
-export type InventoryItemsProps = {
-  items: BaseItem<Item>[];
+  /**
+   * used to search your items by type
+   */
+  itemType: ItemType;
+  /**
+   * @@TODO
+   * used to preview other players item
+   */
+  itemId: number;
+  isView?: boolean;
   itemChoose?: (itemId: number) => void;
 };

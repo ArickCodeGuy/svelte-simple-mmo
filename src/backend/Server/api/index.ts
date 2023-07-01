@@ -9,6 +9,7 @@ import { useEquipItem } from './equipItem';
 import { useUnequipItem } from './unequipItem';
 import { useGetEquipment } from './getEquipment';
 import { useDictionary } from './dictionary';
+import { useGetItemsByType } from './getItemsByType';
 
 export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
@@ -18,6 +19,7 @@ export const usePublicApi = (controller: ServerController) => ({
   initFight: useInitFight(controller),
   createNewPlayer: useCreateNewPlayer(controller),
   dictionary: useDictionary(controller),
+  getItemsByType: useGetItemsByType(controller),
 
   equipItem: useEquipItem(controller),
   unequipItem: useUnequipItem(controller),

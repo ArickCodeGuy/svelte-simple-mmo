@@ -1,15 +1,37 @@
 <script lang="ts">
 import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
-import type { InventoryItemsProps } from './types';
 import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
+import type { ItemInfoModalProps } from './types';
+import type { BaseItem } from '@/backend/Controllers/Base';
+import type { Item } from '@/backend/Controllers/Items/types';
+import { globalInfoState } from '@/store/player';
+import type { GlobalInfo } from '@/backend/Server/types';
+import { Server } from '@/backend';
+import type { LivingEquipment } from '@/backend/Controllers/Livings/types';
 
-export let props: InventoryItemsProps;
+export let props: ItemInfoModalProps;
+
+let globalInfo: GlobalInfo;
+globalInfoState.subscribe((v) => (globalInfo = v));
+
+let items: BaseItem<Item>[] = [];
+$: {
+  items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
+}
+
+$: equippedItem =
+  globalInfo.living?.equipment?.[props.itemType as keyof LivingEquipment];
 </script>
 
-<div class="InventoryItems">
-  {#if props.items.length}
-    {#each props.items as item}
-      <UiInventoryItem props={itemToUIInventoryItemProps(item)} />
+<div class="InventoryItemContainer">
+  {#if items.length}
+    {#each items as item}
+      <UiInventoryItem
+        props={itemToUIInventoryItemProps(item, {
+          isView: props.isView,
+          isEquipped: item.id === equippedItem,
+        })}
+      />
     {/each}
   {:else}
     <div>No items to display</div>
@@ -17,8 +39,6 @@ export let props: InventoryItemsProps;
 </div>
 
 <style lang="scss">
-.InventoryItems {
-}
 .InventoryItemContainer {
   display: grid;
   gap: var(--column-gap);
