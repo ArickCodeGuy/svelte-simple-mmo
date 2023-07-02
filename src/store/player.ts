@@ -15,7 +15,11 @@ export const globalInfoState = writable(
 
 globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.living.activity === 'FIGHT' && !globalInfo.fight) {
-    showFightEndPopup({});
+    const logs = globalInfo.living.fightLogs || [0];
+    const fightLogId = logs[logs.length - 1];
+    showFightEndPopup({
+      fightLogId,
+    });
   }
 
   if (globalInfo.fight) {
