@@ -29,6 +29,8 @@ export const createDefaultMap = (): Omit<MapInfo, 'id'> => {
     },
   ];
 
+  layout[0][0].typeId = 4;
+
   return {
     layout,
     npcSettings,

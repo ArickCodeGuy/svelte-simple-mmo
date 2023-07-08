@@ -5,7 +5,6 @@ export const useDictionary =
   (controller: MapCellTypesController) => (): Dictionary => {
     return controller.getState().reduce(
       (res, i) => ({
-        ...res,
         cellTypeColor: {
           ...res.cellTypeColor,
           [i.id]: i.color,
@@ -14,10 +13,15 @@ export const useDictionary =
           ...res.cellTypeName,
           [i.id]: i.name,
         },
+        cellTypeIcon: {
+          ...res.cellTypeIcon,
+          [i.id]: i.icon,
+        },
       }),
       {
         cellTypeColor: {},
         cellTypeName: {},
+        cellTypeIcon: {},
       }
     );
   };

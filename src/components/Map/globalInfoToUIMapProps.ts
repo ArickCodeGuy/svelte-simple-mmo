@@ -16,8 +16,12 @@ export const globalInfoToUIMapProps = (
 
   const cells = globalInfo.map.layout.map((row, y) =>
     row.map<UIMapCellProps>((cell, x) => {
-      let backgroundColor = '';
+      let icon: string | undefined;
+      if (dictionary?.cellTypeIcon?.[cell.typeId]) {
+        icon = dictionary?.cellTypeIcon?.[cell.typeId];
+      }
 
+      let backgroundColor: string | undefined;
       if (dictionary?.cellTypeColor?.[cell.typeId]) {
         backgroundColor = dictionary.cellTypeColor[cell.typeId];
       }
@@ -31,6 +35,7 @@ export const globalInfoToUIMapProps = (
 
       return {
         backgroundColor,
+        icon,
       };
     })
   );
