@@ -50,6 +50,7 @@ export type Living = {
   mapArea?: MapArea;
   fightLogs?: number[];
   equipment?: LivingEquipment;
+  respawn?: Position;
 };
 
 export type LivingCompleteStats = LivingStats & LivingBaseStats;

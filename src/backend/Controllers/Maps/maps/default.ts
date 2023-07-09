@@ -29,6 +29,9 @@ export const createDefaultMap = (): Omit<MapInfo, 'id'> => {
     },
   ];
 
+  /**
+   * DEFAULT_RESPAWN_POSITION
+   */
   layout[0][0].typeId = 4;
 
   return {

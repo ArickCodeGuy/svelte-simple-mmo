@@ -1,6 +1,7 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
 import type { ServerController } from '..';
 import type { Living } from '@/backend/Controllers/Livings/types';
+import { DEFAULT_RESPAWN_POSITION } from '../constants';
 
 export const useRespawn =
   (serverController: ServerController) => (id: number) => {
@@ -25,9 +26,15 @@ export const respawnNPC = (
   );
 };
 
+/**
+ * Respawns player near last used fountain
+ */
 export const respawnPlayer = (
   serverController: ServerController,
   living: BaseItem<Living>
 ) => {
-  throw new Error('FINISH THIS');
+  serverController.livingsController.update(living.id, (v) => ({
+    ...v,
+    position: v.respawn ? { ...v.respawn } : DEFAULT_RESPAWN_POSITION,
+  }));
 };

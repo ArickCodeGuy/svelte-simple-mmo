@@ -24,6 +24,7 @@ export const useFightEnd =
       serverController.livingsController.update(member.id, (s) => {
         const newState = { ...s };
         delete newState.fightInstanceId;
+
         return newState;
       });
 
