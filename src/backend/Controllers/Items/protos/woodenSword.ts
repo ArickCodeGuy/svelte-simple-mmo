@@ -9,7 +9,7 @@ const proto: ItemProto = {
       value: [5, 10],
     },
   },
-  dropRate: 0.1,
+  price: 1,
 };
 
 export default proto;

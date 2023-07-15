@@ -1,5 +1,5 @@
-import protos from '../protos';
-import type { LivingProto } from '../types';
+import protos from '../LivingsProtos/items';
+import type { LivingProto } from '../LivingsProtos/types';
 
 export const getProtoById = (id: number): LivingProto => {
   const proto = protos.find((proto) => proto.id === id);

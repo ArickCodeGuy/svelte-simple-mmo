@@ -13,9 +13,11 @@ import { useUpdateCurrentHealth } from './actions/updateCurrentHealth';
 import { useUpdateStats } from './actions/updateStats';
 import { livingCurrentHealth } from './utils/livingCurrentHealth';
 import { runThroughGridArea } from '../Maps/utils/runThroughGridArea';
+import { LivingsProtosController } from './LivingsProtos';
 
 export class LivingsController extends BaseController<Living> {
   #livingsPositions: LivingsPositions;
+  livingsProtosController: LivingsProtosController;
 
   createFromId: ReturnType<typeof useCreateFromId>;
   createNewPlayer: ReturnType<typeof useCreateNewPlayer>;
@@ -26,6 +28,10 @@ export class LivingsController extends BaseController<Living> {
 
   constructor(tableName: string) {
     super(tableName);
+
+    this.livingsProtosController = new LivingsProtosController(
+      `${tableName}_PROTOS`
+    );
 
     this.createFromId = useCreateFromId(this);
     this.createNewPlayer = useCreateNewPlayer(this);

@@ -1,4 +1,5 @@
-import type { Living, LivingProto } from '../types';
+import type { LivingProto } from '../LivingsProtos/types';
+import type { Living } from '../types';
 import { calculateLivingMaxHealth } from './calculateLivingMaxHealth';
 
 export const protoToDefaultLiving = (proto: LivingProto): Living => {

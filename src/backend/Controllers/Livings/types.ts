@@ -9,14 +9,6 @@ export type Position = {
 
 export type LivingActivity = 'FIGHT' | 'WALK';
 
-export type LivingProto = {
-  id: number;
-  name: string;
-  lvl: number;
-  expGives: number;
-  stats: Partial<LivingStats> & LivingBaseStats;
-};
-
 export type Living = {
   protoId: number;
   name: string;
@@ -51,6 +43,16 @@ export type Living = {
   fightLogs?: number[];
   equipment?: LivingEquipment;
   respawn?: Position;
+};
+
+export type LivingDrop = {
+  itemProtoId: number;
+  /**
+   * Chance of item dropping.
+   *
+   * Value from 0 to 1
+   */
+  dropRate: number;
 };
 
 export type LivingCompleteStats = LivingStats & LivingBaseStats;

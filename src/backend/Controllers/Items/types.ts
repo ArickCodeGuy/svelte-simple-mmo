@@ -20,7 +20,6 @@ export type ItemProto = {
   type: ItemType;
   requirements?: ItemRequirements;
   statsBonuses?: Partial<Record<keyof LivingCompleteStats, ItemProtoStatBonus>>;
-  dropRate: number;
   price: number;
 };
 

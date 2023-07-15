@@ -9,6 +9,12 @@ const proto: LivingProto = {
     health: 25,
     attack: 1,
   },
+  drops: [
+    {
+      itemProtoId: 0,
+      dropRate: 0,
+    },
+  ],
 };
 
 export default proto;
