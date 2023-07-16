@@ -11,8 +11,8 @@ const proto: LivingProto = {
   },
   drops: [
     {
-      itemProtoId: 0,
-      dropRate: 0,
+      itemProtoId: 1,
+      dropRate: 1,
     },
   ],
 };

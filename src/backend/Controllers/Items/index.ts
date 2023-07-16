@@ -1,14 +1,20 @@
 import { BaseController } from '../Base';
-import type { Item, ItemProto } from './types';
+import { ItemsProtosController } from './ItemsProtos';
+import type { ItemProto } from './ItemsProtos/types';
+import type { Item } from './types';
 import { itemProtoToItem } from './utils/itemProtoToItem';
 
 export class ItemsController extends BaseController<Item> {
   #playerItems: {
     [playerId: string]: number[];
   };
+  itemsProtosController: ItemsProtosController;
 
   constructor(tableName: string) {
     super(tableName);
+    this.itemsProtosController = new ItemsProtosController(
+      `${tableName}_PROTOS`
+    );
 
     this.#playerItems = {};
   }

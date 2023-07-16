@@ -14,15 +14,6 @@ export type Item = {
   price: number;
 };
 
-export type ItemProto = {
-  name: string;
-  img: string;
-  type: ItemType;
-  requirements?: ItemRequirements;
-  statsBonuses?: Partial<Record<keyof LivingCompleteStats, ItemProtoStatBonus>>;
-  price: number;
-};
-
 export type ItemRequirements = {
   lvl: number;
   stats: Partial<LivingStats>;

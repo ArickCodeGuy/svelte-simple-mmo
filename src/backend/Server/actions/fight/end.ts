@@ -20,6 +20,11 @@ export const useFightEnd =
       serverController.livingsController.updateExp(i.id, expPerMember)
     );
 
+    loosers.forEach((i) => {
+      // @@TODO: give randomly to team
+      const items = serverController.livingActions.getDrops(i.id);
+    });
+
     members.forEach((member) => {
       serverController.livingsController.update(member.id, (s) => {
         const newState = { ...s };

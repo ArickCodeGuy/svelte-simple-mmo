@@ -1,4 +1,5 @@
-import type { Item, ItemProto } from '../types';
+import type { ItemProto } from '../ItemsProtos/types';
+import type { Item } from '../types';
 import { itemProtoStatBonusRecordToRecord } from './itemProtoStatBonusToNumber';
 
 export const itemProtoToItem = (

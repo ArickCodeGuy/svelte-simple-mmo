@@ -14,7 +14,7 @@ export class MapController extends BaseController<MapInfo> {
     super(tableName);
     this.isMovable = useIsMovable(this);
     this.getMapArea = useGetMapArea(this);
-    this.mapCellTypes = new MapCellTypesController('MapCellTypes');
+    this.mapCellTypes = new MapCellTypesController(`${tableName}_CELL_TYPES`);
 
     this.add(createDefaultMap());
   }

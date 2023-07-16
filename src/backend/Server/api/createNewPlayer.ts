@@ -1,4 +1,4 @@
-import woodenSword from '@/backend/Controllers/Items/protos/woodenSword';
+import woodenSword from '@/backend/Controllers/Items/ItemsProtos/items/woodenSword';
 import type { ServerController } from '..';
 import type { GlobalInfo } from '../types';
 

@@ -23,17 +23,18 @@ export const useGetLivingDrops =
       return res;
     }
 
-    livingProto.drops.reduce<Item[]>((res, drop) => {
+    livingProto.drops.forEach((drop) => {
       const rand = Math.random();
 
       if (rand <= drop.dropRate) {
-        // const itemProto = controller.itemsController.
-        // controller.itemsController.add(drop.itemProtoId, 0)
-        // res.push()
+        const itemProto =
+          controller.itemsController.itemsProtosController.getById(
+            drop.itemProtoId
+          );
+        const item = controller.itemsController.add(itemProto, 0);
+        res.push(item);
       }
-
-      return res;
-    }, []);
+    });
 
     return res;
   };

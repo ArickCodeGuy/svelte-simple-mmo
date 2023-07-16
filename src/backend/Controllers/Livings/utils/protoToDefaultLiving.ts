@@ -4,7 +4,9 @@ import { calculateLivingMaxHealth } from './calculateLivingMaxHealth';
 
 export const protoToDefaultLiving = (proto: LivingProto): Living => {
   const living: Living = {
-    ...proto,
+    name: proto.name,
+    lvl: proto.lvl,
+    expGives: proto.expGives,
     stats: {
       ...proto.stats,
       vitality: proto.stats.vitality || 0,

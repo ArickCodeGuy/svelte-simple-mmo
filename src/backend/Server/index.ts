@@ -8,6 +8,7 @@ import { useFightActions } from './actions/fight';
 import { usePublicApi } from './api';
 import { useFightLogActions } from './actions/fightLog';
 import type { ItemsController } from '../Controllers/Items';
+import { useLivingActions } from './actions/living';
 
 export class ServerController {
   livingsController: LivingsController;
@@ -18,6 +19,7 @@ export class ServerController {
 
   fightActions: ReturnType<typeof useFightActions>;
   fightLogActions: ReturnType<typeof useFightLogActions>;
+  livingActions: ReturnType<typeof useLivingActions>;
   publicApi: ReturnType<typeof usePublicApi>;
   respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
@@ -38,6 +40,7 @@ export class ServerController {
     // actions
     this.fightActions = useFightActions(this);
     this.fightLogActions = useFightLogActions(this);
+    this.livingActions = useLivingActions(this);
     this.publicApi = usePublicApi(this);
     this.respawn = useRespawn(this);
     this.init = useInit(this);
