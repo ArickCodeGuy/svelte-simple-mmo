@@ -1,3 +1,4 @@
+import { randomItemFromArray } from '@/utils/randomItemFromArray';
 import type { ServerController } from '../..';
 
 export const useFightEnd =
@@ -21,8 +22,15 @@ export const useFightEnd =
     );
 
     loosers.forEach((i) => {
-      // @@TODO: give randomly to team
       const items = serverController.livingActions.getDrops(i.id);
+      items.forEach((i) => {
+        const winner = randomItemFromArray(winners);
+
+        serverController.itemsController.update(i.id, (v) => ({
+          ...v,
+          playerId: winner.id,
+        }));
+      });
     });
 
     members.forEach((member) => {

@@ -4,7 +4,7 @@ import type { BaseItem } from '@/backend/Controllers/Base';
 
 export const useGetItemsByType =
   (controller: ServerController) =>
-  (playerId: number, itemType: ItemType | undefined): BaseItem<Item>[] => {
+  (playerId: number, itemType?: ItemType | undefined): BaseItem<Item>[] => {
     return controller.itemsController
       .getPlayerItems(playerId)
       .map((i) => controller.itemsController.getById(i))

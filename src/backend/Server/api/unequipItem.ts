@@ -8,7 +8,9 @@ import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipab
 export const useUnequipItem =
   (controller: ServerController) => (playerId: number, itemId: number) => {
     const item = controller.itemsController.getById(itemId);
-    if (!isItemEquipable(item)) return;
+    if (!isItemEquipable(item)) {
+      controller.publicApi.getState(playerId);
+    }
 
     const place = item.type as LivingEquipmentType;
 

@@ -1,11 +1,12 @@
 import type { Item } from '@/backend/Controllers/Items/types';
 import type { ServerController } from '../..';
+import type { BaseItem } from '@/backend/Controllers/Base';
 
 export const useGetLivingDrops =
   (controller: ServerController) =>
-  (livingId: number): Item[] => {
+  (livingId: number): BaseItem<Item>[] => {
     const living = controller.livingsController.getById(livingId);
-    const res: Item[] = [];
+    const res: BaseItem<Item>[] = [];
 
     /**
      * If player drop nothing

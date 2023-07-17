@@ -1,4 +1,4 @@
-import { BaseController } from '../Base';
+import { BaseController, type BaseItem } from '../Base';
 import { ItemsProtosController } from './ItemsProtos';
 import type { ItemProto } from './ItemsProtos/types';
 import type { Item } from './types';
@@ -33,6 +33,17 @@ export class ItemsController extends BaseController<Item> {
     this.#playerItems[item.playerId].push(item.id);
 
     return item;
+  }
+
+  replace(id: number, item: BaseItem<Item>) {
+    const oldItem = this.getById(id);
+    if (oldItem.playerId !== item.playerId) {
+      this.#playerItems[oldItem.playerId] = this.#playerItems[
+        oldItem.playerId
+      ].filter((i) => i !== id);
+      this.#playerItems[item.playerId].push(item.id);
+    }
+    super.replace(id, item);
   }
 
   getPlayerItems(playerId: number) {
