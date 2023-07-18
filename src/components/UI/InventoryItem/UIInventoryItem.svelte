@@ -30,8 +30,13 @@ export let props: UIInventoryItemProps;
             {/if}
           </button>
         {/if}
-        <!-- @@TODO: throw away -->
-        <button type="button" class="button"> Throw away </button>
+        <button
+          type="button"
+          class="button"
+          on:click={() => props.throw && props.throw()}
+        >
+          Throw away
+        </button>
       {/if}
     </div>
   </div>

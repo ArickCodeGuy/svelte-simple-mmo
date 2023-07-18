@@ -5,12 +5,13 @@ import { useTryDirectionalMove } from './tryDirectionalMove';
 import { useUpdateStats } from './updateStats';
 import { useInitFight } from './initFight';
 import { useCreateNewPlayer } from './createNewPlayer';
-import { useEquipItem } from './equipItem';
-import { useUnequipItem } from './unequipItem';
-import { useGetEquipment } from './getEquipment';
+import { useEquipItem } from './item/equip';
+import { useUnequipItem } from './item/unequipItem';
+import { useGetEquipment } from './item/getEquipment';
 import { useDictionary } from './dictionary';
-import { useGetItemsByType } from './getItemsByType';
+import { useGetItemsByType } from './item/getItemsByType';
 import { useGetFightLog } from './getFightLog';
+import { usePublicApiItemActions } from './item';
 
 export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
@@ -23,7 +24,5 @@ export const usePublicApi = (controller: ServerController) => ({
   getItemsByType: useGetItemsByType(controller),
   getFightLog: useGetFightLog(controller),
 
-  equipItem: useEquipItem(controller),
-  unequipItem: useUnequipItem(controller),
-  getEquipment: useGetEquipment(controller),
+  items: usePublicApiItemActions(controller),
 });

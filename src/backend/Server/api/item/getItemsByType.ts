@@ -1,5 +1,5 @@
 import type { Item, ItemType } from '@/backend/Controllers/Items/types';
-import type { ServerController } from '..';
+import type { ServerController } from '../..';
 import type { BaseItem } from '@/backend/Controllers/Base';
 
 export const useGetItemsByType =

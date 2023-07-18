@@ -22,7 +22,7 @@ export const useFightAttack =
     let damage: number = 0;
     if (attackType === 0) {
       const attackerEquipment =
-        serverController.publicApi.getEquipment(attackerId);
+        serverController.publicApi.items.equipment(attackerId);
       const attackerAttack = calculatePlayerAttack(attacker, {
         equipment: attackerEquipment,
       });

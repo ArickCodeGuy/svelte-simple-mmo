@@ -2,9 +2,9 @@ import type {
   LivingEquipment,
   LivingEquipmentType,
 } from '@/backend/Controllers/Livings/types';
-import type { ServerController } from '..';
-import type { GlobalInfo } from '../types';
-import { isPlayerCanEquipItem } from '../utils/isPlayerCanEquipItem';
+import type { ServerController } from '../..';
+import type { GlobalInfo } from '../../types';
+import { isPlayerCanEquipItem } from '../../utils/isPlayerCanEquipItem';
 
 export const useEquipItem =
   (contorller: ServerController) =>

@@ -19,6 +19,10 @@ $: {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 }
 
+const updateItems = () => {
+  items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
+};
+
 $: equippedItem =
   globalInfo.living?.equipment?.[props.itemType as keyof LivingEquipment];
 </script>
@@ -30,6 +34,7 @@ $: equippedItem =
         props={itemToUIInventoryItemProps(item, {
           isView: props.isView,
           isEquipped: item.id === equippedItem,
+          onThrow: updateItems,
         })}
       />
     {/each}

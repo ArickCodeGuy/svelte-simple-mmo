@@ -2,7 +2,7 @@ import type {
   LivingEquipment,
   LivingEquipmentType,
 } from '@/backend/Controllers/Livings/types';
-import type { ServerController } from '..';
+import type { ServerController } from '../..';
 import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipable';
 
 export const useUnequipItem =

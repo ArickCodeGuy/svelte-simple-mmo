@@ -46,6 +46,14 @@ export class ItemsController extends BaseController<Item> {
     super.replace(id, item);
   }
 
+  remove(id: number, playerId: number) {
+    this.#playerItems[playerId] = this.#playerItems[playerId].filter(
+      (i) => i !== id
+    );
+
+    super.remove(id);
+  }
+
   getPlayerItems(playerId: number) {
     return this.#playerItems[playerId] || [];
   }

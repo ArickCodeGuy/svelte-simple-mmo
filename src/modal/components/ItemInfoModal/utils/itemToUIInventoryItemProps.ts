@@ -14,6 +14,7 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 type Options = {
   isView?: boolean;
   isEquipped?: boolean;
+  onThrow?: () => void;
 };
 
 export const itemToUIInventoryItemProps = (
@@ -42,14 +43,18 @@ export const itemToUIInventoryItemProps = (
     equip: () => {
       if (options.isEquipped) {
         globalInfoState.update(() =>
-          Server.publicApi.unequipItem(globalInfo.living.id, item.id)
+          Server.publicApi.items.unequip(globalInfo.living.id, item.id)
         );
       } else {
         globalInfoState.update(() =>
-          Server.publicApi.equipItem(globalInfo.living.id, item.id)
+          Server.publicApi.items.equip(globalInfo.living.id, item.id)
         );
       }
       closePopup();
+    },
+    throw: () => {
+      Server.publicApi.items.throw(item.id, globalInfo.living.id);
+      options?.onThrow && options.onThrow();
     },
   };
 };
