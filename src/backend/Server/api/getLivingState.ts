@@ -10,7 +10,7 @@ export const useGetLivingState =
 
     const fight = serverController.fightActions.info(living.id);
 
-    const equipment = serverController.publicApi.getEquipment(id);
+    const equipment = serverController.publicApi.items.equipment(id);
 
     const neighbors = serverController.livingsController.getLivingsByPosition(
       living.position

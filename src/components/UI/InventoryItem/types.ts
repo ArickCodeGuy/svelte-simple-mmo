@@ -2,16 +2,14 @@ export type UIInventoryItemProps = {
   img: string;
   name: string;
   bonuses: string[];
-  equippable?: boolean;
-  equipped?: boolean;
-  isView?: boolean;
-  equip?: () => void;
-  throw?: () => void;
+  actions?: UIInventoryItemAction[];
 };
 
-// @@TODO: replace equip & throw with it
 export type UIInventoryItemAction = {
   text: string;
   action: () => void;
+  /**
+   * hides only if hidden === false
+   */
   hidden?: boolean;
 };

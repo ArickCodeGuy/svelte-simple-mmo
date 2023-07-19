@@ -16,27 +16,14 @@ export let props: UIInventoryItemProps;
       {/each}
     </div>
     <div class="UIInventoryItem__btns">
-      {#if !props.isView}
-        {#if props.equippable}
-          <button
-            type="button"
-            class="button"
-            on:click={() => props.equip && props.equip()}
-          >
-            {#if props.equipped}
-              Unquip
-            {:else}
-              Equip
-            {/if}
-          </button>
-        {/if}
-        <button
-          type="button"
-          class="button"
-          on:click={() => props.throw && props.throw()}
-        >
-          Throw away
-        </button>
+      {#if props.actions}
+        {#each props.actions as action}
+          {#if action.hidden !== false}
+            <button type="button" class="button" on:click={action.action}>
+              {action.text}
+            </button>
+          {/if}
+        {/each}
       {/if}
     </div>
   </div>

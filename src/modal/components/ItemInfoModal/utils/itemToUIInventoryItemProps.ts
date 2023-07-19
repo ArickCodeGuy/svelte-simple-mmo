@@ -12,6 +12,9 @@ let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 type Options = {
+  /**
+   * isView determines whether you watching your inventory\item or someone else's
+   */
   isView?: boolean;
   isEquipped?: boolean;
   onThrow?: () => void;
@@ -37,24 +40,31 @@ export const itemToUIInventoryItemProps = (
     img: item.img,
     name: item.name,
     bonuses,
-    equippable: isItemEquipable(item),
-    equipped: options.isEquipped,
-    isView: options.isView,
-    equip: () => {
-      if (options.isEquipped) {
-        globalInfoState.update(() =>
-          Server.publicApi.items.unequip(globalInfo.living.id, item.id)
-        );
-      } else {
-        globalInfoState.update(() =>
-          Server.publicApi.items.equip(globalInfo.living.id, item.id)
-        );
-      }
-      closePopup();
-    },
-    throw: () => {
-      Server.publicApi.items.throw(item.id, globalInfo.living.id);
-      options?.onThrow && options.onThrow();
-    },
+    actions: [
+      {
+        text: options.isEquipped ? 'Unequip' : 'Equip',
+        hidden: isItemEquipable(item) && !options.isView,
+        action: () => {
+          if (options.isEquipped) {
+            globalInfoState.update(() =>
+              Server.publicApi.items.unequip(globalInfo.living.id, item.id)
+            );
+          } else {
+            globalInfoState.update(() =>
+              Server.publicApi.items.equip(globalInfo.living.id, item.id)
+            );
+          }
+          closePopup();
+        },
+      },
+      {
+        text: 'Throw away',
+        hidden: options.isView,
+        action: () => {
+          Server.publicApi.items.throw(item.id, globalInfo.living.id);
+          options?.onThrow?.();
+        },
+      },
+    ],
   };
 };
