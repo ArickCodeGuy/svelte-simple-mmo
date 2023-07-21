@@ -1,5 +1,7 @@
 export type UINavigationProps = {
   groups?: UINavigationGroup[];
+  closed?: boolean;
+  fixed?: boolean;
 };
 
 export type UINavigationGroup = {

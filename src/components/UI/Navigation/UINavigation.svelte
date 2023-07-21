@@ -3,9 +3,15 @@ import UiIcon from '../Icon/UIIcon.svelte';
 import type { UINavigationProps } from './types';
 
 export let props: UINavigationProps;
+
+/**
+ * @@TODO: utils get classes from
+ * Record<string, boolean> => string
+ */
+const navigationClasses = '';
 </script>
 
-<div class="UINavigation">
+<div class={navigationClasses}>
   <slot />
 
   {#each props.groups || [] as group}
@@ -30,3 +36,29 @@ export let props: UINavigationProps;
     </div>
   {/each}
 </div>
+
+<style lang="scss">
+.UINavigation {
+  padding: var(--column-gutter);
+  transition: 0.3s;
+  &--fixed {
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+  }
+  &--closed {
+    left: -300px;
+  }
+}
+.navigation-group {
+  &__title {
+  }
+}
+.navigation-group-items {
+}
+.navigation-group-item {
+}
+</style>
