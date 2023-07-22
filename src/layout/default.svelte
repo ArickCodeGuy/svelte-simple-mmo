@@ -13,10 +13,8 @@ import UiBurger from '@/components/UI/Navigation/UIBurger.svelte';
 const navigationProps: UINavigationProps = {
   groups: navigation,
   fixed: true,
-  closed: true /* JSON.parse(
-    localStorage.getItem('navigationState') || 'false'
-  ) as boolean */,
 };
+let navigationClosed = true;
 
 const headerProps: HeaderProps = {
   links,
@@ -25,12 +23,10 @@ const headerProps: HeaderProps = {
 
 <div class="app">
   <Header props={headerProps}>
-    <UiBurger
-      on:click={() => (navigationProps.closed = !navigationProps.closed)}
-    />
+    <UiBurger on:click={() => (navigationClosed = !navigationClosed)} />
   </Header>
 
-  <UiNavigation props={navigationProps} />
+  <UiNavigation props={navigationProps} bind:closed={navigationClosed} />
 
   <main>
     <slot />

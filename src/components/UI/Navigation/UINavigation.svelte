@@ -1,14 +1,35 @@
 <script lang="ts">
+import { onMount } from 'svelte';
 import UiIcon from '../Icon/UIIcon.svelte';
-import type { UINavigationProps } from './types';
+import type { UINavigationGroupItem, UINavigationProps } from './types';
 
 export let props: UINavigationProps;
+export let closed: boolean;
+
+const closeNavigationListener = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    closed = true;
+  }
+};
+
+const handleItemClick = (item: UINavigationGroupItem) => {
+  closed = true;
+  item.action?.();
+};
+
+onMount(() => {
+  document.addEventListener('keydown', closeNavigationListener);
+
+  return () => {
+    document.removeEventListener('keydown', closeNavigationListener);
+  };
+});
 </script>
 
 <div
   class="UINavigation"
   class:UINavigation--fixed={props.fixed}
-  class:UINavigation--closed={props.closed}
+  class:UINavigation--closed={closed}
 >
   <slot />
 
@@ -21,7 +42,7 @@ export let props: UINavigationProps;
             <button
               type="button"
               class="navigation-group-item"
-              on:click={() => groupItem.action?.()}
+              on:click={() => handleItemClick(groupItem)}
             >
               {#if groupItem.icon}
                 <UiIcon icon={groupItem.icon} />
@@ -35,17 +56,17 @@ export let props: UINavigationProps;
   {/each}
 </div>
 
-{#if !props.closed && props.fixed}
+{#if !closed && props.fixed}
   <div
     class="navigation-background"
     on:keydown
-    on:click={() => props.bgClick?.()}
+    on:click={() => (closed = !closed)}
   />
 {/if}
 
 <style lang="scss">
 .UINavigation {
-  background-color: var(--contrast);
+  background-color: var(--bgc);
   padding: var(--column-gutter);
   transition: 0.3s;
   &--fixed {
@@ -62,11 +83,23 @@ export let props: UINavigationProps;
 }
 .navigation-group {
   &__title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
   }
 }
 .navigation-group-items {
+  display: grid;
+  gap: 5px;
 }
 .navigation-group-item {
+  padding: 5px;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: rgba(var(--rgba-bgc), 0.3);
+  border: none;
+  text-align: left;
 }
 .navigation-background {
   position: fixed;

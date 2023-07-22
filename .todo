@@ -1,9 +1,7 @@
 # Relevance
 
-- more npc protos
-- more item protos
-- map buildings & actions
 - watch logs
+- map buildings & actions
 - fight end log
 
 ## Wait list
@@ -11,3 +9,5 @@
 - draw map with canvas
 - make map fixed
 - map editor
+- more npc protos
+- more item protos

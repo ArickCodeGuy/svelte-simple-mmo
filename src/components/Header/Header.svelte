@@ -8,7 +8,7 @@ $: links = (props && props.links) || [];
 </script>
 
 <header>
-  <div class="container container--stretch">
+  <div class="container container--stretch container--header">
     <slot />
     <nav class="header-nav">
       <ul>
@@ -30,6 +30,13 @@ header {
   justify-content: space-between;
   background-color: rgba(var(--rgba-bgc), 0.3);
   padding: 20px 0;
+}
+.container {
+  &--header {
+    display: flex;
+    align-items: center;
+    gap: var(--column-gap);
+  }
 }
 .header-nav {
   ul {
