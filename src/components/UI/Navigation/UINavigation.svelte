@@ -3,15 +3,13 @@ import UiIcon from '../Icon/UIIcon.svelte';
 import type { UINavigationProps } from './types';
 
 export let props: UINavigationProps;
-
-/**
- * @@TODO: utils get classes from
- * Record<string, boolean> => string
- */
-const navigationClasses = '';
 </script>
 
-<div class={navigationClasses}>
+<div
+  class="UINavigation"
+  class:UINavigation--fixed={props.fixed}
+  class:UINavigation--closed={props.closed}
+>
   <slot />
 
   {#each props.groups || [] as group}
@@ -37,8 +35,17 @@ const navigationClasses = '';
   {/each}
 </div>
 
+{#if !props.closed && props.fixed}
+  <div
+    class="navigation-background"
+    on:keydown
+    on:click={() => props.bgClick?.()}
+  />
+{/if}
+
 <style lang="scss">
 .UINavigation {
+  background-color: var(--contrast);
   padding: var(--column-gutter);
   transition: 0.3s;
   &--fixed {
@@ -60,5 +67,14 @@ const navigationClasses = '';
 .navigation-group-items {
 }
 .navigation-group-item {
+}
+.navigation-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--rgba-bgc), 0.3);
 }
 </style>

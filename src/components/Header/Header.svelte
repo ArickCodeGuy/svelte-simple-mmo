@@ -9,6 +9,7 @@ $: links = (props && props.links) || [];
 
 <header>
   <div class="container container--stretch">
+    <slot />
     <nav class="header-nav">
       <ul>
         {#each links as link}
