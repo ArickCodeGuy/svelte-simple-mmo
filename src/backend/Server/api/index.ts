@@ -12,6 +12,7 @@ import { useDictionary } from './dictionary';
 import { useGetItemsByType } from './item/getItemsByType';
 import { useGetFightLog } from './getFightLog';
 import { usePublicApiItemActions } from './item';
+import { useGetFightLogs } from './getFightLogs';
 
 export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
@@ -23,6 +24,7 @@ export const usePublicApi = (controller: ServerController) => ({
   dictionary: useDictionary(controller),
   getItemsByType: useGetItemsByType(controller),
   getFightLog: useGetFightLog(controller),
+  getFightLogs: useGetFightLogs(controller),
 
   items: usePublicApiItemActions(controller),
 });
