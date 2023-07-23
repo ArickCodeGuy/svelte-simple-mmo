@@ -20,4 +20,15 @@ export const navigation: UINavigationGroup[] = [
       },
     ],
   },
+  {
+    name: 'Logs',
+    items: [
+      {
+        name: 'Fight Logs',
+        action: () => {
+          navigate(`${BASE}/fight-logs`);
+        },
+      },
+    ],
+  },
 ];

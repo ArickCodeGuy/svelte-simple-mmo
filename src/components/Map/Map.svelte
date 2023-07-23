@@ -19,10 +19,14 @@ $: props = globalInfoToUIMapProps(globalInfo);
 
 onMount(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'w' || e.key === 'ArrowUp') handleMoveClick('UP');
-    if (e.key === 'a' || e.key === 'ArrowLeft') handleMoveClick('LEFT');
-    if (e.key === 's' || e.key === 'ArrowDown') handleMoveClick('DOWN');
-    if (e.key === 'd' || e.key === 'ArrowRight') handleMoveClick('RIGHT');
+    if (e.key.toLowerCase() === 'w' || e.key === 'ArrowUp')
+      handleMoveClick('UP');
+    if (e.key.toLowerCase() === 'a' || e.key === 'ArrowLeft')
+      handleMoveClick('LEFT');
+    if (e.key.toLowerCase() === 's' || e.key === 'ArrowDown')
+      handleMoveClick('DOWN');
+    if (e.key.toLowerCase() === 'd' || e.key === 'ArrowRight')
+      handleMoveClick('RIGHT');
   };
   document.addEventListener('keydown', handleKeyDown);
   return () => document.removeEventListener('keydown', handleKeyDown);

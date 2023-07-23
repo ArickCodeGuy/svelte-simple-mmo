@@ -23,7 +23,7 @@ const headerProps: HeaderProps = {
 
 <div class="app">
   <Header props={headerProps}>
-    <UiBurger on:click={() => (navigationClosed = !navigationClosed)} />
+    <UiBurger bind:value={navigationClosed} />
   </Header>
 
   <UiNavigation props={navigationProps} bind:closed={navigationClosed} />

@@ -13,23 +13,6 @@ import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
-
-const statsConfirm = (updatedStats: LivingStats) => {
-  globalInfoState.update((v) =>
-    Server.publicApi.updateStats(globalInfo.living.id, updatedStats)
-  );
-};
-
-const handleInventoryClick = (type: ItemType) => {
-  showItemInfoModal(type);
-};
-
-$: props = {
-  ...livingToUICharacterProps(globalInfo.living, globalInfo.equipment),
-  isView: false,
-  statsConfirm,
-  inventoryClick: handleInventoryClick,
-};
 </script>
 
 <svelte:head>
@@ -39,15 +22,13 @@ $: props = {
 <section class="section main-page">
   <div class="container container--stretch">
     <div class="row">
-      <div class="col-lg-4">
-        <UiCharacter {props} />
-      </div>
+      <div class="col-lg-4" />
       <div class="col-lg-4 main-col">
         {#if globalInfo.fight}
           <FightInstance />
         {/if}
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 map-col">
         <div class="map-container">
           <Map />
         </div>
@@ -69,6 +50,12 @@ $: props = {
       border-left: 1px solid var(--contrast);
       border-right: 1px solid var(--contrast);
     }
+  }
+}
+.map-col {
+  order: -1;
+  @media (min-width: $breakpoint-lg) {
+    order: unset;
   }
 }
 </style>

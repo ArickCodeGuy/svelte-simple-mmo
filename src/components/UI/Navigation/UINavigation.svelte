@@ -6,9 +6,13 @@ import type { UINavigationGroupItem, UINavigationProps } from './types';
 export let props: UINavigationProps;
 export let closed: boolean;
 
-const closeNavigationListener = (e: KeyboardEvent) => {
+const keydownListener = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
     closed = true;
+  }
+
+  if (e.key.toLowerCase() === 'm') {
+    closed = !closed;
   }
 };
 
@@ -18,10 +22,10 @@ const handleItemClick = (item: UINavigationGroupItem) => {
 };
 
 onMount(() => {
-  document.addEventListener('keydown', closeNavigationListener);
+  document.addEventListener('keydown', keydownListener);
 
   return () => {
-    document.removeEventListener('keydown', closeNavigationListener);
+    document.removeEventListener('keydown', keydownListener);
   };
 });
 </script>
