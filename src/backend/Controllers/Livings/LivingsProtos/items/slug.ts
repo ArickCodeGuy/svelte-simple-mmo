@@ -4,6 +4,7 @@ const proto: LivingProto = {
   id: 2,
   name: 'Slug',
   lvl: 1,
+  pfp: '/livings/slug.jpg',
   expGives: 10,
   stats: {
     health: 25,
