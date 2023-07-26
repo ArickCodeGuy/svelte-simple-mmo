@@ -1,4 +1,3 @@
-import type { BaseItem } from '../Base';
 import type { MapArea } from '../Maps/types';
 
 export type Position = {
@@ -43,6 +42,12 @@ export type Living = {
   fightLogs?: number[];
   equipment?: LivingEquipment;
   respawn?: Position;
+  /**
+   * url to profile picture
+   *
+   * if not provided, then used default from proto
+   */
+  pfp?: string;
 };
 
 export type LivingDrop = {

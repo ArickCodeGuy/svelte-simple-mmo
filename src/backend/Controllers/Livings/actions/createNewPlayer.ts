@@ -1,11 +1,10 @@
 import type { LivingsController } from '..';
 import type { Living } from '../types';
 import { protoToDefaultLiving } from '../utils/protoToDefaultLiving';
-import { getProtoById } from './getProtoById';
 
 export const useCreateNewPlayer =
-  (livingsController: LivingsController) => (name: string) => {
-    const playerProto = getProtoById(0);
+  (controller: LivingsController) => (name: string) => {
+    const playerProto = controller.livingsProtosController.getById(1);
 
     const newPlayer: Living = {
       ...protoToDefaultLiving(playerProto),
@@ -18,5 +17,5 @@ export const useCreateNewPlayer =
       },
     };
 
-    return livingsController.add(newPlayer);
+    return controller.add(newPlayer);
   };

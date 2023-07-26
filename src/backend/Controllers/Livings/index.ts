@@ -43,6 +43,16 @@ export class LivingsController extends BaseController<Living> {
     this.#livingsPositions = {};
   }
 
+  getById(id: number) {
+    const living = super.getById(id);
+
+    return {
+      ...living,
+      pfp:
+        living.pfp || this.livingsProtosController.getById(living.protoId).pfp,
+    };
+  }
+
   add(living: Living) {
     const newLiving = super.add(living);
 

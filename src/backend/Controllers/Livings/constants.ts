@@ -14,11 +14,3 @@ export const LIVING_LEVELS: LevelUp[] = [
     statPoints: 15,
   },
 ];
-
-export const LIVING_UPGRADABLE_STATS: (keyof LivingStats)[] = [
-  'vitality',
-  'strength',
-  'dexterity',
-  'intelligence',
-  'mind',
-];

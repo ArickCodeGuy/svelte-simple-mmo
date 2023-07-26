@@ -19,7 +19,11 @@ export class BaseController<T> {
   }
   getById(id: number) {
     const i = this.#state[id];
-    if (!i) throw new Error(`getById: ${id}, in ${this.#tableName}`);
+    if (!i) {
+      throw new Error(
+        `Failed to getById: ${id}, in controller ${this.#tableName}`
+      );
+    }
     return i;
   }
   add(item: T): BaseItem<T> {

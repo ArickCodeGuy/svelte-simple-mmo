@@ -1,5 +1,4 @@
 import type { Living, Position } from '../types';
-import { getProtoById } from './getProtoById';
 import type { LivingsController } from '..';
 import { protoToDefaultLiving } from '../utils/protoToDefaultLiving';
 import type { MapArea } from '../../Maps/types';
@@ -8,7 +7,7 @@ import { getRandomPositionFromArea } from '../../Maps/utils/getRandomPositionFro
 export const useCreateFromId =
   (controller: LivingsController) =>
   (protoId: number, position: Position, mapArea?: MapArea) => {
-    const proto = getProtoById(protoId);
+    const proto = controller.livingsProtosController.getById(protoId);
 
     let pos = { ...position };
     if (mapArea) {
