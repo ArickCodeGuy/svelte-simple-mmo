@@ -76,7 +76,7 @@ const handleInventoryCellClick = (type: ItemType) => {
         on:click={(e) => handleInventoryCellClick(e.detail)}
       />
       <UiCharacterGridItem
-        props={{ type: 'pp' }}
+        props={{ type: 'pfp', image: props.items.pfp }}
         on:click={(e) => handleInventoryCellClick(e.detail)}
       />
     </div>
@@ -139,9 +139,9 @@ const handleInventoryCellClick = (type: ItemType) => {
   display: grid;
   grid-gap: 10px;
   grid-template-areas:
-    'neck pp head'
-    'leftHand pp hands'
-    'leftHand pp rightHand'
-    'body pp feet';
+    'neck pfp head'
+    'leftHand pfp hands'
+    'leftHand pfp rightHand'
+    'body pfp feet';
 }
 </style>

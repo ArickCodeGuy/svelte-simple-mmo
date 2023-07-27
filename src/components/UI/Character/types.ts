@@ -24,7 +24,10 @@ export type UICharacterProps = {
  * [x: body part]: img url
  */
 export type UICharacterItems = {
-  pp?: string;
+  /**
+   * profile picture
+   */
+  pfp?: string;
   hands?: string;
   neck?: string;
   head?: string;

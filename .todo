@@ -1,12 +1,13 @@
 # Relevance
 
-- profile pictures
 - watch logs
 - map buildings & actions
 - fight end log
+- localStorage progress
 
 ## Wait list
 
+- choose profile picture
 - draw map with canvas
 - make map fixed
 - map editor

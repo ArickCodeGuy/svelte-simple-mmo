@@ -37,27 +37,29 @@ onMount(() => {
 >
   <slot />
 
-  {#each props.groups || [] as group}
-    <div class="navigation-group">
-      <div class="navigation-group__title">{group.name}</div>
-      {#if group.items}
-        <div class="navigation-group-items">
-          {#each group.items as groupItem}
-            <button
-              type="button"
-              class="navigation-group-item"
-              on:click={() => handleItemClick(groupItem)}
-            >
-              {#if groupItem.icon}
-                <UiIcon icon={groupItem.icon} />
-              {/if}
-              {groupItem.name}
-            </button>
-          {/each}
-        </div>
-      {/if}
-    </div>
-  {/each}
+  <div class="navigation-groups">
+    {#each props.groups || [] as group}
+      <div class="navigation-group">
+        <div class="navigation-group__title">{group.name}</div>
+        {#if group.items}
+          <div class="navigation-group-items">
+            {#each group.items as groupItem}
+              <button
+                type="button"
+                class="navigation-group-item"
+                on:click={() => handleItemClick(groupItem)}
+              >
+                {#if groupItem.icon}
+                  <UiIcon icon={groupItem.icon} />
+                {/if}
+                {groupItem.name}
+              </button>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </div>
 
 {#if !closed && props.fixed}
@@ -72,6 +74,7 @@ onMount(() => {
 .UINavigation {
   background-color: var(--bgc);
   padding: var(--column-gutter);
+  align-items: start;
   transition: 0.3s;
   &--fixed {
     z-index: 10;
@@ -84,6 +87,10 @@ onMount(() => {
   &--closed {
     left: -300px;
   }
+}
+.navigation-groups {
+  display: grid;
+  grid-gap: var(--column-gap);
 }
 .navigation-group {
   &__title {

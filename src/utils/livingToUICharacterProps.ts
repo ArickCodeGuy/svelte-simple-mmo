@@ -15,7 +15,9 @@ export const livingToUICharacterProps = (
   living: Living,
   equipment?: Equipment
 ): UICharacterProps => {
-  const items: UICharacterItems = {};
+  const items: UICharacterItems = {
+    pfp: living.pfp,
+  };
 
   if (equipment) {
     (
