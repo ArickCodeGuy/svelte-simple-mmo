@@ -35,7 +35,20 @@ $: props = {
 
 <section class="section">
   <div class="container">
-    <div class="h1">{globalInfo.living.name} [{globalInfo.living.lvl}]</div>
-    <UiCharacter {props} />
+    <!-- <div class="h1">{globalInfo.living.name} [{globalInfo.living.lvl}]</div> -->
+    <div class="row">
+      <div class="col-lg-4">
+        <h2 class="h2">Skills</h2>
+      </div>
+      <div class="col-lg-4">
+        <UiCharacter {props} />
+      </div>
+      <div class="col-lg-4">
+        <h2 class="h2">Inventory</h2>
+      </div>
+    </div>
   </div>
 </section>
+
+<style lang="scss">
+</style>

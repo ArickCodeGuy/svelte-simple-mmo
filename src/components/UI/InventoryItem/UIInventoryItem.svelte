@@ -19,7 +19,7 @@ export let props: UIInventoryItemProps;
       {#if props.actions}
         {#each props.actions as action}
           {#if action.hidden !== false}
-            <button type="button" class="button" on:click={action.action}>
+            <button type="button" class="btn" on:click={action.action}>
               {action.text}
             </button>
           {/if}
@@ -41,13 +41,21 @@ export let props: UIInventoryItemProps;
     flex-grow: 0;
     flex-shrink: 0;
   }
+  &__right {
+    width: 100%;
+  }
   &__bonuses {
     text-transform: capitalize;
   }
   &__btns {
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
     gap: var(--column-gutter);
+    .btn {
+      padding: 2px 5px;
+      width: unset;
+    }
   }
 }
 </style>

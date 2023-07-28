@@ -32,7 +32,7 @@ $: {
   background-color: rgba(var(--rgba-bgc), 0.3);
   cursor: pointer;
   grid-area: var(--area);
-  background-size: contain;
+  background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
   &::after {
