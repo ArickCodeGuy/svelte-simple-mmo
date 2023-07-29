@@ -5,6 +5,7 @@ import type { UINavigationGroupItem, UINavigationProps } from './types';
 
 export let props: UINavigationProps;
 export let closed: boolean;
+let firstItem: HTMLButtonElement | null = null;
 
 const keydownListener = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
@@ -13,6 +14,10 @@ const keydownListener = (e: KeyboardEvent) => {
 
   if (e.key.toLowerCase() === 'm') {
     closed = !closed;
+
+    if (closed === false && firstItem) {
+      firstItem.focus();
+    }
   }
 };
 
@@ -23,6 +28,8 @@ const handleItemClick = (item: UINavigationGroupItem) => {
 
 onMount(() => {
   document.addEventListener('keydown', keydownListener);
+
+  firstItem = document.querySelector('.navigation-group-item');
 
   return () => {
     document.removeEventListener('keydown', keydownListener);
@@ -94,7 +101,8 @@ onMount(() => {
 }
 .navigation-group {
   &__title {
-    font-size: 2rem;
+    font-size: 0.9rem;
+    line-height: 1;
     margin-bottom: 0.5rem;
   }
 }
