@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Server } from '@/backend';
+import type { BaseItem } from '@/backend/Controllers/Base';
 import type { Item, ItemType } from '@/backend/Controllers/Items/types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
@@ -12,7 +13,7 @@ import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
-let items: Item[] = [];
+let items: BaseItem<Item>[] = [];
 $: {
   if (!globalInfo.living.id) {
     items = [];
