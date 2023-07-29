@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Server } from '@/backend';
-import type { ItemType } from '@/backend/Controllers/Items/types';
+import type { Item, ItemType } from '@/backend/Controllers/Items/types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
@@ -10,6 +10,14 @@ import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
+let items: Item[] = [];
+$: {
+  if (!globalInfo.living.id) {
+    items = [];
+  } else {
+    items = Server.publicApi.getItemsByType(globalInfo.living.id);
+  }
+}
 
 const statsConfirm = (updatedStats: LivingStats) => {
   globalInfoState.update((v) =>
@@ -45,6 +53,7 @@ $: props = {
       </div>
       <div class="col-lg-4">
         <h2 class="h2">Inventory</h2>
+        <!--  -->
       </div>
     </div>
   </div>
