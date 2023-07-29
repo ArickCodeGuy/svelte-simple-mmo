@@ -8,6 +8,9 @@ import { globalInfoState } from '@/store/player';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { Server } from '@/backend';
 import type { LivingEquipment } from '@/backend/Controllers/Livings/types';
+import { closePopup } from '@/modal/store';
+import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipable';
+import type { UIInventoryItemProps } from '@/components/UI/InventoryItem/types';
 
 export let props: ItemInfoModalProps;
 
@@ -19,6 +22,36 @@ $: {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 }
 
+$: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
+  ...itemToUIInventoryItemProps(item),
+  actions: [
+    {
+      text: item.id === equippedItem ? 'Unequip' : 'Equip',
+      hidden: isItemEquipable(item) && !props.isView,
+      action: () => {
+        if (item.id === equippedItem) {
+          globalInfoState.update(() =>
+            Server.publicApi.items.unequip(globalInfo.living.id, item.id)
+          );
+        } else {
+          globalInfoState.update(() =>
+            Server.publicApi.items.equip(globalInfo.living.id, item.id)
+          );
+        }
+        closePopup();
+      },
+    },
+    {
+      text: 'Throw away',
+      hidden: props.isView,
+      action: () => {
+        Server.publicApi.items.throw(item.id, globalInfo.living.id);
+        updateItems();
+      },
+    },
+  ],
+}));
+
 const updateItems = () => {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 };
@@ -29,14 +62,8 @@ $: equippedItem =
 
 <div class="InventoryItemContainer">
   {#if items.length}
-    {#each items as item}
-      <UiInventoryItem
-        props={itemToUIInventoryItemProps(item, {
-          isView: props.isView,
-          isEquipped: item.id === equippedItem,
-          onThrow: updateItems,
-        })}
-      />
+    {#each inventoryItems as props}
+      <UiInventoryItem {props} />
     {/each}
   {:else}
     <div>No items to display</div>

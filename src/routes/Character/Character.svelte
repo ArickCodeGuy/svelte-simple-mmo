@@ -4,7 +4,9 @@ import type { Item, ItemType } from '@/backend/Controllers/Items/types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
+import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
 import { showItemInfoModal } from '@/modal/components/ItemInfoModal/show';
+import { itemToUIInventoryItemProps } from '@/modal/components/ItemInfoModal/utils/itemToUIInventoryItemProps';
 import { globalInfoState } from '@/store/player';
 import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
@@ -18,6 +20,8 @@ $: {
     items = Server.publicApi.getItemsByType(globalInfo.living.id);
   }
 }
+
+$: inventoryItems = items.map((i) => itemToUIInventoryItemProps(i));
 
 const statsConfirm = (updatedStats: LivingStats) => {
   globalInfoState.update((v) =>
@@ -53,7 +57,9 @@ $: props = {
       </div>
       <div class="col-lg-4">
         <h2 class="h2">Inventory</h2>
-        <!--  -->
+        {#each inventoryItems as props}
+          <UiInventoryItem {props} />
+        {/each}
       </div>
     </div>
   </div>

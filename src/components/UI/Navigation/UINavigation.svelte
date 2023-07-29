@@ -6,6 +6,11 @@ import type { UINavigationGroupItem, UINavigationProps } from './types';
 export let props: UINavigationProps;
 export let closed: boolean;
 let firstItem: HTMLButtonElement | null = null;
+$: {
+  if (!closed && firstItem) {
+    firstItem.focus();
+  }
+}
 
 const keydownListener = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
@@ -14,10 +19,6 @@ const keydownListener = (e: KeyboardEvent) => {
 
   if (e.key.toLowerCase() === 'm') {
     closed = !closed;
-
-    if (closed === false && firstItem) {
-      firstItem.focus();
-    }
   }
 };
 
