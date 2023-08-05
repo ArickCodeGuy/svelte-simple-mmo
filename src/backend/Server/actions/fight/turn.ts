@@ -1,4 +1,3 @@
-import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 import type { ServerController } from '../..';
 
 export const useFightTurn =

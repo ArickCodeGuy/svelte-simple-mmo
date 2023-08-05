@@ -7,6 +7,7 @@ export const livingToFightLogMember = (
 ): FightLogMember => ({
   id: living.id,
   name: living.name,
+  pfp: living.pfp,
   lvl: living.lvl,
   currentHealth: living.health.current,
   health: living.health.max,

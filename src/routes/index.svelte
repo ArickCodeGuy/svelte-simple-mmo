@@ -1,15 +1,9 @@
 <script lang="ts">
 import Map from '@/components/Map/Map.svelte';
 import CellInfo from '@/components/CellInfo.svelte';
-import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import FightInstance from '@/components/FightInstance/FightInstance.svelte';
-import type { LivingStats } from '@/backend/Controllers/Livings/types';
-import { Server } from '@/backend';
-import { showItemInfoModal } from '@/modal/components/ItemInfoModal/show';
-import type { ItemType } from '@/backend/Controllers/Items/types';
-import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));

@@ -11,7 +11,7 @@ globalInfoState.subscribe((v) => (globalInfo = v));
  * if itemType is undefined will show full inventory
  */
 export const showItemInfoModal = (itemType: ItemType | undefined) => {
-  modalState.update((v) => ({
+  modalState.update(() => ({
     component: ItemInfoModal,
     componentProps: {
       itemType,

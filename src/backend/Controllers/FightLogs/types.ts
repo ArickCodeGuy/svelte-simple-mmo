@@ -10,6 +10,7 @@ export type FightLog = {
 export type FightLogMember = {
   id: number;
   name: string;
+  pfp: string;
   lvl: number;
   currentHealth: number;
   health: number;

@@ -147,7 +147,6 @@ export class LivingsController extends BaseController<Living> {
 
     if (previousPosition) {
       const p = previousPosition;
-      let arr = lp[p.mapId]![p.y]![p.x]!;
       lp[p.mapId]![p.y]![p.x]! = lp[p.mapId]![p.y]![p.x]!.filter(
         (i) => i !== id
       );

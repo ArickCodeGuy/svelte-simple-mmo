@@ -5,7 +5,6 @@ import type { Item } from '../Controllers/Items/types';
 import type {
   Living,
   LivingEquipmentType,
-  MapLivingsPositions,
   NearbyLivings,
 } from '../Controllers/Livings/types';
 import type { MapInfo } from '../Controllers/Maps/types';

@@ -20,6 +20,7 @@ export class ItemsController extends BaseController<Item> {
   }
 
   // @@TODO: fix
+  // @ts-ignore
   add(proto: ItemProto, playerId: number) {
     const item = super.add({
       ...itemProtoToItem(proto),
@@ -46,6 +47,7 @@ export class ItemsController extends BaseController<Item> {
     super.replace(id, item);
   }
 
+  // @ts-ignore
   remove(id: number, playerId: number) {
     this.#playerItems[playerId] = this.#playerItems[playerId].filter(
       (i) => i !== id

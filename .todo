@@ -4,9 +4,10 @@
 - map buildings & actions
 - fight end log
 - localStorage progress
-- attacking
+- remove auto attacking
 - spell casting
 - spells
+- eslint
 
 ## Wait list
 

@@ -10,7 +10,7 @@ export const useIsMovable =
       if (!map.layout[position.y] || !map.layout[position.y][position.x]) {
         return false;
       }
-      return map.layout[position.y][position.x].type !== 'BLOCK';
+      return map.layout[position.y][position.x].typeId !== 3;
     } catch (e) {
       return false;
     }

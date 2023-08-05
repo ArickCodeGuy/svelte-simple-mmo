@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import UiIcon from '../Icon/UIIcon.svelte';
+import type { ValueOf } from '@/types/types';
 
 export let stats: LivingStats;
 export let isView: boolean = false;

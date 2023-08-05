@@ -1,4 +1,4 @@
-import type { LevelUp, LivingStats } from './types';
+import type { LevelUp } from './types';
 
 export const LIVING_LEVELS: LevelUp[] = [
   {

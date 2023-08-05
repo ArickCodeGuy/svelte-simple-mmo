@@ -1,4 +1,3 @@
-import { livingCurrentHealth } from '@/backend/Controllers/Livings/utils/livingCurrentHealth';
 import type { ServerController } from '../..';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
 import type { FightInstance } from '@/backend/Controllers/Fights/types';

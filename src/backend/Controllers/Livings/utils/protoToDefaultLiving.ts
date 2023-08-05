@@ -30,6 +30,7 @@ export const protoToDefaultLiving = (proto: LivingProto): Living => {
       y: 0,
       mapId: 0,
     },
+    pfp: proto.pfp,
   };
   living.health.max = calculateLivingMaxHealth(living);
   living.health.current = calculateLivingMaxHealth(living);

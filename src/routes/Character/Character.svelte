@@ -25,7 +25,7 @@ $: {
 $: inventoryItems = items.map((i) => itemToUIInventoryItemProps(i));
 
 const statsConfirm = (updatedStats: LivingStats) => {
-  globalInfoState.update((v) =>
+  globalInfoState.update(() =>
     Server.publicApi.updateStats(globalInfo.living.id, updatedStats)
   );
 };

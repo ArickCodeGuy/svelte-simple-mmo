@@ -44,10 +44,8 @@ export type Living = {
   respawn?: Position;
   /**
    * url to profile picture
-   *
-   * if not provided, then used default from proto
    */
-  pfp?: string;
+  pfp: string;
 };
 
 export type LivingDrop = {
