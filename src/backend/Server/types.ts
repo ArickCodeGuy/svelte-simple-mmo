@@ -35,7 +35,8 @@ export type Equipment = Partial<Record<LivingEquipmentType, BaseItem<Item>>>;
  * <FightInstance /> should work with ongoing fight and fight log
  * 
  * type FightMember = BaseItem<Living> & {
- *   isDead: boolean;
+ *   isAlive: boolean;
+ *   buffs?: BuffDebuff;
  * }
  * 
  * type Fight = {
