@@ -9,6 +9,7 @@ export type FightInstance = {
 export type TeamMember = {
   id: number;
   isAlive: boolean;
+  hasAttacked?: boolean;
   buffsAndDebuffs?: BuffDebuff;
 };
 

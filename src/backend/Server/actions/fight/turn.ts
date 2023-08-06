@@ -35,6 +35,11 @@ const useTeamTurn =
       const receiverId = fight.targets[member.id];
       const attackType = 0;
 
+      // Don't do auto attack if it's a player
+      if (serverController.livingsController.getById(member.id).protoId === 1) {
+        continue;
+      }
+      
       const log = serverController.fightActions.attack(
         member.id,
         fight.targets[member.id],
