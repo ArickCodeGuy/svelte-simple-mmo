@@ -42,7 +42,7 @@ $: enemies = sortedLivings.npc.map((i) => {
   const res = livingToUIActionButtonProps(i);
   res.actions?.push({
     f: () => {
-      Server.publicApi.initFight(globalInfo.living.id, i.id);
+      Server.publicApi.fight.init(globalInfo.living.id, i.id);
       globalInfoState.update((v) => Server.publicApi.getState(v.living.id)!);
     },
     icon: 'sword-cross',

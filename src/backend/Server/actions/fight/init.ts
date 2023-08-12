@@ -1,6 +1,9 @@
 import type { ServerController } from '../..';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
-import type { FightInstance } from '@/backend/Controllers/Fights/types';
+import type {
+  FightInstance,
+  TeamsMembers,
+} from '@/backend/Controllers/Fights/types';
 import { teamsToTargets } from '@/backend/Controllers/Fights/utils/teamsToTargets';
 import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 
@@ -19,10 +22,22 @@ export const useFightInit =
       turns: [],
     });
 
+    const members: TeamsMembers = [...teamOneIds, ...teamTwoIds].reduce(
+      (res, id) => ({
+        ...res,
+        [id]: {
+          id,
+          isAlive: true,
+        },
+      }),
+      {}
+    );
+
     const fightInstance: FightInstance = {
-      teamOne: teamOneIds.map((id) => ({ id, isAlive: true })),
-      teamTwo: teamTwoIds.map((id) => ({ id, isAlive: true })),
+      teamOne: teamOneIds,
+      teamTwo: teamTwoIds,
       targets: teamsToTargets(teamOneIds, teamTwoIds),
+      members,
       nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
       logId: fightLogInstance.id,
     };

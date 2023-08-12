@@ -11,12 +11,26 @@ import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/li
  */
 export const useFightAttack =
   (serverController: ServerController) =>
-  (
-    attackerId: number,
-    receiverId: number,
-    attackType: number
-  ): FightTurnAction => {
+  (attackerId: number, attackType: number): FightTurnAction => {
     const attacker = serverController.livingsController.getById(attackerId);
+
+    if (!attacker.fightInstanceId) {
+      throw new Error(
+        `Attacker: ${attacker.id} tryes to attack without fight instance id`
+      );
+    }
+
+    const fightInstance = serverController.fightController.getById(
+      attacker.fightInstanceId
+    );
+
+    if (fightInstance.members[attacker.id].hasAttacked) {
+      throw new Error(
+        `Attacker: ${attacker.id} tryes to attack more than allowed`
+      );
+    }
+
+    const receiverId = fightInstance.targets[attacker.id];
     const receiver = serverController.livingsController.getById(receiverId);
 
     let damage: number = 0;

@@ -1,10 +1,16 @@
 export type FightInstance = {
-  teamOne: TeamMember[];
-  teamTwo: TeamMember[];
+  teamOne: number[];
+  teamTwo: number[];
+  members: TeamsMembers;
   targets: Targets;
   nextTurn: number;
   logId: number;
 };
+
+/**
+ * [x: number as living.id]
+ */
+export type TeamsMembers = Record<number, TeamMember>;
 
 export type TeamMember = {
   id: number;
@@ -13,13 +19,8 @@ export type TeamMember = {
   buffsAndDebuffs?: BuffDebuff;
 };
 
-export type BuffDebuff = {
-  stun?: number;
-  poison?: {
-    dmg: number;
-    duration: number;
-  };
-};
+// @@TODO: finish
+export type BuffDebuff = unknown;
 
 /**
  * key is is attacker id, value is receiver id
