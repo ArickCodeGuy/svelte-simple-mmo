@@ -30,6 +30,6 @@ export type Targets = {
 };
 
 export type ComputedFightInstance = FightInstance & {
-  aliveTeamOne: TeamMember[];
-  aliveTeamTwo: TeamMember[];
+  aliveTeamOne: number[];
+  aliveTeamTwo: number[];
 };

@@ -5,7 +5,9 @@ export const itemProtoStatBonusToNumber = (
 ): number => {
   if (Array.isArray(bonus.value)) {
     const [min, max] = bonus.value;
-    const range = max - min;
+
+    // +1 because we use Math.floor which cuts max range by exactly 1
+    const range = max + 1 - min;
     return Math.floor(Math.random() * range) + min;
   }
   return bonus.value;

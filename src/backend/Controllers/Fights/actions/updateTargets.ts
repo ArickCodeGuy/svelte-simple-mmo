@@ -12,14 +12,14 @@ export const useUpdateTargets =
       ...instance.aliveTeamOne.reduce<Record<number, 'aliveTeamOne'>>(
         (res, i) => ({
           ...res,
-          [i.id]: 'aliveTeamOne',
+          [i]: 'aliveTeamOne',
         }),
         {}
       ),
       ...instance.aliveTeamTwo.reduce<Record<number, 'aliveTeamTwo'>>(
         (res, i) => ({
           ...res,
-          [i.id]: 'aliveTeamTwo',
+          [i]: 'aliveTeamTwo',
         }),
         {}
       ),

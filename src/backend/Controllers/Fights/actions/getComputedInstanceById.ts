@@ -7,7 +7,7 @@ export const useGetComputedInstanceById =
 
     return {
       ...instance,
-      aliveTeamOne: instance.teamOne.filter((i) => i.isAlive),
-      aliveTeamTwo: instance.teamTwo.filter((i) => i.isAlive),
+      aliveTeamOne: instance.teamOne.filter((i) => instance.members[i].isAlive),
+      aliveTeamTwo: instance.teamTwo.filter((i) => instance.members[i].isAlive),
     } as ComputedFightInstance;
   };
