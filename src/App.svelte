@@ -5,6 +5,7 @@ import Main from './routes/index.svelte';
 import Character from './routes/Character/Character.svelte';
 import FightLogs from './routes/FightLogs/FightLogs.svelte';
 import FightLogItem from './routes/FightLogs/FightLogItem.svelte';
+import Fight from './routes/Fight/Fight.svelte';
 </script>
 
 <Router basepath="/svelte-simple-mmo/">
@@ -13,5 +14,6 @@ import FightLogItem from './routes/FightLogs/FightLogItem.svelte';
     <Route path="/character"><Character /></Route>
     <Route path="/fight-logs"><FightLogs /></Route>
     <Route path="/fight-logs/:id"><FightLogItem /></Route>
+    <Route path="/fight/:id"><Fight /></Route>
   </Layout>
 </Router>

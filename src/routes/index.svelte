@@ -3,7 +3,7 @@ import Map from '@/components/Map/Map.svelte';
 import CellInfo from '@/components/CellInfo.svelte';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
-import FightInstance from '@/components/FightInstance/FightInstance.svelte';
+import FightInstance from '@/components/Fight/FightInstance/FightInstance.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));

@@ -2,7 +2,7 @@
 import type { FightLog as FightLogType } from '@/backend/Controllers/FightLogs/types';
 import type { FightEndModalProps } from './types';
 import { Server } from '@/backend';
-import FightLog from '@/components/FightLog/FightLog.svelte';
+import FightLog from '@/components/Fight/FightLog/FightLog.svelte';
 
 export let props: FightEndModalProps;
 

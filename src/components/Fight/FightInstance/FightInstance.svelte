@@ -79,6 +79,7 @@ $: fightTurns =
   }
 }
 .fight-log {
+  overflow-y: auto;
   margin-top: var(--column-gap);
   display: grid;
   gap: var(--column-gap);
