@@ -1,12 +1,28 @@
 <script lang="ts">
-import type { Living } from '@/backend/Controllers/Livings/types';
+import type { FightActionsProps } from './types';
 
-export let living: Living;
+export let props: FightActionsProps;
+
+$: hasSkills = Boolean(props.living?.skills.length);
+let isAbleToAttack = false;
+$: {
+  isAbleToAttack = false;
+  const livingId = props.living?.id;
+  if (!livingId) return;
+
+  isAbleToAttack = Boolean(
+    props.fight?.instance.members?.[livingId].hasAttacked
+  );
+}
 </script>
 
 <div class="buttons-container {$$restProps.class ?? ''}">
-  <button class="btn">Attack</button>
-  <button class="btn">Skills</button>
+  <button
+    class="btn"
+    disabled={isAbleToAttack}
+    on:click={() => props.action?.(0)}>Attack</button
+  >
+  <button class="btn" disabled={hasSkills}>Skills</button>
 </div>
 
 <style lang="scss">

@@ -9,6 +9,11 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 
 $: fightTurns =
   (globalInfo.fight && globalInfo.fight.log.turns.reverse()) || [];
+
+$: fightActionsProps = {
+  living: globalInfo.living,
+  fight: globalInfo.fight,
+};
 </script>
 
 <section class="section">
@@ -31,7 +36,7 @@ $: fightTurns =
             </div>
           {/each}
         </div>
-        <FightActions class="actions" living={globalInfo.living} />
+        <FightActions class="actions" props={fightActionsProps} />
       </div>
       <div class="col-lg-4 enemies">
         <!-- enemies -->
