@@ -8,11 +8,11 @@ let isAbleToAttack = false;
 $: {
   isAbleToAttack = false;
   const livingId = props.living?.id;
-  if (!livingId) return;
-
-  isAbleToAttack = Boolean(
-    props.fight?.instance.members?.[livingId].hasAttacked
-  );
+  if (livingId) {
+    isAbleToAttack = Boolean(
+      props.fight?.instance.members?.[livingId].hasAttacked
+    );
+  }
 }
 </script>
 
