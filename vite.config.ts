@@ -1,14 +1,14 @@
 import { resolve as pathResolve } from 'path';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
-import { BASE } from './src/constants/base';
+import { BASE_PATH } from './src/constants/base';
 
 const resolve = (path: string) => pathResolve(__dirname, path);
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte()],
-  base: BASE,
+  base: BASE_PATH,
   build: {
     rollupOptions: {
       // index for dev

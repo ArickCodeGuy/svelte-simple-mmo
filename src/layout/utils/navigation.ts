@@ -1,6 +1,5 @@
 import type { UINavigationGroup } from '@/components/UI/Navigation/types';
-import { BASE } from '@/constants/base';
-import { navigate } from 'svelte-routing';
+import { myNavigate } from '@/utils/myNavigate';
 
 export const navigation: UINavigationGroup[] = [
   {
@@ -9,13 +8,13 @@ export const navigation: UINavigationGroup[] = [
       {
         name: 'Main',
         action: () => {
-          navigate(BASE);
+          myNavigate('MAIN');
         },
       },
       {
         name: 'Character',
         action: () => {
-          navigate(`${BASE}/character`);
+          myNavigate('CHARACTER');
         },
       },
     ],
@@ -26,7 +25,7 @@ export const navigation: UINavigationGroup[] = [
       {
         name: 'Fight Logs',
         action: () => {
-          navigate(`${BASE}/fight-logs`);
+          myNavigate('FIGHT_LOGS');
         },
       },
     ],
