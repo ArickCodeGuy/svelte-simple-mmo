@@ -7,6 +7,7 @@ import { globalInfoState } from '@/store/player';
 import { livingsArrToNpcAndPlayers } from '@/utils/livingsArrToNpcAndPlayers';
 import { frontDictionaryState } from '@/store/dictionary';
 import type { Dictionary } from '@/types/types';
+import { myNavigate } from '@/utils/myNavigate';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -42,8 +43,20 @@ $: enemies = sortedLivings.npc.map((i) => {
   const res = livingToUIActionButtonProps(i);
   res.actions?.push({
     f: () => {
-      Server.publicApi.fight.init(globalInfo.living.id, i.id);
-      globalInfoState.update((v) => Server.publicApi.getState(v.living.id)!);
+      globalInfoState.update((v) => {
+        const newState = Server.publicApi.fight.init(
+          globalInfo.living.id,
+          i.id
+        );
+
+        myNavigate('FIGHT', {
+          params: {
+            id: globalInfo.fight?.instance.id || 0,
+          },
+        });
+
+        return newState;
+      });
     },
     icon: 'sword-cross',
   });

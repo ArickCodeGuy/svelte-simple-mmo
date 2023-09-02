@@ -12,16 +12,16 @@ export const useGetFightInfo =
     );
 
     const allyTeam =
-      fightInstance.teamOne.findIndex((i) => i.id === living.id) === -1
+      fightInstance.teamOne.findIndex((i) => i === living.id) === -1
         ? 'teamTwo'
         : 'teamOne';
     const enemyTeam = allyTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
     const teams = {
-      ally: fightInstance[allyTeam].map(
-        (i) => serverController.livingsController.getById(i.id)!
+      ally: fightInstance[allyTeam].map((i) =>
+        serverController.livingsController.getById(i)
       ),
-      enemy: fightInstance[enemyTeam].map(
-        (i) => serverController.livingsController.getById(i.id)!
+      enemy: fightInstance[enemyTeam].map((i) =>
+        serverController.livingsController.getById(i)
       ),
     };
 
