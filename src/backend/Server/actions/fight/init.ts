@@ -10,7 +10,7 @@ import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 export const useFightInit =
   (serverController: ServerController) =>
   (teamOneIds: number[], teamTwoIds: number[]) => {
-    console.log('INIT FIGHT');
+    import.meta.env.DEV && console.log('INIT FIGHT');
 
     const fightLogInstance = serverController.fightLogController.add({
       teamOne: teamOneIds.map((id) =>

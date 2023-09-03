@@ -68,8 +68,8 @@ export let props: UIPopupProps;
     position: relative;
     max-width: 100%;
     max-height: 100%;
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     overflow-y: scroll;
     background-color: var(--bgc);
     padding: 15px;
@@ -77,6 +77,8 @@ export let props: UIPopupProps;
     transition: 0.3s;
     @media (min-width: $breakpoint-lg) {
       padding: 40px;
+      width: 500px;
+      height: 500px;
     }
     &__close {
       position: absolute;

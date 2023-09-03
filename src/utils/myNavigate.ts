@@ -11,7 +11,6 @@ type Options = {
 
 export const myNavigate = (location: ROUTE_NAMES, options: Options = {}) => {
   let path = `${BASE_PATH}${ROUTE_NAMES_ENUM[location]}`;
-  console.log(path, options.params);
 
   if (options.params) {
     for (const param in options.params) {

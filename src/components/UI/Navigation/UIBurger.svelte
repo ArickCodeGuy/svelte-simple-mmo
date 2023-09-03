@@ -16,8 +16,8 @@ export let value: boolean;
 <style lang="scss">
 .UIBurger {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 2rem;
+  height: 2rem;
   border: 2px solid var(--contrast);
   cursor: pointer;
   display: flex;
@@ -25,18 +25,18 @@ export let value: boolean;
   justify-content: center;
   span {
     width: 75%;
-    height: 3px;
+    height: 2px;
     border-radius: 3px;
     background-color: var(--contrast);
     position: absolute;
     transition: 0.3s;
     &:nth-child(1) {
-      transform: translateY(-200%);
+      transform: translateY(-300%);
     }
     &:nth-child(2) {
     }
     &:nth-child(3) {
-      transform: translateY(200%);
+      transform: translateY(300%);
     }
   }
   &--toggled {

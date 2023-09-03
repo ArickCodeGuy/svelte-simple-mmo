@@ -16,17 +16,17 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 <section class="section main-page">
   <div class="container container--stretch">
     <div class="row">
-      <div class="col-lg-4" />
-      <div class="col-lg-4 main-col">
-        {#if globalInfo.fight}
-          <FightInstance />
-        {/if}
+      <div class="col-lg-4">
+        <!-- @@TODO: figure out what to put here -->
       </div>
-      <div class="col-lg-4 map-col">
+      <div class="col-lg-4 main-col">
         <div class="map-container">
           <Map />
         </div>
         <CellInfo />
+      </div>
+      <div class="col-lg-4 map-col">
+        <!-- @@TODO: figure out what to put here -->
       </div>
     </div>
   </div>

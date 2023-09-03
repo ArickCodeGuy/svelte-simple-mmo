@@ -29,7 +29,7 @@ header {
   display: flex;
   justify-content: space-between;
   background-color: rgba(var(--rgba-bgc), 0.3);
-  padding: 20px 0;
+  padding: 5px 0;
 }
 .container {
   &--header {

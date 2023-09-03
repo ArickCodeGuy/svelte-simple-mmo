@@ -9,6 +9,9 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 
 $: nextTurnTime = (globalInfo.fight && globalInfo.fight.instance.nextTurn) || 0;
 
+const endBarAnimation = () => {
+  cancelAnimationFrame(barElRequestAnimation);
+};
 let barElStyle: string;
 let barElRequestAnimation: number;
 const barAnimation = () => {
@@ -22,9 +25,6 @@ const barAnimation = () => {
   if (scaleX < 0) {
     endBarAnimation();
   }
-};
-const endBarAnimation = () => {
-  cancelAnimationFrame(barElRequestAnimation);
 };
 $: {
   if (nextTurnTime) {

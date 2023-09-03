@@ -2,7 +2,7 @@ import type { ServerController } from '../..';
 
 export const useFightTurn =
   (serverController: ServerController) => (fightInstanceId: number) => {
-    console.log('FIGHT TURN');
+    import.meta.env.DEV && console.log('FIGHT TURN');
     const teamTurn = useTeamTurn(serverController);
 
     try {
@@ -31,25 +31,23 @@ const useTeamTurn =
     const fight = serverController.fightController.getById(fightId);
 
     for (let i = 0; i < fight[team].length; i++) {
-      const member = fight[team][i];
-      const receiverId = fight.targets[member.id];
+      const attackerId = fight[team][i];
+      const receiverId = fight.targets[attackerId];
       const attackType = 0;
 
       // Don't do auto attack if it's a player
-      if (serverController.livingsController.getById(member.id).protoId === 1) {
+      if (
+        serverController.livingsController.getById(attackerId).protoId === 1
+      ) {
         continue;
       }
-      
-      const log = serverController.fightActions.attack(
-        member.id,
-        fight.targets[member.id],
-        attackType
-      );
+
+      const log = serverController.fightActions.attack(attackerId, attackType);
 
       serverController.fightLogActions.pushTurnAction(fight.logId, log);
 
       const receiverAfterAttack = serverController.livingsController.getById(
-        fight.targets[member.id]
+        fight.targets[attackerId]
       );
       if (receiverAfterAttack.health.current > 0) return;
 

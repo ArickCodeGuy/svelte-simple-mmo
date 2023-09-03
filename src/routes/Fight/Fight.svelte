@@ -1,4 +1,5 @@
 <script lang="ts">
+import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 import type { GlobalInfo } from '@/backend/Server/types';
 import FightActions from '@/components/Fight/FightActions/FightActions.svelte';
 import FightInstanceGroup from '@/components/Fight/FightInstance/FightInstanceGroup.svelte';
@@ -7,6 +8,32 @@ import { globalInfoState } from '@/store/player';
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
+$: nextTurnTime = (globalInfo.fight && globalInfo.fight.instance.nextTurn) || 0;
+
+const endBarAnimation = () => {
+  cancelAnimationFrame(barElRequestAnimation);
+};
+let barElStyle: string;
+let barElRequestAnimation: number;
+const barAnimation = () => {
+  barElRequestAnimation = window.requestAnimationFrame(barAnimation);
+  const percent =
+    1 - (nextTurnTime - new Date().getTime()) / FIGHT_TURN_TIMEOUT;
+  const scaleX = percent < 1 ? percent : 1;
+
+  barElStyle = `transform: scaleX(${scaleX})`;
+
+  if (scaleX < 0) {
+    endBarAnimation();
+  }
+};
+$: {
+  if (nextTurnTime) {
+    endBarAnimation();
+    barAnimation();
+  }
+}
+
 $: fightTurns =
   (globalInfo.fight && globalInfo.fight.log.turns.reverse()) || [];
 
@@ -14,17 +41,22 @@ $: fightActionsProps = {
   living: globalInfo.living,
   fight: globalInfo.fight,
 };
+
+$: allies = globalInfo.fight?.teams.ally || [];
+$: enemies = globalInfo.fight?.teams.enemy || [];
 </script>
 
 <section class="section">
   {#if globalInfo.fight}
     <div class="row">
       <div class="col-lg-4 allies">
-        <!-- allies -->
-        <FightInstanceGroup group={globalInfo.fight.teams.ally} />
+        <FightInstanceGroup group={allies} />
       </div>
       <div class="col-lg-4 logs-actions">
         <!-- logs -->
+        <div class="fight-time-bar">
+          <div class="fight-time-bar__inner" style={barElStyle} />
+        </div>
         <div class="fight-log">
           {#each fightTurns as logTurn}
             <div class="fight-log-turn">
@@ -39,8 +71,7 @@ $: fightActionsProps = {
         <FightActions class="actions" props={fightActionsProps} />
       </div>
       <div class="col-lg-4 enemies">
-        <!-- enemies -->
-        <FightInstanceGroup group={globalInfo.fight.teams.enemy} />
+        <FightInstanceGroup group={enemies} />
       </div>
     </div>
   {/if}
@@ -53,6 +84,20 @@ $: fightActionsProps = {
 
   .actions {
     margin-top: auto;
+  }
+}
+.fight-time-bar {
+  margin-bottom: 1em;
+  display: flex;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(var(--rgba-bgc), 0.5);
+  &__inner {
+    width: 100%;
+    height: 100%;
+    background-color: var(--contrast);
+    transform: scaleX(0);
+    transform-origin: left;
   }
 }
 </style>

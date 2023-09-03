@@ -4,7 +4,7 @@ import type { ServerController } from '../..';
 export const useFightEnd =
   (serverController: ServerController) =>
   (id: number, deadTeam: 'teamOne' | 'teamTwo') => {
-    console.log('END FIGHT');
+    import.meta.env.DEV && console.log('END FIGHT');
     const winnerTeam = deadTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
 
     const fightInstance = serverController.fightController.getById(id);
@@ -17,32 +17,32 @@ export const useFightEnd =
     );
     const expPerMember = Math.round(expOfDeadTeam / winners.length);
 
-    winners.forEach((i) =>
-      serverController.livingsController.updateExp(i.id, expPerMember)
+    winners.forEach((id) =>
+      serverController.livingsController.updateExp(id, expPerMember)
     );
 
-    loosers.forEach((i) => {
-      const items = serverController.livingActions.getDrops(i.id);
+    loosers.forEach((id) => {
+      const items = serverController.livingActions.getDrops(id);
       items.forEach((i) => {
         const winner = randomItemFromArray(winners);
 
         serverController.itemsController.update(i.id, (v) => ({
           ...v,
-          playerId: winner.id,
+          playerId: winner,
         }));
       });
     });
 
     members.forEach((member) => {
-      serverController.livingsController.update(member.id, (s) => {
+      serverController.livingsController.update(member, (s) => {
         const newState = { ...s };
         delete newState.fightInstanceId;
 
         return newState;
       });
 
-      if (!member.isAlive) {
-        serverController.respawn(member.id);
+      if (!fightInstance.members[member].isAlive) {
+        serverController.respawn(member);
       }
     });
 
