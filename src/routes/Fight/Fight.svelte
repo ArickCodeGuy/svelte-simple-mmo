@@ -1,4 +1,5 @@
 <script lang="ts">
+import { Server } from '@/backend';
 import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 import type { GlobalInfo } from '@/backend/Server/types';
 import FightActions from '@/components/Fight/FightActions/FightActions.svelte';
@@ -40,6 +41,11 @@ $: fightTurns =
 $: fightActionsProps = {
   living: globalInfo.living,
   fight: globalInfo.fight,
+  action: (skillType: number) => {
+    globalInfoState.update(() =>
+      Server.publicApi.fight.attack(globalInfo.living.id, skillType)
+    );
+  },
 };
 
 $: allies = globalInfo.fight?.teams.ally || [];
@@ -52,11 +58,12 @@ $: enemies = globalInfo.fight?.teams.enemy || [];
       <div class="col-lg-4 allies">
         <FightInstanceGroup group={allies} />
       </div>
-      <div class="col-lg-4 logs-actions">
+      <div class="col-lg-4 main">
         <!-- logs -->
         <div class="fight-time-bar">
           <div class="fight-time-bar__inner" style={barElStyle} />
         </div>
+        <FightActions class="actions" props={fightActionsProps} />
         <div class="fight-log">
           {#each fightTurns as logTurn}
             <div class="fight-log-turn">
@@ -68,7 +75,6 @@ $: enemies = globalInfo.fight?.teams.enemy || [];
             </div>
           {/each}
         </div>
-        <FightActions class="actions" props={fightActionsProps} />
       </div>
       <div class="col-lg-4 enemies">
         <FightInstanceGroup group={enemies} />
@@ -78,13 +84,9 @@ $: enemies = globalInfo.fight?.teams.enemy || [];
 </section>
 
 <style lang="scss">
-.logs-acitons {
-  display: flex;
-  flex-direction: column;
-
-  .actions {
-    margin-top: auto;
-  }
+.main {
+  display: grid;
+  grid-gap: var(--column-gutter);
 }
 .fight-time-bar {
   margin-bottom: 1em;

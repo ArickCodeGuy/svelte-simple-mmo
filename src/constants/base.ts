@@ -1,7 +1,7 @@
 export const BASE_PATH = '/svelte-simple-mmo';
 
 export enum ROUTE_NAMES_ENUM {
-  MAIN = '/',
+  MAIN = '',
   CHARACTER = '/character',
   FIGHT_LOGS = '/fight-logs',
   FIGHT_LOG = '/fight-logs/:id',
