@@ -3,14 +3,12 @@ import type { ServerController } from '../..';
 export const useFightTurn =
   (serverController: ServerController) => (fightInstanceId: number) => {
     import.meta.env.DEV && console.log('FIGHT TURN');
-    const teamTurn = useTeamTurn(serverController);
 
     try {
       const fight = serverController.fightController.getById(fightInstanceId);
       serverController.fightLogActions.pushTurn(fight.logId);
 
-      teamTurn('teamOne', fight.id);
-      teamTurn('teamTwo', fight.id);
+      teamTurn(serverController, fight.id);
 
       const newFightState = serverController.fightController.updateTimeout(
         fight.id
@@ -25,36 +23,32 @@ export const useFightTurn =
     }
   };
 
-const useTeamTurn =
-  (serverController: ServerController) =>
-  (team: 'teamOne' | 'teamTwo', fightId: number) => {
-    const fight = serverController.fightController.getById(fightId);
+const teamTurn = (serverController: ServerController, fightId: number) => {
+  const fight = serverController.fightController.getById(fightId);
 
-    for (let i = 0; i < fight[team].length; i++) {
-      const attackerId = fight[team][i];
-      const receiverId = fight.targets[attackerId];
-      const attackType = 0;
+  // @@TODO: randomize member turns
+  const members = Object.values(fight.members);
 
-      // Don't do auto attack if it's a player
-      if (
-        serverController.livingsController.getById(attackerId).protoId === 1
-      ) {
-        continue;
-      }
+  for (const member of members) {
+    const attacker = serverController.livingsController.getById(member.id);
+    // Don't do auto attack if it's a player
+    if (attacker.protoId === 1) continue;
 
-      const log = serverController.fightActions.attack(attackerId, attackType);
+    const attackerId = member.id;
+    const receiverId = fight.targets[attackerId];
+    const attackType = 0;
 
-      serverController.fightLogActions.pushTurnAction(fight.logId, log);
+    serverController.fightActions.attack(attackerId, attackType);
 
-      const receiverAfterAttack = serverController.livingsController.getById(
-        fight.targets[attackerId]
-      );
-      if (receiverAfterAttack.health.current > 0) return;
+    const receiverAfterAttack =
+      serverController.livingsController.getById(receiverId);
 
-      serverController.fightController.markAsDead(fight.id, receiverId);
-      const deadTeam = serverController.fightController.isOneTeamDead(fight.id);
-      if (deadTeam) {
-        serverController.fightActions.end(fight.id, deadTeam);
-      }
+    if (receiverAfterAttack.health.current > 0) continue;
+
+    serverController.fightController.markAsDead(fight.id, receiverId);
+    if (serverController.fightController.isOneTeamDead(fight.id)) {
+      serverController.fightActions.end(fight.id);
+      return;
     }
-  };
+  }
+};

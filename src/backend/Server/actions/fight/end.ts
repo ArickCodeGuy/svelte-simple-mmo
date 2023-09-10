@@ -2,12 +2,14 @@ import { randomItemFromArray } from '@/utils/randomItemFromArray';
 import type { ServerController } from '../..';
 
 export const useFightEnd =
-  (serverController: ServerController) =>
-  (id: number, deadTeam: 'teamOne' | 'teamTwo') => {
+  (serverController: ServerController) => (id: number) => {
     import.meta.env.DEV && console.log('END FIGHT');
-    const winnerTeam = deadTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
 
     const fightInstance = serverController.fightController.getById(id);
+
+    const winnerTeam = fightInstance.teamOne.length ? 'teamOne' : 'teamTwo';
+    const deadTeam = winnerTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
+
     const winners = fightInstance[winnerTeam];
     const loosers = fightInstance[deadTeam];
     const members = [...winners, ...loosers];

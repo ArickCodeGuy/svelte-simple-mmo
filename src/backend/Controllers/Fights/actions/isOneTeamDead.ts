@@ -1,9 +1,12 @@
 import { FightController } from '..';
 
 export const useIsOneTeamDead =
-  (fightController: FightController) => (fightInstanceId: number) => {
-    const instance = fightController.getComputedInstanceById(fightInstanceId);
+  (fightController: FightController) =>
+  (fightInstanceId: number): boolean => {
+    const instance = fightController.getById(fightInstanceId);
 
-    if (!instance.aliveTeamOne.length) return 'teamOne';
-    if (!instance.aliveTeamTwo.length) return 'teamTwo';
+    if (!instance.teamOne.length) return true;
+    if (!instance.teamTwo.length) return true;
+
+    return false;
   };

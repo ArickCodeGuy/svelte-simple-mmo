@@ -10,9 +10,9 @@ import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/li
  * attackType - is spell id. if attackType === 0 then it's a normal attack
  */
 export const useFightAttack =
-  (serverController: ServerController) =>
-  (attackerId: number, attackType: number): FightTurnAction => {
-    const attacker = serverController.livingsController.getById(attackerId);
+  (controller: ServerController) =>
+  (attackerId: number, attackType: number) => {
+    const attacker = controller.livingsController.getById(attackerId);
 
     if (!attacker.fightInstanceId) {
       throw new Error(
@@ -20,7 +20,7 @@ export const useFightAttack =
       );
     }
 
-    const fightInstance = serverController.fightController.getById(
+    const fightInstance = controller.fightController.getById(
       attacker.fightInstanceId
     );
 
@@ -31,12 +31,12 @@ export const useFightAttack =
     }
 
     const receiverId = fightInstance.targets[attacker.id];
-    const receiver = serverController.livingsController.getById(receiverId);
+    const receiver = controller.livingsController.getById(receiverId);
 
     let damage: number = 0;
     if (attackType === 0) {
       const attackerEquipment =
-        serverController.publicApi.items.equipment(attackerId);
+        controller.publicApi.items.equipment(attackerId);
       const attackerAttack = calculatePlayerAttack(attacker, {
         equipment: attackerEquipment,
       });
@@ -44,15 +44,16 @@ export const useFightAttack =
       damage = rantomizeAttack(attackerAttack);
     }
 
-    serverController.livingsController.updateCurrentHealth(
+    controller.livingsController.updateCurrentHealth(
       receiver.id,
       (v) => v - damage
     );
 
-    return {
+    const log: FightTurnAction = {
       attacker: livingToFightLogMember(attacker),
       receiver: livingToFightLogMember(receiver),
       damage,
       attackType,
     };
+    controller.fightLogActions.pushTurnAction(fightInstance.logId, log);
   };
