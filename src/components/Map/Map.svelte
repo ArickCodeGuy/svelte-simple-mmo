@@ -63,8 +63,10 @@ onMount(() => {
 
   gap: 2px;
   button {
-    width: 25px;
-    height: 25px;
+    display: inline-flex;
+    border-width: 0;
+    border-radius: 3px;
+    padding: 5px;
   }
 }
 </style>

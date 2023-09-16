@@ -1,5 +1,4 @@
 import { ServerController } from '..';
-import { useFightLeave } from '../actions/fight/leave';
 import { useGetLivingState } from './getLivingState';
 import { useTryDirectionalMove } from './tryDirectionalMove';
 import { useUpdateStats } from './updateStats';
@@ -16,7 +15,6 @@ export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
   updateStats: useUpdateStats(controller),
   getState: useGetLivingState(controller),
-  leaveFight: useFightLeave(controller),
   initFight: useInitFight(controller),
   createNewPlayer: useCreateNewPlayer(controller),
   dictionary: useDictionary(controller),

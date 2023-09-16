@@ -18,16 +18,15 @@ export const useFightTurn =
         serverController.fightActions.turn(fight.id);
       }, newFightState.nextTurn - new Date().getTime());
     } catch (e) {
-      // caused when teamTurn('teamTwo') is dead
-      // or fightTurn when fight is over
+      console.error(e);
     }
   };
 
 const teamTurn = (serverController: ServerController, fightId: number) => {
-  const fight = serverController.fightController.getById(fightId);
+  const fightInstance = serverController.fightController.getById(fightId);
 
   // @@TODO: randomize member turns
-  const members = Object.values(fight.members);
+  const members = Object.values(fightInstance.members);
 
   for (const member of members) {
     const attacker = serverController.livingsController.getById(member.id);
@@ -35,20 +34,11 @@ const teamTurn = (serverController: ServerController, fightId: number) => {
     if (attacker.protoId === 1) continue;
 
     const attackerId = member.id;
-    const receiverId = fight.targets[attackerId];
     const attackType = 0;
 
     serverController.fightActions.attack(attackerId, attackType);
 
-    const receiverAfterAttack =
-      serverController.livingsController.getById(receiverId);
-
-    if (receiverAfterAttack.health.current > 0) continue;
-
-    serverController.fightController.markAsDead(fight.id, receiverId);
-    if (serverController.fightController.isOneTeamDead(fight.id)) {
-      serverController.fightActions.end(fight.id);
+    if (serverController.fightController.isOneTeamDead(fightInstance.id))
       return;
-    }
   }
 };

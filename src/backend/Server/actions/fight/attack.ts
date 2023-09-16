@@ -49,6 +49,22 @@ export const useFightAttack =
       (v) => v - damage
     );
 
+    controller.fightController.update(fightInstance.id, (v) => {
+      const members = { ...v.members };
+      members[attackerId] = {
+        ...members[attackerId],
+        hasAttacked: true,
+      };
+
+      const newState = {
+        ...v,
+        members,
+      };
+
+      return newState;
+    });
+
+    // write log
     const log: FightTurnAction = {
       attacker: livingToFightLogMember(attacker),
       receiver: livingToFightLogMember(receiver),
@@ -56,4 +72,14 @@ export const useFightAttack =
       attackType,
     };
     controller.fightLogActions.pushTurnAction(fightInstance.logId, log);
+
+    const receiverAfterAttack =
+      controller.livingsController.getById(receiverId);
+    if (receiverAfterAttack.health.current <= 0) {
+      controller.fightController.markAsDead(fightInstance.id, receiverId);
+
+      if (controller.fightController.isOneTeamDead(fightInstance.id)) {
+        controller.fightActions.end(fightInstance.id);
+      }
+    }
   };

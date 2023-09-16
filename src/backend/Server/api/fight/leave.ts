@@ -1,6 +1,6 @@
 import { ServerController } from '../..';
 
-export const useFightLeave =
+export const useLeave =
   (serverController: ServerController) => (playerId: number) => {
     serverController.livingsController.update(playerId, (v) => {
       delete v.activity;

@@ -5,7 +5,7 @@ import FightEndModal from './FightEndModal.svelte';
 import type { FightEndModalProps } from './types';
 
 const leaveFight = () => {
-  globalInfoState.update((v) => Server.publicApi.leaveFight(v.living.id));
+  globalInfoState.update((v) => Server.publicApi.fight.leave(v.living.id));
   closePopup();
 };
 
