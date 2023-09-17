@@ -1,5 +1,11 @@
 export type FightInstance = {
+  /**
+   * alive team members
+   */
   teamOne: number[];
+  /**
+   * alive team members
+   */
   teamTwo: number[];
   members: TeamsMembers;
   targets: Targets;

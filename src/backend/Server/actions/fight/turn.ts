@@ -18,7 +18,7 @@ export const useFightTurn =
         serverController.fightActions.turn(fight.id);
       }, newFightState.nextTurn - new Date().getTime());
     } catch (e) {
-      console.error(e);
+      console.error('Fight turn: Fight is already over. Aborting...');
     }
   };
 
