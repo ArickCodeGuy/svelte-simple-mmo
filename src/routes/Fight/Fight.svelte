@@ -4,6 +4,7 @@ import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
 import type { GlobalInfo } from '@/backend/Server/types';
 import FightActions from '@/components/Fight/FightActions/FightActions.svelte';
 import FightInstanceGroup from '@/components/Fight/FightInstance/FightInstanceGroup.svelte';
+import FightLog from '@/components/Fight/FightLog/FightLog.svelte';
 import { globalInfoState } from '@/store/player';
 
 let globalInfo: GlobalInfo;
@@ -35,8 +36,7 @@ $: {
   }
 }
 
-$: fightTurns =
-  (globalInfo.fight && globalInfo.fight.log.turns.reverse()) || [];
+$: fightLog = globalInfo.fight && globalInfo.fight.log;
 
 $: fightActionsProps = {
   living: globalInfo.living,
@@ -64,17 +64,7 @@ $: enemies = globalInfo.fight?.teams.enemy || [];
           <div class="fight-time-bar__inner" style={barElStyle} />
         </div>
         <FightActions class="actions" props={fightActionsProps} />
-        <div class="fight-log">
-          {#each fightTurns as logTurn}
-            <div class="fight-log-turn">
-              {#each logTurn as logAction}
-                <div class="fight-log-action">
-                  {@html logAction}
-                </div>
-              {/each}
-            </div>
-          {/each}
-        </div>
+        <FightLog props={fightLog} />
       </div>
       <div class="col-lg-4 enemies">
         <FightInstanceGroup group={enemies} />

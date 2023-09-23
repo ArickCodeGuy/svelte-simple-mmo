@@ -6,11 +6,12 @@ export const useFightLogPushTurnAction =
   (serverController: ServerController) =>
   (fightLogId: number, fightAttack: FightTurnAction) => {
     serverController.fightLogController.update(fightLogId, (v) => {
-      let lastTurn = v.turns[v.turns.length - 1] || [];
+      const turnIndex = v.turns.length > 0 ? v.turns.length - 1 : 0;
+      let lastTurn = v.turns[turnIndex] || [];
       lastTurn = [...lastTurn, fightAttackToFightTurnLog(fightAttack)];
 
       const turns = [...v.turns];
-      turns[turns.length - 1] = lastTurn;
+      turns[turnIndex] = lastTurn;
 
       return {
         ...v,

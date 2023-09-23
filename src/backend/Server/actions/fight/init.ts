@@ -13,12 +13,16 @@ export const useFightInit =
     import.meta.env.DEV && console.log('INIT FIGHT');
 
     const fightLogInstance = serverController.fightLogController.add({
-      teamOne: teamOneIds.map((id) =>
-        livingToFightLogMember(serverController.livingsController.getById(id))
-      ),
-      teamTwo: teamOneIds.map((id) =>
-        livingToFightLogMember(serverController.livingsController.getById(id))
-      ),
+      teamOne: teamOneIds,
+      teamTwo: teamTwoIds,
+      members: [
+        ...teamOneIds.map((id) =>
+          livingToFightLogMember(serverController.livingsController.getById(id))
+        ),
+        ...teamOneIds.map((id) =>
+          livingToFightLogMember(serverController.livingsController.getById(id))
+        ),
+      ],
       turns: [],
     });
 
@@ -51,7 +55,7 @@ export const useFightInit =
         activity: 'FIGHT',
         fightInstanceId,
         fightLogs: member.fightLogs
-          ? [...member.fightLogs, fightLogInstance.id]
+          ? [fightLogInstance.id, ...member.fightLogs]
           : [fightLogInstance.id],
       }));
     });

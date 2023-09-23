@@ -8,7 +8,7 @@ const proto: LivingProto = {
   expGives: 10,
   stats: {
     health: 25,
-    attack: 1,
+    attack: 5,
   },
   drops: [
     {

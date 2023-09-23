@@ -1,6 +1,7 @@
 export type FightLog = {
-  teamOne: FightLogMember[];
-  teamTwo: FightLogMember[];
+  teamOne: number[];
+  teamTwo: number[];
+  members: Record<number, FightLogMember>;
   /**
    * each turn contains array of actions
    */

@@ -5,15 +5,17 @@ export let props: FightLogProps;
 </script>
 
 <div class="FightLogTurns">
-  {#each props.turns as logTurn}
-    <div class="FightLogTurn">
-      {#each logTurn as logAction}
-        <div class="FightLogAction">
-          {@html logAction}
-        </div>
-      {/each}
-    </div>
-  {/each}
+  {#if props?.turns}
+    {#each props.turns as logTurn}
+      <div class="FightLogTurn">
+        {#each logTurn as logAction}
+          <div class="FightLogAction">
+            {@html logAction}
+          </div>
+        {/each}
+      </div>
+    {/each}
+  {/if}
 </div>
 
 <style lang="scss">
