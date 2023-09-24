@@ -55,7 +55,7 @@ export const useFightInit =
         activity: 'FIGHT',
         fightInstanceId,
         fightLogs: member.fightLogs
-          ? [fightLogInstance.id, ...member.fightLogs]
+          ? [...member.fightLogs, fightLogInstance.id]
           : [fightLogInstance.id],
       }));
     });
