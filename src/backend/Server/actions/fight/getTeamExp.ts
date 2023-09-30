@@ -1,4 +1,3 @@
-import type { TeamMember } from '@/backend/Controllers/Fights/types';
 import { ServerController } from '../..';
 
 export const useGetTeamExp =

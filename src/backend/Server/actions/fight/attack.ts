@@ -5,6 +5,8 @@ import {
   rantomizeAttack,
 } from '../../utils/calculatePlayerAttack';
 import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
+import { getTarget } from '@/backend/Controllers/Fights/utils/getTarget';
+import type { TeamNames } from '@/backend/Controllers/Fights/types';
 
 /**
  * attackType - is spell id. if attackType === 0 then it's a normal attack
@@ -23,14 +25,23 @@ export const useFightAttack =
     const fightInstance = controller.fightController.getById(
       attacker.fightInstanceId
     );
+    const attackerTeam: TeamNames = fightInstance.teamOne.find(
+      (i) => i === attackerId
+    )
+      ? 'teamOne'
+      : 'teamTwo';
 
     if (fightInstance.members[attacker.id].hasAttacked) {
       throw new Error(
-        `Attacker: ${attacker.id} tryes to attack more than allowed`
+        `Attacker: ${attacker.id} tries to attack more than allowed`
       );
     }
 
-    const receiverId = fightInstance.targets[attacker.id];
+    const receiverId = getTarget(
+      fightInstance[attackerTeam],
+      fightInstance.members,
+      fightInstance.targets[attackerId]
+    );
     const receiver = controller.livingsController.getById(receiverId);
 
     let damage: number = 0;

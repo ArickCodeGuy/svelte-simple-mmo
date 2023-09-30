@@ -1,5 +1,6 @@
 import { randomItemFromArray } from '@/utils/randomItemFromArray';
 import type { ServerController } from '../..';
+import type { TeamNames } from '@/backend/Controllers/Fights/types';
 
 export const useFightEnd =
   (serverController: ServerController) => (id: number) => {
@@ -7,16 +8,17 @@ export const useFightEnd =
 
     const fightInstance = serverController.fightController.getById(id);
 
-    const winnerTeam = fightInstance.teamOne.length ? 'teamOne' : 'teamTwo';
-    const deadTeam = winnerTeam === 'teamOne' ? 'teamTwo' : 'teamOne';
+    const winnerTeamKey: TeamNames = fightInstance.teamOne.length
+      ? 'teamOne'
+      : 'teamTwo';
+    const deadTeamKey: TeamNames =
+      winnerTeamKey === 'teamOne' ? 'teamTwo' : 'teamOne';
 
-    const winners = fightInstance[winnerTeam];
-    const loosers = fightInstance[deadTeam];
+    const winners = fightInstance[winnerTeamKey];
+    const loosers = fightInstance[deadTeamKey];
     const members = [...winners, ...loosers];
 
-    const expOfDeadTeam = serverController.fightActions.getTeamExp(
-      fightInstance[deadTeam]
-    );
+    const expOfDeadTeam = serverController.fightActions.getTeamExp(loosers);
     const expPerMember = Math.round(expOfDeadTeam / winners.length);
 
     winners.forEach((id) =>

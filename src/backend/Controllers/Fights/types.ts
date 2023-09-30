@@ -1,17 +1,14 @@
 export type FightInstance = {
-  /**
-   * alive team members
-   */
-  teamOne: number[];
-  /**
-   * alive team members
-   */
-  teamTwo: number[];
   members: TeamsMembers;
   targets: Targets;
   nextTurn: number;
   logId: number;
+} & {
+  [x in TeamNames]: FightInstanceTeam;
 };
+
+export type TeamNames = 'teamOne' | 'teamTwo';
+export type FightInstanceTeam = number[];
 
 /**
  * [x: number as living.id]
@@ -36,6 +33,6 @@ export type Targets = {
 };
 
 export type ComputedFightInstance = FightInstance & {
-  aliveTeamOne: number[];
-  aliveTeamTwo: number[];
+  aliveTeamOne: FightInstanceTeam;
+  aliveTeamTwo: FightInstanceTeam;
 };

@@ -40,7 +40,7 @@ export const useFightInit =
     const fightInstance: FightInstance = {
       teamOne: teamOneIds,
       teamTwo: teamTwoIds,
-      targets: teamsToTargets(teamOneIds, teamTwoIds),
+      targets: teamsToTargets(teamOneIds, teamTwoIds, members),
       members,
       nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
       logId: fightLogInstance.id,

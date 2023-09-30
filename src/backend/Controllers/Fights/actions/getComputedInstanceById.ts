@@ -1,13 +1,15 @@
 import { FightController } from '..';
 import type { ComputedFightInstance } from '../types';
+import { getAliveTeamMembers } from '../utils/getAliveTeamMembers';
 
 export const useGetComputedInstanceById =
-  (fightController: FightController) => (fightInstanceId: number) => {
+  (fightController: FightController) =>
+  (fightInstanceId: number): ComputedFightInstance => {
     const instance = fightController.getById(fightInstanceId);
 
     return {
       ...instance,
-      aliveTeamOne: instance.teamOne.filter((i) => instance.members[i].isAlive),
-      aliveTeamTwo: instance.teamTwo.filter((i) => instance.members[i].isAlive),
+      aliveTeamOne: getAliveTeamMembers(instance.teamOne, instance.members),
+      aliveTeamTwo: getAliveTeamMembers(instance.teamTwo, instance.members),
     } as ComputedFightInstance;
   };
