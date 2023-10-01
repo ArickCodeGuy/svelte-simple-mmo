@@ -11,12 +11,12 @@ let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 $: nextTurnTime = (globalInfo.fight && globalInfo.fight.instance.nextTurn) || 0;
+let barElStyle: string;
+let barElRequestAnimation: number;
 
 const endBarAnimation = () => {
   cancelAnimationFrame(barElRequestAnimation);
 };
-let barElStyle: string;
-let barElRequestAnimation: number;
 const barAnimation = () => {
   barElRequestAnimation = window.requestAnimationFrame(barAnimation);
   const percent =

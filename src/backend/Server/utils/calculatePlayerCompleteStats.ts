@@ -17,7 +17,7 @@ export const calculatePlayerCompleteStats = (
   const equipmentStats = calculateEquipmentStats(equipment);
 
   (Object.entries(stats) as [keyof LivingCompleteStats, number][]).forEach(
-    ([key, value]) => {
+    ([key]) => {
       stats[key] = player.stats[key] + equipmentStats[key];
     }
   );

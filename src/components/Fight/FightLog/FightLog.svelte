@@ -10,7 +10,8 @@ export let props: FightLogProps;
       <div class="FightLogTurn">
         {#each logTurn as logAction}
           <div class="FightLogAction">
-            {@html logAction}
+            <!-- @@TODO: fix -->
+            {logAction}
           </div>
         {/each}
       </div>

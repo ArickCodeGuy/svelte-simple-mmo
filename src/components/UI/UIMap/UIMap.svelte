@@ -4,17 +4,15 @@ import type { UIMapCellProps, UIMapPosition, UIMapProps } from './types';
 import UiMapCell from './UIMapCell.svelte';
 type GridCell = UIMapCellProps | null;
 
+export let props: UIMapProps | undefined;
 let MapNode: Element;
 let map_size = 1;
-export let props: UIMapProps | undefined;
-
 $: range = props?.range || 2;
 $: diameter = range * 2 + 1;
 $: cell_size = Math.floor(map_size / diameter) - 1; // 1px gap
-$: grid = updateMap(diameter, props?.position);
 
 function updateMap(
-  _diameter: number = diameter,
+  _diameter: number,
   new_position?: UIMapPosition
 ): GridCell[][] {
   const new_grid: GridCell[][] = [];
@@ -32,6 +30,8 @@ function updateMap(
   }
   return new_grid;
 }
+
+$: grid = updateMap(diameter, props?.position);
 
 onMount(() => {
   map_size = MapNode.clientWidth;

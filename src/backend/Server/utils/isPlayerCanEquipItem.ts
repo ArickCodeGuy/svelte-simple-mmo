@@ -2,7 +2,7 @@ import type { Item } from '@/backend/Controllers/Items/types';
 import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipable';
 import type { Living } from '@/backend/Controllers/Livings/types';
 
-export const isPlayerCanEquipItem = (player: Living, item: Item): Boolean => {
+export const isPlayerCanEquipItem = (player: Living, item: Item): boolean => {
   if (!isItemEquipable(item)) return false;
 
   if (item.requirements) {

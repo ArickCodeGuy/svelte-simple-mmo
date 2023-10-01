@@ -3,6 +3,8 @@ import { onMount } from 'svelte';
 import UiIconButton from '../Icon/UIIconButton.svelte';
 import type { UIPopupProps } from './types';
 
+export let props: UIPopupProps;
+
 const bgClick = (e: MouseEvent) => {
   if (e.target !== e.currentTarget) return;
   props && props.close && props.close();
@@ -17,8 +19,6 @@ onMount(() => {
     document.removeEventListener('keydown', handleEsc);
   };
 });
-
-export let props: UIPopupProps;
 </script>
 
 <div

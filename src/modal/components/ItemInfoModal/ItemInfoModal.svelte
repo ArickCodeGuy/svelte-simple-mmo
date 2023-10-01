@@ -17,10 +17,17 @@ export let props: ItemInfoModalProps;
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
+$: equippedItem =
+  globalInfo.living?.equipment?.[props.itemType as keyof LivingEquipment];
+
 let items: BaseItem<Item>[] = [];
 $: {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 }
+
+const updateItems = () => {
+  items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
+};
 
 $: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
   ...itemToUIInventoryItemProps(item),
@@ -51,13 +58,6 @@ $: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
     },
   ],
 }));
-
-const updateItems = () => {
-  items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
-};
-
-$: equippedItem =
-  globalInfo.living?.equipment?.[props.itemType as keyof LivingEquipment];
 </script>
 
 <div class="InventoryItemContainer">

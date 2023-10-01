@@ -16,14 +16,14 @@ export const calculateEquipmentStats = (
 
   (
     Object.entries(equipment) as [keyof LivingEquipment, Item | undefined][]
-  ).forEach(([place, item]) => {
+  ).forEach(([_place, item]) => {
     if (!item) return;
 
     if (item.statsBonuses) {
       (
         Object.entries(item.statsBonuses) as [
           keyof LivingCompleteStats,
-          number
+          number,
         ][]
       ).forEach(([key, value]) => {
         stats[key] += value;

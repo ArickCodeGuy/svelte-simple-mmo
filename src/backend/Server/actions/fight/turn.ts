@@ -1,5 +1,26 @@
 import type { ServerController } from '../..';
 
+const teamTurn = (serverController: ServerController, fightId: number) => {
+  const fightInstance = serverController.fightController.getById(fightId);
+
+  // @@TODO: randomize member turns
+  const members = Object.values(fightInstance.members);
+
+  for (const member of members) {
+    const attacker = serverController.livingsController.getById(member.id);
+    // Don't do auto attack if it's a player
+    if (attacker.protoId === 1) continue;
+
+    const attackerId = member.id;
+    const attackType = 0;
+
+    serverController.fightActions.attack(attackerId, attackType);
+
+    if (serverController.fightController.isOneTeamDead(fightInstance.id))
+      return;
+  }
+};
+
 export const useFightTurn =
   (serverController: ServerController) => (fightInstanceId: number) => {
     import.meta.env.DEV && console.log('FIGHT TURN');
@@ -21,24 +42,3 @@ export const useFightTurn =
       console.error('Fight turn: Fight is already over. Aborting...');
     }
   };
-
-const teamTurn = (serverController: ServerController, fightId: number) => {
-  const fightInstance = serverController.fightController.getById(fightId);
-
-  // @@TODO: randomize member turns
-  const members = Object.values(fightInstance.members);
-
-  for (const member of members) {
-    const attacker = serverController.livingsController.getById(member.id);
-    // Don't do auto attack if it's a player
-    if (attacker.protoId === 1) continue;
-
-    const attackerId = member.id;
-    const attackType = 0;
-
-    serverController.fightActions.attack(attackerId, attackType);
-
-    if (serverController.fightController.isOneTeamDead(fightInstance.id))
-      return;
-  }
-};

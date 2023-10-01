@@ -80,7 +80,7 @@ export class LivingsController extends BaseController<Living> {
   update(
     id: number,
     updater:
-      | ((oldState: BaseItem<Living>) => BaseItem<Living>)
+      | ((_oldState: BaseItem<Living>) => BaseItem<Living>)
       | BaseItem<Living>
   ): BaseItem<Living> {
     const item = this.getById(id);

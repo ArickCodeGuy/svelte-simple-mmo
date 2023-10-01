@@ -6,7 +6,7 @@ import type { ValueOf } from '@/types/types';
 export let stats: LivingStats;
 export let isView: boolean = false;
 export let statPoints: number = 0;
-export let statsConfirm: (newStats: LivingStats) => void = () => undefined;
+export let statsConfirm: (_newStats: LivingStats) => void = () => undefined;
 
 const spentStats: LivingStats = {
   vitality: 0,
@@ -17,7 +17,7 @@ const spentStats: LivingStats = {
 };
 $: totalSpentStats = (
   Object.entries(spentStats) as [keyof LivingStats, ValueOf<LivingStats>][]
-).reduce((res, [k, v]) => res + v, 0);
+).reduce((res, [_k, v]) => res + v, 0);
 
 $: remainingStatPoints = statPoints - totalSpentStats;
 
@@ -91,8 +91,6 @@ const confirm = () => {
 
 <style lang="scss">
 .UICharacterStats {
-  &__points {
-  }
   &__confirm {
     margin-top: 20px;
   }

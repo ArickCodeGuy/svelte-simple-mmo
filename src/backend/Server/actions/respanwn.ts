@@ -3,17 +3,6 @@ import type { ServerController } from '..';
 import type { Living } from '@/backend/Controllers/Livings/types';
 import { DEFAULT_RESPAWN_POSITION } from '../constants';
 
-export const useRespawn =
-  (serverController: ServerController) => (id: number) => {
-    const living = serverController.livingsController.getById(id);
-
-    if (!living.protoId) {
-      respawnPlayer(serverController, living);
-      return;
-    }
-    respawnNPC(serverController, living);
-  };
-
 export const respawnNPC = (
   serverController: ServerController,
   living: BaseItem<Living>
@@ -38,3 +27,14 @@ export const respawnPlayer = (
     position: v.respawn ? { ...v.respawn } : DEFAULT_RESPAWN_POSITION,
   }));
 };
+
+export const useRespawn =
+  (serverController: ServerController) => (id: number) => {
+    const living = serverController.livingsController.getById(id);
+
+    if (!living.protoId) {
+      respawnPlayer(serverController, living);
+      return;
+    }
+    respawnNPC(serverController, living);
+  };
