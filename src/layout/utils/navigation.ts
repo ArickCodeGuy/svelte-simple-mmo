@@ -17,6 +17,12 @@ export const navigation: UINavigationGroup[] = [
           myNavigate('CHARACTER');
         },
       },
+      {
+        name: 'MapEdit',
+        action: () => {
+          myNavigate('MAP_EDIT');
+        },
+      },
     ],
   },
   {

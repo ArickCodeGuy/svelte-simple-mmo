@@ -10,7 +10,10 @@ export const useIsMovable =
       if (!map.layout[position.y] || !map.layout[position.y][position.x]) {
         return false;
       }
-      return map.layout[position.y][position.x].typeId !== 3;
+      const cellType = mapController.mapCellTypes.getById(
+        map.layout[position.y][position.x].typeId
+      );
+      return cellType.walkTime !== -1;
     } catch (e) {
       return false;
     }

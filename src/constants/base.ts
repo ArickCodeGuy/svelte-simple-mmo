@@ -6,6 +6,7 @@ export enum ROUTE_NAMES_ENUM {
   FIGHT_LOGS = '/fight-logs',
   FIGHT_LOG = '/fight-logs/:id',
   FIGHT = '/fight/:id',
+  MAP_EDIT = '/map-edit',
 }
 
 export type ROUTE_NAMES = keyof typeof ROUTE_NAMES_ENUM;

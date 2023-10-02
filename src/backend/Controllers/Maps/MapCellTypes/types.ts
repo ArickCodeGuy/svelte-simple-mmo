@@ -5,21 +5,17 @@ export type MapCellType = {
    */
   actions?: MapCellTypeAction[];
   /**
-   * color applied to cell on front
+   * Color applied to cell on front
    */
   color?: string;
   /**
-   * icon applied to cell on map
+   * Icon applied to cell on map
    */
   icon?: string;
   /**
-   * walk time in seconds to cell
+   * Walk time in seconds to cell. If equals to -1 then walking is blocked
    */
   walkTime?: number;
-  /**
-   * if true then walking to this is not allowed
-   */
-  blocked?: boolean;
 };
 
 export type MapCellTypeAction = {
