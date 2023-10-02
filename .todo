@@ -1,5 +1,7 @@
 # Relevance
 
+- draw map with canvas
+
 - map buildings & actions
 - localStorage progress
 - spell casting
@@ -8,11 +10,10 @@
 - watch logs
 - fight end log
 
-## Wait list
+# Wait list
 
 - better profile pictures
 - choose profile picture
-- draw map with canvas
 - make map fixed
 - map editor
 - more npc protos
