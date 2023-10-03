@@ -104,9 +104,10 @@ function render(position: Position, map: MazeMap, canvas: HTMLCanvasElement) {
     const cells = getCells(position, map, radius);
 
     cells.forEach((cell) => {
+      const isMiddle = cell.x === 0 && cell.y === 0;
       const cellPositionX = canvasMiddle + (cellSize + cellGap) * cell.x;
       const cellPositionY = canvasMiddle + (cellSize + cellGap) * cell.y;
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = isMiddle ? 'lightgreen' : 'white';
       ctx.fillRect(cellPositionX, cellPositionY, cellSize, cellSize);
     });
   }
