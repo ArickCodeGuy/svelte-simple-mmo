@@ -2,7 +2,7 @@
 export let value: boolean;
 </script>
 
-<div
+<button
   class="UIBurger"
   class:UIBurger--toggled={!value}
   on:keydown
@@ -11,10 +11,11 @@ export let value: boolean;
   <span />
   <span />
   <span />
-</div>
+</button>
 
 <style lang="scss">
 .UIBurger {
+  background-color: transparent;
   position: relative;
   width: 2rem;
   height: 2rem;

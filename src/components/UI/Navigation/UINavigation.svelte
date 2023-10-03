@@ -54,6 +54,7 @@ onMount(() => {
             {#each group.items as groupItem}
               <button
                 type="button"
+                tabindex={closed ? -1 : undefined}
                 class="navigation-group-item"
                 on:click={() => handleItemClick(groupItem)}
               >
