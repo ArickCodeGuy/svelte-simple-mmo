@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { UIActionButtonProps } from './types';
-import UiIconButton from '../Icon/UIIconButton.svelte';
+import UiIconButton from '../UIIcon/UIIconButton.svelte';
 
 export let props: UIActionButtonProps;
 </script>

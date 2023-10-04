@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import UiIconButton from '../Icon/UIIconButton.svelte';
+import UiIconButton from '../UIIcon/UIIconButton.svelte';
 import type { UIPopupProps } from './types';
 
 export let props: UIPopupProps;

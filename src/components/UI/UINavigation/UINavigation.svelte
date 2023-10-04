@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import UiIcon from '../Icon/UIIcon.svelte';
+import UiIcon from '../UIIcon/UIIcon.svelte';
 import type { UINavigationGroupItem, UINavigationProps } from './types';
 
 export let props: UINavigationProps;

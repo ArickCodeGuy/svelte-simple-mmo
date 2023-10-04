@@ -1,5 +1,5 @@
 <script lang="ts">
-import UiInventoryItem from '@/components/UI/InventoryItem/UIInventoryItem.svelte';
+import UiInventoryItem from '@/components/UI/UIInventoryItem/UIInventoryItem.svelte';
 import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
 import type { ItemInfoModalProps } from './types';
 import type { BaseItem } from '@/backend/Controllers/Base';
@@ -10,7 +10,7 @@ import { Server } from '@/backend';
 import type { LivingEquipment } from '@/backend/Controllers/Livings/types';
 import { closePopup } from '@/modal/store';
 import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipable';
-import type { UIInventoryItemProps } from '@/components/UI/InventoryItem/types';
+import type { UIInventoryItemProps } from '@/components/UI/UIInventoryItem/types';
 
 export let props: ItemInfoModalProps;
 

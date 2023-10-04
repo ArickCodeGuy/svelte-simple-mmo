@@ -1,5 +1,5 @@
 <script lang="ts">
-import UiIcon from '../Icon/UIIcon.svelte';
+import UiIcon from '../UIIcon/UIIcon.svelte';
 import type { UIMapCellProps } from './types';
 
 export let props: UIMapCellProps | null = null;

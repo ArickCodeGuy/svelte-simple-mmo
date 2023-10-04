@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
-import UiIcon from '../Icon/UIIcon.svelte';
+import UiIcon from '../UIIcon/UIIcon.svelte';
 import type { ValueOf } from '@/types/types';
 
 export let stats: LivingStats;
