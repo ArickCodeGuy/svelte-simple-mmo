@@ -1,6 +1,6 @@
 import { closePopup, modalState } from '../../store';
-import UiCharacter from '@/components/UI/Character/UICharacter.svelte';
-import type { UICharacterProps } from '@/components/UI/Character/types';
+import UiCharacter from '@/components/UI/UICharacter/UICharacter.svelte';
+import type { UICharacterProps } from '@/components/UI/UICharacter/types';
 
 export const showCharacterInfoPopup = (props: UICharacterProps) => {
   modalState.update(() => ({

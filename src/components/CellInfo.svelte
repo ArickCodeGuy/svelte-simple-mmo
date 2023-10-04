@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Server } from '@/backend';
-import UIActionButtonContainer from '@/components/UI/ActionButton/UIActionButtonContainer.svelte';
+import UIActionButtonContainer from '@/components/UI/UIActionButton/UIActionButtonContainer.svelte';
 import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';

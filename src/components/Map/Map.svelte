@@ -5,7 +5,7 @@ import { Server } from '@/backend';
 import { onMount } from 'svelte';
 import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
-import UiIcon from '../UI/Icon/UIIcon.svelte';
+import UiIcon from '../UI/UIIcon/UIIcon.svelte';
 import { globalInfoToUIMapProps } from './globalInfoToUIMapProps';
 
 let globalInfo: GlobalInfo;

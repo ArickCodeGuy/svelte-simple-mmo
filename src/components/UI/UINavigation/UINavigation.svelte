@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import UiIcon from '../Icon/UIIcon.svelte';
+import UiIcon from '../UIIcon/UIIcon.svelte';
 import type { UINavigationGroupItem, UINavigationProps } from './types';
 
 export let props: UINavigationProps;
@@ -54,6 +54,7 @@ onMount(() => {
             {#each group.items as groupItem}
               <button
                 type="button"
+                tabindex={closed ? -1 : undefined}
                 class="navigation-group-item"
                 on:click={() => handleItemClick(groupItem)}
               >
