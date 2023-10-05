@@ -4,7 +4,7 @@ import type { MazeMap } from '@/components/CanvasMap/types';
 import { genMap } from '@/components/CanvasMap/utils/genMap';
 import type { MazeRenderOptions } from '@/components/CanvasMap/utils/render';
 
-const maze: MazeMap = genMap(10, 20);
+const maze: MazeMap = genMap(3, 3);
 $: mazeJson = JSON.stringify(maze);
 
 let MazeOptions: MazeRenderOptions = {
@@ -13,6 +13,7 @@ let MazeOptions: MazeRenderOptions = {
     x: 0,
     y: 0,
   },
+  radius: -1,
 };
 </script>
 
