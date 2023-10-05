@@ -7,6 +7,7 @@ import {
   DEFAULT_MAZE_RENDER_OPTIONS,
 } from './utils/render';
 import type { MazeMap } from './types';
+import { useRenderOptions } from './utils/useRenderOptions';
 // import { addEventHandlers } from './handlers';
 
 let canvas: HTMLCanvasElement;
@@ -69,23 +70,11 @@ const handleMousedown = (e: MouseEvent) => {
 
 const handleClick = (e: MouseEvent) => {
   e.preventDefault();
-  if (!options.position || !maze) return;
+  if (!maze) return;
   console.log(e);
 
-  const translate = options.translate || useDefaultMazePosition();
-  const scale = options.scale || DEFAULT_MAZE_RENDER_OPTIONS.scale;
-  const cellSize =
-    (options.cellSize || DEFAULT_MAZE_RENDER_OPTIONS.cellSize) * scale;
-  const cellGap =
-    (options.cellGap || DEFAULT_MAZE_RENDER_OPTIONS.cellGap) * scale;
-  const unitSize = cellSize + cellGap;
-  const size = options.size || DEFAULT_MAZE_RENDER_OPTIONS.size;
-
-  const cellMiddle = cellSize / 2;
-  const canvasMiddle = size / 2;
-  const middleCellPosition = canvasMiddle - cellMiddle;
-  const middleCellPositionX = middleCellPosition + translate.x;
-  const middleCellPositionY = middleCellPosition + translate.y;
+  const { unitSize, middleCellPositionX, middleCellPositionY } =
+    useRenderOptions(options);
 
   const clickedCellPositionX = Math.floor(
     (-middleCellPositionX + e.offsetX) / unitSize
@@ -99,6 +88,10 @@ const handleClick = (e: MouseEvent) => {
     clickedCellPositionX,
     clickedCellPositionY
   );
+  options.selectedCell = {
+    x: clickedCellPositionX,
+    y: clickedCellPositionY,
+  };
 };
 
 onMount(() => {
@@ -106,12 +99,12 @@ onMount(() => {
 
   canvas.addEventListener('wheel', handleScroll);
   canvas.addEventListener('mousedown', handleMousedown);
-  canvas.addEventListener('click', handleClick);
+  canvas.addEventListener('dblclick', handleClick);
 
   return () => {
     canvas.removeEventListener('wheel', handleScroll);
     canvas.addEventListener('mousedown', handleMousedown);
-    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('dblclick', handleClick);
   };
 });
 </script>

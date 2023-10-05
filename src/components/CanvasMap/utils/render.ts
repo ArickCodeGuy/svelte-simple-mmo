@@ -1,5 +1,6 @@
 import type { MazeMap, MazePosition } from '../types';
 import { getCells } from './getCells';
+import { useRenderOptions } from './useRenderOptions';
 
 export type MazeCellRenderOptions = {
   color?: string;
@@ -18,6 +19,7 @@ export type MazeRenderOptions = {
    * Player position. `radius` is based on this value. `position` is painted in green color
    */
   position?: MazePosition;
+  selectedCell?: MazePosition | null;
   /**
    * Translate from position in pixels
    */
@@ -50,6 +52,7 @@ export const DEFAULT_MAZE_RENDER_OPTIONS: Required<MazeRenderOptions> = {
   translate: useDefaultMazePosition(),
   radius: 2,
   scale: 1,
+  selectedCell: null,
 };
 
 export function render(
@@ -57,24 +60,16 @@ export function render(
   canvas: HTMLCanvasElement,
   options: MazeRenderOptions = {}
 ) {
-  const scale = options.scale || DEFAULT_MAZE_RENDER_OPTIONS.scale;
-  const size = options.size || DEFAULT_MAZE_RENDER_OPTIONS.size;
-  const position: MazePosition =
-    options.position || DEFAULT_MAZE_RENDER_OPTIONS.position;
-  const translate: MazePosition =
-    options.translate || DEFAULT_MAZE_RENDER_OPTIONS.translate;
-  const radius = options.radius || DEFAULT_MAZE_RENDER_OPTIONS.radius;
-  const cellSize =
-    (options.cellSize || DEFAULT_MAZE_RENDER_OPTIONS.cellSize) * scale;
-  const cellGap =
-    (options.cellGap || DEFAULT_MAZE_RENDER_OPTIONS.cellGap) * scale;
-  const unitSize = cellSize + cellGap;
-
-  const cellMiddle = cellSize / 2;
-  const canvasMiddle = size / 2;
-  const middleCellPosition = canvasMiddle - cellMiddle;
-  const middleCellPositionX = middleCellPosition + translate.x;
-  const middleCellPositionY = middleCellPosition + translate.y;
+  const {
+    middleCellPositionX,
+    middleCellPositionY,
+    radius,
+    position,
+    unitSize,
+    cellSize,
+    size,
+    selectedCell,
+  } = useRenderOptions(options);
 
   const ctx = canvas.getContext('2d')!;
 
@@ -96,9 +91,15 @@ export function render(
 
     cells.forEach((cell) => {
       const isMiddle = cell.x === position.x && cell.y === position.y;
+      const isSelected =
+        selectedCell && selectedCell.x === cell.x && selectedCell.y === cell.y;
       const cellPositionX = middleCellPositionX + unitSize * cell.x;
       const cellPositionY = middleCellPositionY + unitSize * -cell.y;
-      ctx.fillStyle = isMiddle ? 'lightgreen' : 'white';
+
+      ctx.fillStyle = 'white';
+      isMiddle ? (ctx.fillStyle = 'lightgreen') : null;
+      isSelected ? (ctx.fillStyle = 'blue') : null;
+
       ctx.fillRect(cellPositionX, cellPositionY, cellSize, cellSize);
     });
   }
