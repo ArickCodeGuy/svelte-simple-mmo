@@ -1,4 +1,4 @@
-import type { UIPopupProps } from '@/components/UI/Popup/types';
+import type { UIPopupProps } from '@/components/UI/UIPopup/types';
 import type { ModalProps } from '../types';
 
 export const modalPropsToUIPopupProps = (props: ModalProps): UIPopupProps => ({

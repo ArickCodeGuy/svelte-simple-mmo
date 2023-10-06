@@ -2,13 +2,14 @@
 import { onMount } from 'svelte';
 import {
   render as renderCanvas,
-  type MazeRenderOptions,
   useDefaultMazePosition,
   DEFAULT_MAZE_RENDER_OPTIONS,
 } from './utils/render';
-import type { MazeMap } from './types';
+import type { MazeMap, MazePosition, MazeRenderOptions } from './types';
 import { useRenderOptions } from './utils/useRenderOptions';
-// import { addEventHandlers } from './handlers';
+import { createEventDispatcher } from 'svelte';
+
+const dispatch = createEventDispatcher();
 
 let canvas: HTMLCanvasElement;
 export let maze: MazeMap | undefined;
@@ -68,10 +69,9 @@ const handleMousedown = (e: MouseEvent) => {
   );
 };
 
-const handleClick = (e: MouseEvent) => {
+const handleDoubleClick = (e: MouseEvent) => {
   e.preventDefault();
   if (!maze) return;
-  console.log(e);
 
   const { unitSize, middleCellPositionX, middleCellPositionY } =
     useRenderOptions(options);
@@ -83,15 +83,14 @@ const handleClick = (e: MouseEvent) => {
     (middleCellPositionY - e.offsetY) / unitSize
   );
 
-  console.log(
-    maze[`${clickedCellPositionX},${clickedCellPositionY}`],
-    clickedCellPositionX,
-    clickedCellPositionY
-  );
-  options.selectedCell = {
+  const pos: MazePosition = {
     x: clickedCellPositionX,
     y: clickedCellPositionY,
   };
+
+  options.selectedCell = pos;
+
+  dispatch('dblclick', pos);
 };
 
 onMount(() => {
@@ -99,12 +98,12 @@ onMount(() => {
 
   canvas.addEventListener('wheel', handleScroll);
   canvas.addEventListener('mousedown', handleMousedown);
-  canvas.addEventListener('dblclick', handleClick);
+  canvas.addEventListener('dblclick', handleDoubleClick);
 
   return () => {
     canvas.removeEventListener('wheel', handleScroll);
     canvas.addEventListener('mousedown', handleMousedown);
-    canvas.addEventListener('dblclick', handleClick);
+    canvas.addEventListener('dblclick', handleDoubleClick);
   };
 });
 </script>

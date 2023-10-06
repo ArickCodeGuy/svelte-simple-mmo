@@ -10,4 +10,4 @@ modalState.subscribe((v) => (modal = v));
 $: props = modalPropsToUIPopupProps(modal);
 </script>
 
-<UiPopup {props} />
+<UiPopup bind:props />

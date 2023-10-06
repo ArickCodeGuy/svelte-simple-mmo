@@ -1,8 +1,8 @@
 import type { MazeMap } from '../types';
 
-export function genMap(min: number, max: number): MazeMap {
+export function genMap(min: number, max: number = min): MazeMap {
   function getAllPossibleNewCellPositions(map: MazeMap): string[] {
-    const res: string[] = [];
+    const res = new Set<string>();
     for (const position in map) {
       const [sx, sy] = position.split(',');
       const [x, y] = [Number(sx), Number(sy)];
@@ -15,10 +15,10 @@ export function genMap(min: number, max: number): MazeMap {
       ];
 
       arr.forEach((i) => {
-        !map[i] && res.push(i);
+        !map[i] && res.add(i);
       });
     }
-    return res;
+    return [...res];
   }
 
   const cellAmount = min + Math.floor(Math.random() * (max - min));
