@@ -5,6 +5,7 @@ export type MazeMap = Record<string, MazeCell>;
 
 export type MazeCell = {
   typeId: number;
+  position: MazePosition;
 };
 
 export type MazePosition = {
@@ -14,7 +15,10 @@ export type MazePosition = {
 
 export type MazeCellRenderOptions = {
   color?: string;
+  icon?: string;
 };
+
+export type MazeCellTypeDictionary = Record<string, MazeCellRenderOptions>;
 
 export type MazeRenderOptions = {
   /**
@@ -41,5 +45,5 @@ export type MazeRenderOptions = {
    */
   scale?: number;
   // @@TODO
-  mazeCellTypeDictionary?: Record<number, MazeCellRenderOptions>;
+  mazeCellTypeDictionary?: MazeCellTypeDictionary;
 };

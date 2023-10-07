@@ -37,6 +37,7 @@ export function render(
     cellSize,
     size,
     selectedCell,
+    iconSize,
   } = useRenderOptions(options);
 
   const ctx = canvas.getContext('2d')!;
@@ -58,17 +59,37 @@ export function render(
     const cells = getCells(position, map, radius);
 
     cells.forEach((cell) => {
-      const isMiddle = cell.x === position.x && cell.y === position.y;
+      const isMiddle =
+        cell.position.x === position.x && cell.position.y === position.y;
       const isSelected =
-        selectedCell && selectedCell.x === cell.x && selectedCell.y === cell.y;
-      const cellPositionX = middleCellPositionX + unitSize * cell.x;
-      const cellPositionY = middleCellPositionY + unitSize * -cell.y;
+        selectedCell &&
+        selectedCell.x === cell.position.x &&
+        selectedCell.y === cell.position.y;
+      const cellPositionX = middleCellPositionX + unitSize * cell.position.x;
+      const cellPositionY = middleCellPositionY + unitSize * -cell.position.y;
 
-      ctx.fillStyle = 'white';
-      isMiddle ? (ctx.fillStyle = 'lightgreen') : null;
-      isSelected ? (ctx.fillStyle = 'blue') : null;
+      let color =
+        options.mazeCellTypeDictionary?.[cell.typeId]?.color ?? 'white';
+      const icon = options.mazeCellTypeDictionary?.[cell.typeId]?.icon;
+      icon ? (color = 'white') : null;
+      isMiddle ? (color = 'lightgreen') : null;
+      isSelected ? (color = 'blue') : null;
 
+      ctx.fillStyle = color;
       ctx.fillRect(cellPositionX, cellPositionY, cellSize, cellSize);
+
+      if (icon) {
+        ctx.font = `normal normal normal ${iconSize}px/1 "Material Design Icons"`;
+        ctx.fillStyle =
+          options.mazeCellTypeDictionary?.[cell.typeId]?.color ?? 'white';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(
+          icon,
+          cellPositionX + unitSize / 2,
+          cellPositionY + unitSize / 2
+        );
+      }
     });
   }
 

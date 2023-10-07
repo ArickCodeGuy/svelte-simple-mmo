@@ -1,5 +1,5 @@
-import type { MazePosition } from '../types';
-import { DEFAULT_MAZE_RENDER_OPTIONS, type MazeRenderOptions } from './render';
+import type { MazePosition, MazeRenderOptions } from '../types';
+import { DEFAULT_MAZE_RENDER_OPTIONS } from './render';
 
 export const useRenderOptions = (options: MazeRenderOptions = {}) => {
   const scale = options.scale || DEFAULT_MAZE_RENDER_OPTIONS.scale;
@@ -14,6 +14,7 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
     (options.cellSize || DEFAULT_MAZE_RENDER_OPTIONS.cellSize) * scale;
   const cellGap =
     (options.cellGap || DEFAULT_MAZE_RENDER_OPTIONS.cellGap) * scale;
+  const iconSize = Math.floor(cellSize * 1.3);
   const unitSize = cellSize + cellGap;
 
   const cellMiddle = cellSize / 2;
@@ -30,6 +31,7 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
     radius,
     cellSize,
     cellGap,
+    iconSize,
     unitSize,
     cellMiddle,
     canvasMiddle,

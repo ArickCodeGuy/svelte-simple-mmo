@@ -1,3 +1,4 @@
+import { randomItemFromArray } from '@/utils/randomItemFromArray';
 import type { MazeMap } from '../types';
 
 export function genMap(min: number, max: number = min): MazeMap {
@@ -25,15 +26,21 @@ export function genMap(min: number, max: number = min): MazeMap {
 
   const map: MazeMap = {
     '0,0': {
-      typeId: 0,
+      typeId: Math.floor(Math.random() * 4),
+      position: { x: 0, y: 0 },
     },
   };
 
   for (let i = 0; i < cellAmount; i++) {
     const possibleNewCells = getAllPossibleNewCellPositions(map);
-    const newCellPosition = Math.floor(Math.random() * possibleNewCells.length);
-    map[possibleNewCells[newCellPosition]] = {
-      typeId: 0,
+    const newCellPosition = randomItemFromArray(possibleNewCells);
+    const [x, y] = newCellPosition.split(',');
+    map[newCellPosition] = {
+      typeId: Math.floor(Math.random() * 4),
+      position: {
+        x: Number(x),
+        y: Number(y),
+      },
     };
   }
   return map;

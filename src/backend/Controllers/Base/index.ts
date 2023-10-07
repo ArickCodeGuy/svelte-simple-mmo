@@ -17,6 +17,9 @@ export class BaseController<T> {
   getState(): BaseItem<T>[] {
     return Object.values(this.#state);
   }
+  getRawState() {
+    return this.#state;
+  }
   getById(id: number) {
     const i = this.#state[id];
     if (!i) {

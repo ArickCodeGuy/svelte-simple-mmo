@@ -1,11 +1,11 @@
-import type { MazeMap, MazePosition } from '../types';
+import type { MazeCell, MazeMap, MazePosition } from '../types';
 
 function getCellsWithinRadius(
   position: MazePosition,
   map: MazeMap,
   radius: number
-): MazePosition[] {
-  const res: MazePosition[] = [];
+): MazeCell[] {
+  const res: MazeCell[] = [];
   const xMin = position.x - radius;
   const xMax = position.x + radius;
   const yMin = position.y - radius;
@@ -17,8 +17,8 @@ function getCellsWithinRadius(
       if (!map[pos]) continue;
 
       res.push({
-        x: i - position.x,
-        y: j - position.y,
+        typeId: map[pos].typeId,
+        position: { x: i - position.x, y: j - position.y },
       });
     }
   }
@@ -26,11 +26,14 @@ function getCellsWithinRadius(
   return res;
 }
 
-function getAllCells(map: MazeMap): MazePosition[] {
+function getAllCells(map: MazeMap): MazeCell[] {
   return Object.keys(map).map((cell) => {
     const [x, y] = cell.split(',');
 
-    return { x: Number(x), y: Number(y) };
+    return {
+      typeId: map[cell].typeId,
+      position: { x: Number(x), y: Number(y) },
+    };
   });
 }
 
@@ -38,7 +41,7 @@ export function getCells(
   position: MazePosition,
   map: MazeMap,
   radius: number
-): MazePosition[] {
+): MazeCell[] {
   if (radius !== -1) {
     return getCellsWithinRadius(position, map, radius);
   }

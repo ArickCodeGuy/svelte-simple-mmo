@@ -5,10 +5,12 @@ import type {
   MazePosition,
   MazeRenderOptions,
 } from '@/components/CanvasMap/types';
+import { frontDictionaryToMazeCellDictionary } from '@/components/CanvasMap/utils/frontDictionaryToMazeCellDictionary';
 import { genMap } from '@/components/CanvasMap/utils/genMap';
 import CellEditForm from '@/components/CellEditForm/CellEditForm.svelte';
 import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
+import { frontDictionaryState } from '@/store/dictionary';
 
 const maze: MazeMap = genMap(5);
 
@@ -20,6 +22,10 @@ let MazeOptions: MazeRenderOptions = {
   },
   radius: -1,
 };
+
+frontDictionaryState.subscribe((v) => {
+  MazeOptions.mazeCellTypeDictionary = frontDictionaryToMazeCellDictionary(v);
+});
 
 const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
   showModal({
@@ -36,6 +42,7 @@ const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
   <div class="container">
     <div class="row">
       <div class="col-6">
+        <div>{JSON.stringify(maze)}</div>
         <div>{JSON.stringify(MazeOptions)}</div>
       </div>
       <div class="col-6">
