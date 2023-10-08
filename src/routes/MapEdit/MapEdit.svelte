@@ -12,7 +12,7 @@ import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
 import { frontDictionaryState } from '@/store/dictionary';
 
-const maze: MazeMap = genMap(5);
+const maze: MazeMap = genMap(100);
 
 let MazeOptions: MazeRenderOptions = {
   cellSize: 10,

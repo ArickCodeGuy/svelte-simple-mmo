@@ -20,8 +20,10 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
   const cellMiddle = cellSize / 2;
   const canvasMiddle = size / 2;
   const middleCellPosition = canvasMiddle - cellMiddle;
-  const middleCellPositionX = middleCellPosition + translate.x;
-  const middleCellPositionY = middleCellPosition + translate.y;
+  const middleCellPositionX =
+    middleCellPosition + translate.x - unitSize * position.x;
+  const middleCellPositionY =
+    middleCellPosition + translate.y + unitSize * position.y;
 
   return {
     scale,

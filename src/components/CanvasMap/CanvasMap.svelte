@@ -8,6 +8,7 @@ import {
 import type { MazeMap, MazePosition, MazeRenderOptions } from './types';
 import { useRenderOptions } from './utils/useRenderOptions';
 import { createEventDispatcher } from 'svelte';
+import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 
 const dispatch = createEventDispatcher();
 
@@ -93,17 +94,37 @@ const handleDoubleClick = (e: MouseEvent) => {
   dispatch('dblclick', pos);
 };
 
+const handleKeyDown = (e: KeyboardEvent) => {
+  const direction = directionalMoveKeyDown(e);
+  if (!direction || !options.position) return;
+
+  if (direction === 'DOWN') {
+    options.position.y--;
+  }
+  if (direction === 'UP') {
+    options.position.y++;
+  }
+  if (direction === 'LEFT') {
+    options.position.x--;
+  }
+  if (direction === 'RIGHT') {
+    options.position.x++;
+  }
+};
+
 onMount(() => {
   tryRender();
 
   canvas.addEventListener('wheel', handleScroll);
   canvas.addEventListener('mousedown', handleMousedown);
   canvas.addEventListener('dblclick', handleDoubleClick);
+  window.addEventListener('keydown', handleKeyDown);
 
   return () => {
     canvas.removeEventListener('wheel', handleScroll);
     canvas.addEventListener('mousedown', handleMousedown);
     canvas.addEventListener('dblclick', handleDoubleClick);
+    window.removeEventListener('keydown', handleKeyDown);
   };
 });
 </script>

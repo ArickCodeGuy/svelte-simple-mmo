@@ -7,6 +7,7 @@ import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiIcon from '../UI/UIIcon/UIIcon.svelte';
 import { globalInfoToUIMapProps } from './globalInfoToUIMapProps';
+import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -19,14 +20,10 @@ $: props = globalInfoToUIMapProps(globalInfo);
 
 onMount(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key.toLowerCase() === 'w' || e.key === 'ArrowUp')
-      handleMoveClick('UP');
-    if (e.key.toLowerCase() === 'a' || e.key === 'ArrowLeft')
-      handleMoveClick('LEFT');
-    if (e.key.toLowerCase() === 's' || e.key === 'ArrowDown')
-      handleMoveClick('DOWN');
-    if (e.key.toLowerCase() === 'd' || e.key === 'ArrowRight')
-      handleMoveClick('RIGHT');
+    const direction = directionalMoveKeyDown(e);
+    if (!direction) return;
+
+    handleMoveClick(direction);
   };
   document.addEventListener('keydown', handleKeyDown);
   return () => document.removeEventListener('keydown', handleKeyDown);
