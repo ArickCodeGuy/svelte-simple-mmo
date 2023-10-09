@@ -8,6 +8,8 @@ import type {
 import { frontDictionaryToMazeCellDictionary } from '@/components/CanvasMap/utils/frontDictionaryToMazeCellDictionary';
 import { genMap } from '@/components/CanvasMap/utils/genMap';
 import CellEditForm from '@/components/CellEditForm/CellEditForm.svelte';
+import type { CellEditFormProps } from '@/components/CellEditForm/types';
+import UiIcon from '@/components/UI/UIIcon/UIIcon.svelte';
 import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
 import { frontDictionaryState } from '@/store/dictionary';
@@ -28,13 +30,35 @@ frontDictionaryState.subscribe((v) => {
 });
 
 const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
-  showModal({
+  const pos = `${event.detail.x},${event.detail.y}`;
+
+  const data = {
+    typeId: maze[pos]?.typeId || 0,
+    position: { ...event.detail },
+  };
+
+  showModal<CellEditFormProps>({
     title: 'Cell Edit',
     component: CellEditForm,
     componentProps: {
-      submit: () => closePopup(),
+      data,
+      submit: (cell) => {
+        maze[pos] = {
+          ...cell,
+        };
+        closePopup();
+      },
+      delete: () => {
+        // @@TODO re-render
+        delete maze[pos];
+        closePopup();
+      },
     },
   });
+};
+
+const copyMaze = () => {
+  navigator.clipboard.writeText(JSON.stringify(maze));
 };
 </script>
 
@@ -42,8 +66,7 @@ const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <div>{JSON.stringify(maze)}</div>
-        <div>{JSON.stringify(MazeOptions)}</div>
+        <!-- {JSON.stringify(maze)} -->
       </div>
       <div class="col-6">
         <div class="map">
@@ -52,6 +75,10 @@ const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
             bind:options={MazeOptions}
             on:dblclick={handleDoubleClick}
           />
+          <button class="btn" on:click={copyMaze}>
+            <UiIcon icon={'content-copy'} />
+            copy layout
+          </button>
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import type { MazeMap, MazePosition, MazeRenderOptions } from './types';
 import { useRenderOptions } from './utils/useRenderOptions';
 import { createEventDispatcher } from 'svelte';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
+import UiIconButton from '../UI/UIIcon/UIIconButton.svelte';
 
 const dispatch = createEventDispatcher();
 
@@ -89,8 +90,6 @@ const handleDoubleClick = (e: MouseEvent) => {
     y: clickedCellPositionY,
   };
 
-  options.selectedCell = pos;
-
   dispatch('dblclick', pos);
 };
 
@@ -112,6 +111,19 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 };
 
+const centerMap = () => {
+  if (!options.translate) return;
+
+  options.translate.x = 0;
+  options.translate.y = 0;
+};
+
+const resetZoom = () => {
+  if (!options.scale) return;
+
+  options.scale = 1;
+};
+
 onMount(() => {
   tryRender();
 
@@ -129,4 +141,27 @@ onMount(() => {
 });
 </script>
 
-<canvas bind:this={canvas} />
+<div class="CanvasMap">
+  <canvas bind:this={canvas} />
+  <div class="actions">
+    <UiIconButton icon="magnify" on:click={resetZoom} />
+    <UiIconButton
+      icon="image-filter-center-focus-strong-outline"
+      on:click={centerMap}
+    />
+  </div>
+</div>
+
+<style lang="scss">
+.CanvasMap {
+  display: inline-block;
+  position: relative;
+  .actions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+}
+</style>

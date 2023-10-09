@@ -4,7 +4,6 @@ import type { MazeCellTypeDictionary } from '../types';
 export const frontDictionaryToMazeCellDictionary = (
   dictionary: Dictionary
 ): MazeCellTypeDictionary => {
-  console.log(dictionary);
   const res: MazeCellTypeDictionary = {};
 
   const colors = dictionary.cellTypeColor;

@@ -20,7 +20,6 @@ export const DEFAULT_MAZE_RENDER_OPTIONS: Required<MazeRenderOptions> = {
   translate: useDefaultMazePosition(),
   radius: 2,
   scale: 1,
-  selectedCell: null,
 };
 
 export function render(
@@ -36,7 +35,6 @@ export function render(
     unitSize,
     cellSize,
     size,
-    selectedCell,
     iconSize,
   } = useRenderOptions(options);
 
@@ -61,10 +59,6 @@ export function render(
     cells.forEach((cell) => {
       const isMiddle =
         cell.position.x === position.x && cell.position.y === position.y;
-      const isSelected =
-        selectedCell &&
-        selectedCell.x === cell.position.x &&
-        selectedCell.y === cell.position.y;
       const cellPositionX = middleCellPositionX + unitSize * cell.position.x;
       const cellPositionY = middleCellPositionY + unitSize * -cell.position.y;
 
@@ -73,7 +67,6 @@ export function render(
       const icon = options.mazeCellTypeDictionary?.[cell.typeId]?.icon;
       icon ? (color = 'white') : null;
       isMiddle ? (color = 'lightgreen') : null;
-      isSelected ? (color = 'blue') : null;
 
       ctx.fillStyle = color;
       ctx.fillRect(cellPositionX, cellPositionY, cellSize, cellSize);

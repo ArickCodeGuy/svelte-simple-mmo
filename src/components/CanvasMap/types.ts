@@ -33,7 +33,6 @@ export type MazeRenderOptions = {
    * Player position. `radius` is based on this value. `position` is painted in green color
    */
   position?: MazePosition;
-  selectedCell?: MazePosition | null;
   /**
    * Translate from position in pixels
    */

@@ -122,6 +122,11 @@ body {
   }
 }
 
+button {
+  padding: 0;
+  border: none;
+}
+
 .section {
   display: block;
   margin: var(--section-margin) 0;

@@ -1,8 +1,8 @@
 import type { ComponentType } from 'svelte';
 
-export type ModalProps = {
+export type ModalProps<T = unknown> = {
   component?: ComponentType;
-  componentProps?: unknown;
+  componentProps?: T;
   close?: () => void;
   title?: string;
 } | null;
