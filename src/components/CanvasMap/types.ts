@@ -3,6 +3,8 @@
  */
 export type MazeMap = Record<string, MazeCell>;
 
+export type MazeRenderObjects = MazeCell[];
+
 export type MazeCell = {
   typeId: number;
   position: MazePosition;
@@ -25,10 +27,6 @@ export type MazeRenderOptions = {
    * Maze size on page in pixels
    */
   size?: number;
-  /**
-   * Render radius. if -1 then render whole map
-   */
-  radius?: number;
   /**
    * Player position. `radius` is based on this value. `position` is painted in green color
    */

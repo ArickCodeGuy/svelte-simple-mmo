@@ -31,6 +31,9 @@ onMount(() => {
       <div class="modal__close">
         <UiIconButton icon={'close'} on:click={props.close} />
       </div>
+      {#if props.title}
+        <div class="modal__props.">{props.title}</div>
+      {/if}
       {#if props.component}
         <svelte:component this={props.component} props={props.componentProps} />
       {/if}

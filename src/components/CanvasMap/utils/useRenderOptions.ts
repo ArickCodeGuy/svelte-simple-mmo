@@ -8,7 +8,6 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
     options.position || DEFAULT_MAZE_RENDER_OPTIONS.position;
   const translate: MazePosition =
     options.translate || DEFAULT_MAZE_RENDER_OPTIONS.translate;
-  const radius = options.radius || DEFAULT_MAZE_RENDER_OPTIONS.radius;
   const cellSize = Math.ceil(
     (options.cellSize || DEFAULT_MAZE_RENDER_OPTIONS.cellSize) * scale
   );
@@ -18,20 +17,20 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
   const iconSize = Math.floor(cellSize * 1.3);
   const unitSize = cellSize + cellGap;
 
-  const cellMiddle = cellSize / 2;
-  const canvasMiddle = size / 2;
+  const cellMiddle = Math.floor(cellSize / 2);
+  const canvasMiddle = Math.floor(size / 2);
   const middleCellPosition = canvasMiddle - cellMiddle;
   const middleCellPositionX =
     middleCellPosition + translate.x - unitSize * position.x;
   const middleCellPositionY =
     middleCellPosition + translate.y + unitSize * position.y;
+  const mazeCellTypeDictionary = options.mazeCellTypeDictionary || {};
 
   return {
     scale,
     size,
     position,
     translate,
-    radius,
     cellSize,
     cellGap,
     iconSize,
@@ -41,5 +40,6 @@ export const useRenderOptions = (options: MazeRenderOptions = {}) => {
     middleCellPosition,
     middleCellPositionX,
     middleCellPositionY,
+    mazeCellTypeDictionary,
   } as const;
 };

@@ -1,5 +1,9 @@
-import type { MazeMap, MazePosition, MazeRenderOptions } from '../types';
-import { getCells } from './getCells';
+import type {
+  MazeRenderObjects,
+  MazePosition,
+  MazeRenderOptions,
+} from '../types';
+import { renderCell } from './renderCell';
 import { useRenderOptions } from './useRenderOptions';
 
 export const DEFAULT_MAZE_POSITION: MazePosition = {
@@ -18,25 +22,15 @@ export const DEFAULT_MAZE_RENDER_OPTIONS: Required<MazeRenderOptions> = {
   mazeCellTypeDictionary: {},
   position: useDefaultMazePosition(),
   translate: useDefaultMazePosition(),
-  radius: 2,
   scale: 1,
 };
 
 export function render(
-  map: MazeMap,
+  map: MazeRenderObjects,
   canvas: HTMLCanvasElement,
-  options: MazeRenderOptions = {}
+  options: MazeRenderOptions
 ) {
-  const {
-    middleCellPositionX,
-    middleCellPositionY,
-    radius,
-    position,
-    unitSize,
-    cellSize,
-    size,
-    iconSize,
-  } = useRenderOptions(options);
+  const renderOptions = useRenderOptions(options);
 
   const ctx = canvas.getContext('2d')!;
 
@@ -49,43 +43,12 @@ export function render(
     ctx.canvas.height = size;
     clear(ctx, size);
   }
-  function addCells(
-    ctx: CanvasRenderingContext2D,
-    position: MazePosition,
-    map: MazeMap
-  ) {
-    const cells = getCells(position, map, radius);
-
-    cells.forEach((cell) => {
-      const isMiddle =
-        cell.position.x === position.x && cell.position.y === position.y;
-      const cellPositionX = middleCellPositionX + unitSize * cell.position.x;
-      const cellPositionY = middleCellPositionY + unitSize * -cell.position.y;
-
-      let color =
-        options.mazeCellTypeDictionary?.[cell.typeId]?.color ?? 'white';
-      const icon = options.mazeCellTypeDictionary?.[cell.typeId]?.icon;
-      icon ? (color = 'white') : null;
-      isMiddle ? (color = 'lightgreen') : null;
-
-      ctx.fillStyle = color;
-      ctx.fillRect(cellPositionX, cellPositionY, cellSize, cellSize);
-
-      if (icon) {
-        ctx.font = `normal normal normal ${iconSize}px/1 "Material Design Icons"`;
-        ctx.fillStyle =
-          options.mazeCellTypeDictionary?.[cell.typeId]?.color ?? 'white';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(
-          icon,
-          cellPositionX + unitSize / 2,
-          cellPositionY + unitSize / 2
-        );
-      }
+  function update(ctx: CanvasRenderingContext2D, map: MazeRenderObjects) {
+    map.forEach((cell) => {
+      renderCell(ctx, cell, renderOptions);
     });
   }
 
-  init(ctx, size);
-  addCells(ctx, position, map);
+  init(ctx, renderOptions.size);
+  update(ctx, map);
 }

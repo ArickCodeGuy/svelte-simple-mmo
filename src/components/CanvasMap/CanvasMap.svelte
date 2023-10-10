@@ -5,7 +5,11 @@ import {
   useDefaultMazePosition,
   DEFAULT_MAZE_RENDER_OPTIONS,
 } from './utils/render';
-import type { MazeMap, MazePosition, MazeRenderOptions } from './types';
+import type {
+  MazeRenderObjects,
+  MazePosition,
+  MazeRenderOptions,
+} from './types';
 import { useRenderOptions } from './utils/useRenderOptions';
 import { createEventDispatcher } from 'svelte';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
@@ -14,7 +18,7 @@ import UiIconButton from '../UI/UIIcon/UIIconButton.svelte';
 const dispatch = createEventDispatcher();
 
 let canvas: HTMLCanvasElement;
-export let maze: MazeMap | undefined;
+export let maze: MazeRenderObjects | undefined;
 export let options: MazeRenderOptions = {};
 
 const tryRender = () => {
@@ -95,20 +99,9 @@ const handleDoubleClick = (e: MouseEvent) => {
 
 const handleKeyDown = (e: KeyboardEvent) => {
   const direction = directionalMoveKeyDown(e);
-  if (!direction || !options.position) return;
+  if (!direction) return;
 
-  if (direction === 'DOWN') {
-    options.position.y--;
-  }
-  if (direction === 'UP') {
-    options.position.y++;
-  }
-  if (direction === 'LEFT') {
-    options.position.x--;
-  }
-  if (direction === 'RIGHT') {
-    options.position.x++;
-  }
+  dispatch('move', direction);
 };
 
 const centerMap = () => {
@@ -127,22 +120,21 @@ const resetZoom = () => {
 onMount(() => {
   tryRender();
 
-  canvas.addEventListener('wheel', handleScroll);
-  canvas.addEventListener('mousedown', handleMousedown);
-  canvas.addEventListener('dblclick', handleDoubleClick);
   window.addEventListener('keydown', handleKeyDown);
 
   return () => {
-    canvas.removeEventListener('wheel', handleScroll);
-    canvas.addEventListener('mousedown', handleMousedown);
-    canvas.addEventListener('dblclick', handleDoubleClick);
     window.removeEventListener('keydown', handleKeyDown);
   };
 });
 </script>
 
 <div class="CanvasMap">
-  <canvas bind:this={canvas} />
+  <canvas
+    bind:this={canvas}
+    on:dblclick={handleDoubleClick}
+    on:wheel={handleScroll}
+    on:mousedown={handleMousedown}
+  />
   <div class="actions">
     <UiIconButton icon="magnify" on:click={resetZoom} />
     <UiIconButton

@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import CanvasMap from '@/components/CanvasMap/CanvasMap.svelte';
 import type {
   MazeMap,
@@ -13,44 +14,49 @@ import UiIcon from '@/components/UI/UIIcon/UIIcon.svelte';
 import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
 import { frontDictionaryState } from '@/store/dictionary';
+import { mazeMapToRenderObjects } from './utils/mazeMapToRenderObjects';
 
-const maze: MazeMap = genMap(100);
+const map: MazeMap = genMap(100);
 
-let MazeOptions: MazeRenderOptions = {
+let mazeOptions: MazeRenderOptions = {
   cellSize: 10,
   position: {
     x: 0,
     y: 0,
   },
-  radius: -1,
 };
 
+$: maze = mazeMapToRenderObjects(map, {
+  radius: -1,
+  position: mazeOptions.position!,
+});
+
 frontDictionaryState.subscribe((v) => {
-  MazeOptions.mazeCellTypeDictionary = frontDictionaryToMazeCellDictionary(v);
+  mazeOptions.mazeCellTypeDictionary = frontDictionaryToMazeCellDictionary(v);
 });
 
 const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
   const pos = `${event.detail.x},${event.detail.y}`;
 
   const data = {
-    typeId: maze[pos]?.typeId || 0,
+    typeId: map[pos]?.typeId || 0,
     position: { ...event.detail },
   };
 
   showModal<CellEditFormProps>({
-    title: 'Cell Edit',
+    title: `Cell Edit: [${pos}]`,
     component: CellEditForm,
     componentProps: {
       data,
       submit: (cell) => {
-        maze[pos] = {
+        map[pos] = {
           ...cell,
         };
         closePopup();
       },
       delete: () => {
         // @@TODO re-render
-        delete maze[pos];
+        delete map[pos];
         closePopup();
       },
     },
@@ -59,6 +65,24 @@ const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
 
 const copyMaze = () => {
   navigator.clipboard.writeText(JSON.stringify(maze));
+};
+
+const handleMove = (e: CustomEvent<DirectionalMove>) => {
+  if (!mazeOptions.position) return;
+  const direction = e.detail;
+
+  if (direction === 'DOWN') {
+    mazeOptions.position.y--;
+  }
+  if (direction === 'UP') {
+    mazeOptions.position.y++;
+  }
+  if (direction === 'LEFT') {
+    mazeOptions.position.x--;
+  }
+  if (direction === 'RIGHT') {
+    mazeOptions.position.x++;
+  }
 };
 </script>
 
@@ -72,7 +96,8 @@ const copyMaze = () => {
         <div class="map">
           <CanvasMap
             {maze}
-            bind:options={MazeOptions}
+            bind:options={mazeOptions}
+            on:move={handleMove}
             on:dblclick={handleDoubleClick}
           />
           <button class="btn" on:click={copyMaze}>
