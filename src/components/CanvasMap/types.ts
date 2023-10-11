@@ -28,15 +28,9 @@ export type MazeRenderOptions = {
    */
   size?: number;
   /**
-   * Player position. `radius` is based on this value. `position` is painted in green color
-   */
-  position?: MazePosition;
-  /**
    * Translate from position in pixels
    */
   translate?: MazePosition;
-  cellSize?: number;
-  cellGap?: number;
   /**
    * Scale multiplier (zoom)
    */

@@ -5,14 +5,7 @@ export const useMazeCell = (
   cell: MazeCell,
   options: ReturnType<typeof useRenderOptions>
 ) => {
-  const isMiddle =
-    cell.position.x === options.position.x &&
-    cell.position.y === options.position.y;
-  const cellPositionX =
-    options.middleCellPositionX + options.unitSize * cell.position.x;
-  const cellPositionY =
-    options.middleCellPositionY + options.unitSize * -cell.position.y;
-  const iconFont = `normal normal normal ${options.iconSize}px/1 "Material Design Icons"`;
+  const isMiddle = cell.position.x === 0 && cell.position.y === 0;
   const iconFillStyle =
     options.mazeCellTypeDictionary?.[cell.typeId]?.color ?? 'white';
 
@@ -23,11 +16,8 @@ export const useMazeCell = (
 
   return {
     isMiddle,
-    cellPositionX,
-    cellPositionY,
     color,
     icon,
-    iconFont,
     iconFillStyle,
   };
 };

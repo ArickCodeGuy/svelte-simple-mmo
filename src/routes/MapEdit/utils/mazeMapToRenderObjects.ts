@@ -13,7 +13,14 @@ export const mazeMapToRenderObjects = (
   maze: MazeMap,
   options: Options
 ): MazeRenderObjects => {
-  if (options.radius === -1) return Object.values(maze);
+  if (options.radius === -1)
+    return Object.values(maze).map((cell) => ({
+      typeId: cell.typeId,
+      position: {
+        x: cell.position.x - options.position.x,
+        y: cell.position.y - options.position.y,
+      },
+    }));
 
   const res: MazeRenderObjects = [];
   const xMin = options.position.x - options.radius;
@@ -28,6 +35,7 @@ export const mazeMapToRenderObjects = (
 
       res.push({
         typeId: maze[pos].typeId,
+        // Relative position from center. Aka options.position
         position: { x: i - options.position.x, y: j - options.position.y },
       });
     }

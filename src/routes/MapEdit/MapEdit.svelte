@@ -1,5 +1,4 @@
 <script lang="ts">
-import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import CanvasMap from '@/components/CanvasMap/CanvasMap.svelte';
 import type {
   MazeMap,
@@ -15,20 +14,20 @@ import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
 import { frontDictionaryState } from '@/store/dictionary';
 import { mazeMapToRenderObjects } from './utils/mazeMapToRenderObjects';
+import { useDefaultMazePosition } from '@/components/CanvasMap/utils/render';
+import { onMount } from 'svelte';
+import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
+import { UNIT_SIZE } from '@/components/CanvasMap/constants';
 
-const map: MazeMap = genMap(100);
+const map: MazeMap = genMap(1);
 
-let mazeOptions: MazeRenderOptions = {
-  cellSize: 10,
-  position: {
-    x: 0,
-    y: 0,
-  },
-};
+let position: MazePosition = useDefaultMazePosition();
+
+let mazeOptions: MazeRenderOptions = {};
 
 $: maze = mazeMapToRenderObjects(map, {
   radius: -1,
-  position: mazeOptions.position!,
+  position: position,
 });
 
 frontDictionaryState.subscribe((v) => {
@@ -36,11 +35,14 @@ frontDictionaryState.subscribe((v) => {
 });
 
 const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
-  const pos = `${event.detail.x},${event.detail.y}`;
+  const x = Math.round(event.detail.x / UNIT_SIZE);
+  const y = -Math.round(event.detail.y / UNIT_SIZE);
+
+  const pos = `${x},${y}`;
 
   const data = {
     typeId: map[pos]?.typeId || 0,
-    position: { ...event.detail },
+    position: { x, y },
   };
 
   showModal<CellEditFormProps>({
@@ -67,37 +69,43 @@ const copyMaze = () => {
   navigator.clipboard.writeText(JSON.stringify(maze));
 };
 
-const handleMove = (e: CustomEvent<DirectionalMove>) => {
-  if (!mazeOptions.position) return;
-  const direction = e.detail;
+const handleKeyDown = (e: KeyboardEvent) => {
+  const direction = directionalMoveKeyDown(e);
 
   if (direction === 'DOWN') {
-    mazeOptions.position.y--;
+    position.y--;
   }
   if (direction === 'UP') {
-    mazeOptions.position.y++;
+    position.y++;
   }
   if (direction === 'LEFT') {
-    mazeOptions.position.x--;
+    position.x--;
   }
   if (direction === 'RIGHT') {
-    mazeOptions.position.x++;
+    position.x++;
   }
 };
+
+onMount(() => {
+  window.addEventListener('keydown', handleKeyDown);
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+});
 </script>
 
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <!-- {JSON.stringify(maze)} -->
+        {JSON.stringify(map)}
       </div>
       <div class="col-6">
         <div class="map">
           <CanvasMap
             {maze}
             bind:options={mazeOptions}
-            on:move={handleMove}
             on:dblclick={handleDoubleClick}
           />
           <button class="btn" on:click={copyMaze}>

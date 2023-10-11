@@ -5,15 +5,11 @@ import {
   useDefaultMazePosition,
   DEFAULT_MAZE_RENDER_OPTIONS,
 } from './utils/render';
-import type {
-  MazeRenderObjects,
-  MazePosition,
-  MazeRenderOptions,
-} from './types';
-import { useRenderOptions } from './utils/useRenderOptions';
+import type { MazeRenderObjects, MazeRenderOptions } from './types';
 import { createEventDispatcher } from 'svelte';
-import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 import UiIconButton from '../UI/UIIcon/UIIconButton.svelte';
+import { useRenderOptions } from './utils/useRenderOptions';
+import { getAbsolutePosition } from './utils/getAbsolutePosition';
 
 const dispatch = createEventDispatcher();
 
@@ -79,52 +75,31 @@ const handleDoubleClick = (e: MouseEvent) => {
   e.preventDefault();
   if (!maze) return;
 
-  const { unitSize, middleCellPositionX, middleCellPositionY } =
-    useRenderOptions(options);
-
-  const clickedCellPositionX = Math.floor(
-    (-middleCellPositionX + e.offsetX) / unitSize
+  const rOptions = useRenderOptions(options);
+  const pos = getAbsolutePosition(
+    {
+      x: e.offsetX,
+      y: e.offsetY,
+    },
+    rOptions
   );
-  const clickedCellPositionY = Math.ceil(
-    (middleCellPositionY - e.offsetY) / unitSize
-  );
-
-  const pos: MazePosition = {
-    x: clickedCellPositionX,
-    y: clickedCellPositionY,
-  };
 
   dispatch('dblclick', pos);
 };
 
-const handleKeyDown = (e: KeyboardEvent) => {
-  const direction = directionalMoveKeyDown(e);
-  if (!direction) return;
+const resetMap = () => {
+  if (options.scale) {
+    options.scale = 1;
+  }
 
-  dispatch('move', direction);
-};
-
-const centerMap = () => {
-  if (!options.translate) return;
-
-  options.translate.x = 0;
-  options.translate.y = 0;
-};
-
-const resetZoom = () => {
-  if (!options.scale) return;
-
-  options.scale = 1;
+  if (options.translate) {
+    options.translate.x = 0;
+    options.translate.y = 0;
+  }
 };
 
 onMount(() => {
   tryRender();
-
-  window.addEventListener('keydown', handleKeyDown);
-
-  return () => {
-    window.removeEventListener('keydown', handleKeyDown);
-  };
 });
 </script>
 
@@ -136,10 +111,9 @@ onMount(() => {
     on:mousedown={handleMousedown}
   />
   <div class="actions">
-    <UiIconButton icon="magnify" on:click={resetZoom} />
     <UiIconButton
       icon="image-filter-center-focus-strong-outline"
-      on:click={centerMap}
+      on:click={resetMap}
     />
   </div>
 </div>

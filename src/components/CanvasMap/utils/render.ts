@@ -17,10 +17,7 @@ export const useDefaultMazePosition = (): MazePosition => ({
 
 export const DEFAULT_MAZE_RENDER_OPTIONS: Required<MazeRenderOptions> = {
   size: 200,
-  cellGap: 1,
-  cellSize: 10,
   mazeCellTypeDictionary: {},
-  position: useDefaultMazePosition(),
   translate: useDefaultMazePosition(),
   scale: 1,
 };
