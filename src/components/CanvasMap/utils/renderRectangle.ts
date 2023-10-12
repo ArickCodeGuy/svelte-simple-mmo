@@ -19,7 +19,7 @@ export const renderRectangle = (
   const cellPositionX =
     relativeMiddleCellPositionX + relativeUnitSize * cell.position.x;
   const cellPositionY =
-    relativeMiddleCellPositionY - relativeUnitSize * cell.position.y;
+    relativeMiddleCellPositionY + relativeUnitSize * cell.position.y;
 
   ctx.fillStyle = cell.color;
   ctx.fillRect(

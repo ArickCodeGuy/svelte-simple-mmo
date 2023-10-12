@@ -12,8 +12,8 @@ export const useCreateNewPlayer =
       statPoints: 10,
       position: {
         mapId: 1,
-        x: 10,
-        y: 10,
+        x: 0,
+        y: 0,
       },
     };
 

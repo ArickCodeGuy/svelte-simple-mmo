@@ -1,38 +1,49 @@
 <script lang="ts">
-import UIMap from '@/components/UI/UIMap/UIMap.svelte';
 import { globalInfoState } from '@/store/player';
 import { Server } from '@/backend';
 import { onMount } from 'svelte';
 import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiIcon from '../UI/UIIcon/UIIcon.svelte';
-import { globalInfoToUIMapProps } from './globalInfoToUIMapProps';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
+import type { Dictionary } from '@/types/types';
+import { frontDictionaryState } from '@/store/dictionary';
+import CanvasMap from '../CanvasMap/CanvasMap.svelte';
+import { mazeMapToRenderObjects } from '@/routes/MapEdit/utils/mazeMapToRenderObjects';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
+
+let dictionary: Dictionary;
+frontDictionaryState.subscribe((v) => (dictionary = v));
+
+$: renderObjects =
+  globalInfo.map?.layout &&
+  mazeMapToRenderObjects(globalInfo.map.layout, {
+    position: globalInfo.living.position,
+    radius: -1,
+    colorDictionary: dictionary.cellTypeColor,
+    iconDictionary: dictionary.cellTypeIcon,
+  });
 
 const handleMoveClick = (direction: DirectionalMove) => {
   globalInfoState.update((v) => Server.publicApi.move(v.living.id, direction));
 };
 
-$: props = globalInfoToUIMapProps(globalInfo);
+const handleKeyDown = (e: KeyboardEvent) => {
+  const direction = directionalMoveKeyDown(e);
+  if (!direction) return;
+
+  handleMoveClick(direction);
+};
 
 onMount(() => {
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const direction = directionalMoveKeyDown(e);
-    if (!direction) return;
-
-    handleMoveClick(direction);
-  };
   document.addEventListener('keydown', handleKeyDown);
   return () => document.removeEventListener('keydown', handleKeyDown);
 });
 </script>
 
-{#if globalInfo && globalInfo.map}
-  <UIMap {props} />
-{/if}
+<CanvasMap {renderObjects} />
 <div class="buttons">
   <button on:click={() => handleMoveClick('UP')}
     ><UiIcon icon="arrow-up" /></button

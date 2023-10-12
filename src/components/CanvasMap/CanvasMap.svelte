@@ -14,19 +14,19 @@ import { getAbsolutePosition } from './utils/getAbsolutePosition';
 const dispatch = createEventDispatcher();
 
 let canvas: HTMLCanvasElement;
-export let maze: MazeRenderObjects | undefined;
-export let options: MazeRenderOptions = {};
+export let renderObjects: MazeRenderObjects | undefined;
+let options: MazeRenderOptions = {};
 
 const tryRender = () => {
-  if (maze && canvas) {
-    renderCanvas(maze, canvas, options);
+  if (renderObjects && canvas) {
+    renderCanvas(renderObjects, canvas, options);
   }
 };
 
 // @@TODO: wait svelte 5
 $: {
-  if (maze && canvas) {
-    renderCanvas(maze, canvas, options);
+  if (renderObjects && canvas) {
+    renderCanvas(renderObjects, canvas, options);
   }
 }
 
@@ -73,7 +73,7 @@ const handleMousedown = (e: MouseEvent) => {
 
 const handleDoubleClick = (e: MouseEvent) => {
   e.preventDefault();
-  if (!maze) return;
+  if (!renderObjects) return;
 
   const rOptions = useRenderOptions(options);
   const pos = getAbsolutePosition(

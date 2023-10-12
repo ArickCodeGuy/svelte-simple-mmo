@@ -20,10 +20,8 @@ const getCurrentCellName = (globalInfo: GlobalInfo, dictionary: Dictionary) => {
     return '';
   }
 
-  const cellTypeId =
-    globalInfo.map.layout[globalInfo.living.position.y][
-      globalInfo.living.position.x
-    ].typeId;
+  const pos = `${globalInfo.living.position.x},${globalInfo.living.position.y}`;
+  const cellTypeId = globalInfo.map.layout[pos].typeId;
 
   return dictionary['cellTypeName'][cellTypeId];
 };

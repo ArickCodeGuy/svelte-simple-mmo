@@ -1,21 +1,20 @@
 import type { MapInfo } from './types';
-import { createDefaultMap } from './maps/default';
 import { useIsMovable } from './actions/isMovable';
-import { useGetMapArea } from './actions/getMapArea';
 import { BaseController } from '../Base';
 import { MapCellTypesController } from './MapCellTypes';
+import { DEFAULT_MAP_INFO } from './maps/default';
 
 export class MapController extends BaseController<MapInfo> {
-  isMovable: ReturnType<typeof useIsMovable>;
-  getMapArea: ReturnType<typeof useGetMapArea>;
   mapCellTypes: MapCellTypesController;
+
+  isMovable: ReturnType<typeof useIsMovable>;
 
   constructor(tableName: string) {
     super(tableName);
-    this.isMovable = useIsMovable(this);
-    this.getMapArea = useGetMapArea(this);
     this.mapCellTypes = new MapCellTypesController(`${tableName}_CELL_TYPES`);
 
-    this.add(createDefaultMap());
+    this.isMovable = useIsMovable(this);
+
+    this.add(DEFAULT_MAP_INFO);
   }
 }

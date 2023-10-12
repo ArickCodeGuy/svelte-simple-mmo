@@ -1,4 +1,4 @@
-import { useCreateFromId } from './actions/createFromId';
+import { useCreateNpc } from './actions/createNpc';
 import { useCreateNewPlayer } from './actions/createNewPlayer';
 import { useDirectionalMove } from './actions/directionalMove';
 import { BaseController, type BaseItem } from '../Base';
@@ -19,7 +19,7 @@ export class LivingsController extends BaseController<Living> {
   #livingsPositions: LivingsPositions;
   livingsProtosController: LivingsProtosController;
 
-  createFromId: ReturnType<typeof useCreateFromId>;
+  createNpc: ReturnType<typeof useCreateNpc>;
   createNewPlayer: ReturnType<typeof useCreateNewPlayer>;
   directionalMove: ReturnType<typeof useDirectionalMove>;
   updateExp: ReturnType<typeof useUpdateExp>;
@@ -33,7 +33,7 @@ export class LivingsController extends BaseController<Living> {
       `${tableName}_PROTOS`
     );
 
-    this.createFromId = useCreateFromId(this);
+    this.createNpc = useCreateNpc(this);
     this.createNewPlayer = useCreateNewPlayer(this);
     this.directionalMove = useDirectionalMove(this);
     this.updateExp = useUpdateExp(this);

@@ -1,6 +1,6 @@
 <script lang="ts">
-import Map from '@/components/Map/Map.svelte';
 import CellInfo from '@/components/CellInfo.svelte';
+import Map from '@/components/Map/Map.svelte';
 </script>
 
 <svelte:head>

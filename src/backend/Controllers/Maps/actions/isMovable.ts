@@ -6,12 +6,13 @@ export const useIsMovable =
   (position: Position): boolean => {
     try {
       const map = mapController.getById(position.mapId);
+      const pos = `${position.x},${position.y}`;
 
-      if (!map.layout[position.y] || !map.layout[position.y][position.x]) {
+      if (!map.layout[pos]) {
         return false;
       }
       const cellType = mapController.mapCellTypes.getById(
-        map.layout[position.y][position.x].typeId
+        map.layout[pos].typeId
       );
       return cellType.walkTime !== -1;
     } catch (e) {

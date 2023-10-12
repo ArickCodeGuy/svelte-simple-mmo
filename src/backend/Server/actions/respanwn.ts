@@ -3,12 +3,12 @@ import type { ServerController } from '..';
 import type { Living } from '@/backend/Controllers/Livings/types';
 import { DEFAULT_RESPAWN_POSITION } from '../constants';
 
-export const respawnNPC = (
+export const respawnNpc = (
   serverController: ServerController,
   living: BaseItem<Living>
 ) => {
   serverController.livingsController.remove(living.id);
-  serverController.livingsController.createFromId(
+  serverController.livingsController.createNpc(
     living.protoId,
     living.position,
     living.mapArea
@@ -36,5 +36,5 @@ export const useRespawn =
       respawnPlayer(serverController, living);
       return;
     }
-    respawnNPC(serverController, living);
+    respawnNpc(serverController, living);
   };

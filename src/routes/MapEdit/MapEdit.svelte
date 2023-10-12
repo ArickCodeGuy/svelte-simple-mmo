@@ -1,10 +1,6 @@
 <script lang="ts">
 import CanvasMap from '@/components/CanvasMap/CanvasMap.svelte';
-import type {
-  MazeMap,
-  MazePosition,
-  MazeRenderOptions,
-} from '@/components/CanvasMap/types';
+import type { MazeMap, MazePosition } from '@/components/CanvasMap/types';
 import { genMap } from '@/components/CanvasMap/utils/genMap';
 import CellEditForm from '@/components/CellEditForm/CellEditForm.svelte';
 import type { CellEditFormProps } from '@/components/CellEditForm/types';
@@ -19,18 +15,16 @@ import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 import { UNIT_SIZE } from '@/components/CanvasMap/constants';
 import type { Dictionary } from '@/types/types';
 
-const map: MazeMap = genMap(1);
+const map: MazeMap = genMap(100);
 
 let position: MazePosition = useDefaultMazePosition();
-
-let mazeOptions: MazeRenderOptions = {};
 
 let dictionary: Dictionary;
 frontDictionaryState.subscribe((v) => {
   dictionary = v;
 });
 
-$: maze = mazeMapToRenderObjects(map, {
+$: renderObjects = mazeMapToRenderObjects(map, {
   radius: -1,
   position: position,
   colorDictionary: dictionary.cellTypeColor,
@@ -69,7 +63,7 @@ const handleDoubleClick = (event: CustomEvent<MazePosition>) => {
 };
 
 const copyMaze = () => {
-  navigator.clipboard.writeText(JSON.stringify(maze));
+  navigator.clipboard.writeText(JSON.stringify(map));
 };
 
 const handleKeyDown = (e: KeyboardEvent) => {
@@ -106,11 +100,7 @@ onMount(() => {
       </div>
       <div class="col-6">
         <div class="map">
-          <CanvasMap
-            {maze}
-            bind:options={mazeOptions}
-            on:dblclick={handleDoubleClick}
-          />
+          <CanvasMap {renderObjects} on:dblclick={handleDoubleClick} />
           <button class="btn" on:click={copyMaze}>
             <UiIcon icon={'content-copy'} />
             copy layout
