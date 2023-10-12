@@ -1,15 +1,12 @@
-import { CELL_SIZE, UNIT_SIZE } from '../constants';
-import type { MazeCell } from '../types';
-import { useMazeCell } from './useMazeCell';
+import { CELL_SIZE, ICON_SIZE, UNIT_SIZE } from '../constants';
+import type { MazeRectangle } from '../types';
 import type { useRenderOptions } from './useRenderOptions';
 
-export const renderCell = (
+export const renderRectangle = (
   ctx: CanvasRenderingContext2D,
-  cell: MazeCell,
+  cell: MazeRectangle,
   options: ReturnType<typeof useRenderOptions>
 ) => {
-  const ICON_SIZE = Math.floor(CELL_SIZE * 1.3);
-
   const cellRelativeSize = Math.ceil(CELL_SIZE * options.scale);
   const relativeIconSize = Math.floor(ICON_SIZE * options.scale);
   const relativeUnitSize = Math.ceil(UNIT_SIZE * options.scale);
@@ -24,9 +21,7 @@ export const renderCell = (
   const cellPositionY =
     relativeMiddleCellPositionY - relativeUnitSize * cell.position.y;
 
-  const mazeCell = useMazeCell(cell, options);
-
-  ctx.fillStyle = mazeCell.color;
+  ctx.fillStyle = cell.color;
   ctx.fillRect(
     cellPositionX,
     cellPositionY,
@@ -34,13 +29,13 @@ export const renderCell = (
     cellRelativeSize
   );
 
-  if (mazeCell.icon) {
+  if (cell.icon && cell.iconColor) {
     ctx.font = `normal normal normal ${relativeIconSize}px/1 "Material Design Icons"`;
-    ctx.fillStyle = mazeCell.iconFillStyle;
+    ctx.fillStyle = cell.iconColor;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(
-      mazeCell.icon,
+      cell.icon,
       cellPositionX + relativeUnitSize / 2,
       cellPositionY + relativeUnitSize / 2
     );

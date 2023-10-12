@@ -5,7 +5,6 @@ import type {
   MazePosition,
   MazeRenderOptions,
 } from '@/components/CanvasMap/types';
-import { frontDictionaryToMazeCellDictionary } from '@/components/CanvasMap/utils/frontDictionaryToMazeCellDictionary';
 import { genMap } from '@/components/CanvasMap/utils/genMap';
 import CellEditForm from '@/components/CellEditForm/CellEditForm.svelte';
 import type { CellEditFormProps } from '@/components/CellEditForm/types';
@@ -18,6 +17,7 @@ import { useDefaultMazePosition } from '@/components/CanvasMap/utils/render';
 import { onMount } from 'svelte';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 import { UNIT_SIZE } from '@/components/CanvasMap/constants';
+import type { Dictionary } from '@/types/types';
 
 const map: MazeMap = genMap(1);
 
@@ -25,13 +25,16 @@ let position: MazePosition = useDefaultMazePosition();
 
 let mazeOptions: MazeRenderOptions = {};
 
+let dictionary: Dictionary;
+frontDictionaryState.subscribe((v) => {
+  dictionary = v;
+});
+
 $: maze = mazeMapToRenderObjects(map, {
   radius: -1,
   position: position,
-});
-
-frontDictionaryState.subscribe((v) => {
-  mazeOptions.mazeCellTypeDictionary = frontDictionaryToMazeCellDictionary(v);
+  colorDictionary: dictionary.cellTypeColor,
+  iconDictionary: dictionary.cellTypeIcon,
 });
 
 const handleDoubleClick = (event: CustomEvent<MazePosition>) => {

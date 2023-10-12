@@ -3,10 +3,14 @@ import type {
   MazeRenderObjects,
   MazePosition,
 } from '@/components/CanvasMap/types';
+import type { DictionaryKey } from '@/types/types';
+import { mazeCellToRenderObject } from './mazeCellToRenderObject';
 
 type Options = {
   radius: number;
   position: MazePosition;
+  colorDictionary?: DictionaryKey;
+  iconDictionary?: DictionaryKey;
 };
 
 export const mazeMapToRenderObjects = (
@@ -14,13 +18,9 @@ export const mazeMapToRenderObjects = (
   options: Options
 ): MazeRenderObjects => {
   if (options.radius === -1)
-    return Object.values(maze).map((cell) => ({
-      typeId: cell.typeId,
-      position: {
-        x: cell.position.x - options.position.x,
-        y: cell.position.y - options.position.y,
-      },
-    }));
+    return Object.values(maze).map((cell) =>
+      mazeCellToRenderObject(cell, options)
+    );
 
   const res: MazeRenderObjects = [];
   const xMin = options.position.x - options.radius;
@@ -32,12 +32,9 @@ export const mazeMapToRenderObjects = (
     for (let j = yMin; j < yMax; j++) {
       const pos = `${i},${j}`;
       if (!maze[pos]) continue;
+      const cell = maze[pos];
 
-      res.push({
-        typeId: maze[pos].typeId,
-        // Relative position from center. Aka options.position
-        position: { x: i - options.position.x, y: j - options.position.y },
-      });
+      res.push(mazeCellToRenderObject(cell, options));
     }
   }
 

@@ -3,7 +3,7 @@ import type {
   MazePosition,
   MazeRenderOptions,
 } from '../types';
-import { renderCell } from './renderCell';
+import { renderRectangle } from './renderRectangle';
 import { useRenderOptions } from './useRenderOptions';
 
 export const DEFAULT_MAZE_POSITION: MazePosition = {
@@ -17,7 +17,6 @@ export const useDefaultMazePosition = (): MazePosition => ({
 
 export const DEFAULT_MAZE_RENDER_OPTIONS: Required<MazeRenderOptions> = {
   size: 200,
-  mazeCellTypeDictionary: {},
   translate: useDefaultMazePosition(),
   scale: 1,
 };
@@ -41,8 +40,10 @@ export function render(
     clear(ctx, size);
   }
   function update(ctx: CanvasRenderingContext2D, map: MazeRenderObjects) {
-    map.forEach((cell) => {
-      renderCell(ctx, cell, renderOptions);
+    map.forEach((obj) => {
+      if (obj.type === 'rectangle') {
+        renderRectangle(ctx, obj, renderOptions);
+      }
     });
   }
 

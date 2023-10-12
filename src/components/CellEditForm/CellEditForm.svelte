@@ -9,9 +9,6 @@ export let props: CellEditFormProps;
   class="CellEditForm"
   on:submit={() => (props.submit ? props.submit(props.data) : null)}
 >
-  <div class="heading">
-    Editing cell {props.data.position.x}/{props.data.position.y}
-  </div>
   <DictionarySelect
     bind:value={props.data.typeId}
     required

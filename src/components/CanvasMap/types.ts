@@ -3,8 +3,6 @@
  */
 export type MazeMap = Record<string, MazeCell>;
 
-export type MazeRenderObjects = MazeCell[];
-
 export type MazeCell = {
   typeId: number;
   position: MazePosition;
@@ -15,12 +13,18 @@ export type MazePosition = {
   y: number;
 };
 
-export type MazeCellRenderOptions = {
-  color?: string;
+/**
+ * Array of objects to render on canvas
+ */
+export type MazeRenderObjects = MazeRectangle[];
+
+export type MazeRectangle = {
+  type: 'rectangle';
+  position: MazePosition;
+  color: string;
+  iconColor?: string;
   icon?: string;
 };
-
-export type MazeCellTypeDictionary = Record<string, MazeCellRenderOptions>;
 
 export type MazeRenderOptions = {
   /**
@@ -35,6 +39,4 @@ export type MazeRenderOptions = {
    * Scale multiplier (zoom)
    */
   scale?: number;
-  // @@TODO
-  mazeCellTypeDictionary?: MazeCellTypeDictionary;
 };
