@@ -140,8 +140,8 @@ export class LivingsController extends BaseController<Living> {
       return;
     }
 
-    if (pp && ppPos) {
-      lp[pp.mapId]?.[ppPos]?.filter((i) => i !== id);
+    if (pp && ppPos && lp[pp.mapId]?.[ppPos]) {
+      lp[pp.mapId][ppPos] = lp[pp.mapId][ppPos].filter((i) => i !== id);
     }
 
     if (np && npPos) {
