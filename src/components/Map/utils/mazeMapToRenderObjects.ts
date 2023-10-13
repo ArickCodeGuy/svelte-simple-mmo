@@ -11,6 +11,7 @@ type Options = {
   position: MazePosition;
   colorDictionary?: DictionaryKey;
   iconDictionary?: DictionaryKey;
+  enemies?: Record<string, boolean | undefined>;
 };
 
 export const mazeMapToRenderObjects = (

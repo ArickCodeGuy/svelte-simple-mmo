@@ -13,7 +13,7 @@ export type GlobalInfo = {
   living: BaseItem<Living>;
   map?: BaseItem<MapInfo>;
   fight?: FightInfo;
-  neighbors: BaseItem<Living>[];
+  neighbour: BaseItem<Living>[];
   distantLivings: NearbyLivings;
   equipment?: Equipment;
 };
@@ -33,21 +33,21 @@ export type Equipment = Partial<Record<LivingEquipmentType, BaseItem<Item>>>;
  * How should a fight instance look
  * Fight log should have exactly the same type
  * <FightInstance /> should work with ongoing fight and fight log
- * 
+ *
  * type FightMember = BaseItem<Living> & {
  *   isAlive: boolean;
  *   buffs?: BuffDebuff;
  * }
- * 
+ *
  * type Fight = {
  *   Should include dead Livings
  *   teamOne: Record<number, BaseItem<Living>>;
  *   teamTwo: Record<number, BaseItem<Living>>;
  *   targets?: Record<number, number>;
- *   
+ *
  *   That's log of actions
  *   turns: FightLogTurn[];
- * 
+ *
  *   As timestamp, if undefined then that's ended fight
  *   nextTurn?: number;
  * }

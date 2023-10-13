@@ -7,13 +7,13 @@ export let props: UIPopupProps;
 
 const bgClick = (e: MouseEvent) => {
   if (e.target !== e.currentTarget) return;
-  props && props.close && props.close();
+  props.close && props.close();
+};
+const handleEsc = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') props.close && props.close();
 };
 
 onMount(() => {
-  const handleEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') props && props.close && props.close();
-  };
   document.addEventListener('keydown', handleEsc);
   return () => {
     document.removeEventListener('keydown', handleEsc);

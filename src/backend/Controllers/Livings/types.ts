@@ -100,25 +100,20 @@ export type LivingStats = {
 export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 
 /**
- * LivingsPositions[mapId][y][x] = Living[];
+ * LivingsPositions[mapId][`${x},${y}`] = Living[];
  */
 export type LivingsPositions = Record<string, MapLivingsPositions>;
 
 /**
- * Livings on certain mapId as [y position][x position] => living.id[]
+ * Livings on certain mapId as [`${x},${y}`] => living.id[]
  */
-export type MapLivingsPositions =
-  | Record<string, Record<string, number[] | undefined> | undefined>
-  | undefined;
+export type MapLivingsPositions = Record<string, number[] | undefined>;
 
 /**
  * Used for indicating for nearby enemies
- * { [y position]: { [x position]: boolean } }
+ * { [`${x},${y}`]: boolean } }
  */
-export type NearbyLivings = Record<
-  string,
-  Record<string, boolean | undefined> | undefined
->;
+export type NearbyLivings = Record<string, boolean | undefined>;
 
 export type LevelUp = {
   exp: number;

@@ -8,12 +8,12 @@ import UiIcon from '@/components/UI/UIIcon/UIIcon.svelte';
 import { closePopup } from '@/modal/store';
 import { showModal } from '@/modal/utils/showModal';
 import { frontDictionaryState } from '@/store/dictionary';
-import { mazeMapToRenderObjects } from './utils/mazeMapToRenderObjects';
 import { useDefaultMazePosition } from '@/components/CanvasMap/utils/render';
 import { onMount } from 'svelte';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 import { UNIT_SIZE } from '@/components/CanvasMap/constants';
 import type { Dictionary } from '@/types/types';
+import { mazeMapToRenderObjects } from '@/components/Map/utils/mazeMapToRenderObjects';
 
 const map: MazeMap = genMap(100);
 

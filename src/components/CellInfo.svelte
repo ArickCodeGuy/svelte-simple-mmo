@@ -31,7 +31,7 @@ $: {
   cellType = getCurrentCellName(globalInfo, dictionary);
 }
 
-$: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbors);
+$: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbour);
 
 $: players = sortedLivings.players.map((i) => ({
   ...livingToUIActionButtonProps(i),

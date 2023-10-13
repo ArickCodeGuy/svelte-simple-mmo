@@ -12,7 +12,6 @@ import { useUpdateExp } from './actions/updateExp';
 import { useUpdateCurrentHealth } from './actions/updateCurrentHealth';
 import { useUpdateStats } from './actions/updateStats';
 import { livingCurrentHealth } from './utils/livingCurrentHealth';
-import { runThroughGridArea } from '../Maps/utils/runThroughGridArea';
 import { LivingsProtosController } from './LivingsProtos';
 
 export class LivingsController extends BaseController<Living> {
@@ -99,34 +98,31 @@ export class LivingsController extends BaseController<Living> {
     const map = this.#livingsPositions[p.mapId];
     if (!map) return res;
 
-    const cb = (pos: Position) => {
-      const cell = map?.[pos.y]?.[pos.x];
-      if (cell) {
-        !res[pos.y] ? (res[pos.y] = {}) : false;
-        // @ts-ignore
-        !res[pos.y][pos.x] ? (res[pos.y][pos.x] = true) : false;
-      }
-    };
+    for (const pos in map) {
+      const ids = map[pos];
+      if (!ids || !ids.length) continue;
 
-    runThroughGridArea(p, 1, {
-      cb,
-    });
+      res[pos] = true;
+    }
 
     return res;
   }
 
   getLivingsByPosition({ mapId, y, x }: Position): BaseItem<Living>[] {
-    if (this.#livingsPositions?.[mapId]?.[y]?.[x]) {
-      const idArr = this.#livingsPositions[mapId]![y]![x]!;
-      return idArr.map((i) => this.getById(i));
-    } else {
-      return [];
-    }
+    const ids = this.#livingsPositions?.[mapId]?.[`${x},${y}`] || [];
+
+    return ids.map((i) => this.getById(i));
   }
 
   updateLivingsPositions(
-    previousPosition: Position | undefined,
-    newPosition: Position | undefined,
+    /**
+     * Previous position
+     */
+    pp: Position | undefined,
+    /**
+     * New position
+     */
+    np: Position | undefined,
     id: number
   ) {
     /**
@@ -134,45 +130,28 @@ export class LivingsController extends BaseController<Living> {
      */
     const lp = this.#livingsPositions;
 
+    const ppPos = pp && `${pp.x},${pp.y}`;
+    const npPos = np && `${np.x},${np.y}`;
+
     /**
-     * if position haven't changed then return from function
+     * if position have not changed then return from function
      */
-    if (
-      previousPosition?.mapId === newPosition?.mapId &&
-      previousPosition?.y === newPosition?.y &&
-      previousPosition?.x === newPosition?.x
-    ) {
+    if (pp && np && pp.mapId === np.mapId && ppPos === npPos) {
       return;
     }
 
-    if (previousPosition) {
-      const p = previousPosition;
-      lp[p.mapId]![p.y]![p.x]! = lp[p.mapId]![p.y]![p.x]!.filter(
-        (i) => i !== id
-      );
-      /**
-       * @@TODO: full reset check
-       */
-      if (!lp[p.mapId]![p.y]![p.x]!.length) {
-        lp[p.mapId]![p.y]![p.x] = undefined;
-      }
+    if (pp && ppPos) {
+      lp[pp.mapId]?.[ppPos]?.filter((i) => i !== id);
     }
 
-    if (newPosition) {
-      const p = newPosition;
-
-      const map = lp[p.mapId];
-      if (!map) lp[p.mapId] = {};
-
-      const row = lp[p.mapId]![p.y];
-      if (!row) lp[p.mapId]![p.y] = {};
-
-      const cell = lp[p.mapId]![p.y]![p.x];
-      if (!cell) {
-        lp[p.mapId]![p.y]![p.x] = [id];
-      } else {
-        lp[p.mapId]![p.y]![p.x]!.push(id);
+    if (np && npPos) {
+      if (!lp[np.mapId]) {
+        lp[np.mapId] = {};
       }
+      if (!lp[np.mapId]?.[npPos]) {
+        lp[np.mapId][npPos] = [];
+      }
+      lp[np.mapId][npPos]!.push(id);
     }
   }
 }

@@ -12,7 +12,7 @@ export const useGetLivingState =
 
     const equipment = serverController.publicApi.items.equipment(id);
 
-    const neighbors = serverController.livingsController.getLivingsByPosition(
+    const neighbour = serverController.livingsController.getLivingsByPosition(
       living.position
     );
 
@@ -27,7 +27,7 @@ export const useGetLivingState =
        */
       map,
       fight,
-      neighbors,
+      neighbour,
       distantLivings,
       equipment,
     };

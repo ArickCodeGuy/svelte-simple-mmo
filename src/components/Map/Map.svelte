@@ -4,18 +4,20 @@ import { Server } from '@/backend';
 import { onMount } from 'svelte';
 import type { DirectionalMove } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
-import UiIcon from '../UI/UIIcon/UIIcon.svelte';
 import { directionalMoveKeyDown } from '@/utils/directionalMoveKeyDown';
 import type { Dictionary } from '@/types/types';
 import { frontDictionaryState } from '@/store/dictionary';
 import CanvasMap from '../CanvasMap/CanvasMap.svelte';
-import { mazeMapToRenderObjects } from '@/routes/MapEdit/utils/mazeMapToRenderObjects';
+import { mazeMapToRenderObjects } from './utils/mazeMapToRenderObjects';
+import UiIconButton from '../UI/UIIcon/UIIconButton.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 let dictionary: Dictionary;
 frontDictionaryState.subscribe((v) => (dictionary = v));
+
+$: enemies = globalInfo.distantLivings;
 
 $: renderObjects =
   globalInfo.map?.layout &&
@@ -24,6 +26,7 @@ $: renderObjects =
     radius: -1,
     colorDictionary: dictionary.cellTypeColor,
     iconDictionary: dictionary.cellTypeIcon,
+    enemies,
   });
 
 const handleMoveClick = (direction: DirectionalMove) => {
@@ -45,21 +48,16 @@ onMount(() => {
 
 <CanvasMap {renderObjects} />
 <div class="buttons">
-  <button on:click={() => handleMoveClick('UP')}
-    ><UiIcon icon="arrow-up" /></button
-  >
+  <UiIconButton icon="arrow-up" on:click={() => handleMoveClick('UP')} />
   <div>
-    <button on:click={() => handleMoveClick('LEFT')}
-      ><UiIcon icon="arrow-left" /></button
-    >
-    <button><UiIcon icon="circle" /></button>
-    <button on:click={() => handleMoveClick('RIGHT')}
-      ><UiIcon icon="arrow-right" /></button
-    >
+    <UiIconButton icon="arrow-left" on:click={() => handleMoveClick('LEFT')} />
+    <UiIconButton icon="circle" />
+    <UiIconButton
+      icon="arrow-right"
+      on:click={() => handleMoveClick('RIGHT')}
+    />
   </div>
-  <button on:click={() => handleMoveClick('DOWN')}
-    ><UiIcon icon="arrow-down" /></button
-  >
+  <UiIconButton icon="arrow-down" on:click={() => handleMoveClick('DOWN')} />
 </div>
 
 <style lang="scss">
@@ -70,11 +68,5 @@ onMount(() => {
   align-items: center;
 
   gap: 2px;
-  button {
-    display: inline-flex;
-    border-width: 0;
-    border-radius: 3px;
-    padding: 5px;
-  }
 }
 </style>

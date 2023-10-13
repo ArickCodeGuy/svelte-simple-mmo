@@ -18,7 +18,6 @@ export let icon: string;
 <style lang="scss">
 .UIIconButton {
   cursor: pointer;
-  display: flex;
   gap: 15px;
 }
 </style>
