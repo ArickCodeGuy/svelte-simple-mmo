@@ -7,6 +7,7 @@ const cellTypeProto: MapCellType = {
   actions: [
     {
       name: 'Drink',
+      action: () => {},
     },
   ],
 };

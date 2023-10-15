@@ -20,4 +20,5 @@ export type MapCellType = {
 
 export type MapCellTypeAction = {
   name: string;
+  action: () => void;
 };
