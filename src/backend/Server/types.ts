@@ -7,6 +7,7 @@ import type {
   LivingEquipmentType,
   NearbyLivings,
 } from '../Controllers/Livings/types';
+import type { MapCellTypeAction } from '../Controllers/Maps/MapCellTypes/types';
 import type { MapInfo } from '../Controllers/Maps/types';
 
 export type GlobalInfo = {
@@ -16,6 +17,7 @@ export type GlobalInfo = {
   neighbour: BaseItem<Living>[];
   distantLivings: NearbyLivings;
   equipment?: Equipment;
+  actions?: MapCellTypeAction[];
 };
 
 export type FightInfo = {

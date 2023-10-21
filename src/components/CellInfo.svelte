@@ -33,6 +33,8 @@ $: {
 
 $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbour);
 
+$: cellActions = globalInfo.actions;
+
 $: players = sortedLivings.players.map((i) => ({
   ...livingToUIActionButtonProps(i),
 }));
@@ -68,6 +70,11 @@ $: enemies = sortedLivings.npc.map((i) => {
       <div class="CellInfo__block">
         Cell type: {cellType}
       </div>
+      {#if cellActions}
+        {#each cellActions as action}
+          <div on:keypress on:click={() => action.action()}>{action.name}</div>
+        {/each}
+      {/if}
       {#if players.length}
         <div class="CellInfo__block">
           <div>Players:</div>
