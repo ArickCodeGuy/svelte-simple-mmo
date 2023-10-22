@@ -1,3 +1,4 @@
+import '@mdi/font/css/materialdesignicons.css';
 import './assets/styles/style.scss';
 import App from './App.svelte';
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-import '@mdi/font/css/materialdesignicons.css';
 export let icon: string;
 export let size: string | number = 16;
 
