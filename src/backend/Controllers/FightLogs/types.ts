@@ -1,12 +1,14 @@
 export type FightLog = {
   teamOne: number[];
   teamTwo: number[];
-  members: Record<number, FightLogMember>;
+  members: FightLogMembers;
   /**
    * each turn contains array of actions
    */
   turns: FightLogTurn[];
 };
+
+export type FightLogMembers = Record<number, FightLogMember>;
 
 export type FightLogMember = {
   id: number;

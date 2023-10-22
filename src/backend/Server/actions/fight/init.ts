@@ -1,11 +1,9 @@
 import type { ServerController } from '../..';
-import { livingToFightLogMember } from '@/backend/Controllers/FightLogs/utils/livingToFightLogMember';
-import type {
-  FightInstance,
-  TeamsMembers,
-} from '@/backend/Controllers/Fights/types';
+import type { FightInstance } from '@/backend/Controllers/Fights/types';
 import { teamsToTargets } from '@/backend/Controllers/Fights/utils/teamsToTargets';
 import { FIGHT_TURN_TIMEOUT } from '@/backend/Controllers/Fights/constants';
+import { teamIdsToTeamsMembers } from '../../utils/teamIdsToTeamsMembers';
+import { teamIdsToFighLogMembers } from '../../utils/teamIdsToFighLogMembers';
 
 export const useFightInit =
   (serverController: ServerController) =>
@@ -15,33 +13,20 @@ export const useFightInit =
     const fightLogInstance = serverController.fightLogController.add({
       teamOne: teamOneIds,
       teamTwo: teamTwoIds,
-      members: [
-        ...teamOneIds.map((id) =>
-          livingToFightLogMember(serverController.livingsController.getById(id))
-        ),
-        ...teamOneIds.map((id) =>
-          livingToFightLogMember(serverController.livingsController.getById(id))
-        ),
-      ],
+      members: teamIdsToFighLogMembers(serverController, [
+        ...teamOneIds,
+        ...teamTwoIds,
+      ]),
       turns: [],
     });
 
-    const members: TeamsMembers = [...teamOneIds, ...teamTwoIds].reduce(
-      (res, id) => ({
-        ...res,
-        [id]: {
-          id,
-          isAlive: true,
-        },
-      }),
-      {}
-    );
+    const teamsMembers = teamIdsToTeamsMembers([...teamOneIds, ...teamTwoIds]);
 
     const fightInstance: FightInstance = {
       teamOne: teamOneIds,
       teamTwo: teamTwoIds,
-      targets: teamsToTargets(teamOneIds, teamTwoIds, members),
-      members,
+      targets: teamsToTargets(teamOneIds, teamTwoIds, teamsMembers),
+      members: teamsMembers,
       nextTurn: new Date().getTime() + FIGHT_TURN_TIMEOUT,
       logId: fightLogInstance.id,
     };

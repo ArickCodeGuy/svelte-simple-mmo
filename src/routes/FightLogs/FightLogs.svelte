@@ -14,16 +14,17 @@ $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
     <h1 class="h1">Fight Logs</h1>
     <div class="fight-log-items">
       {#each items as item}
+        {JSON.stringify(item.members)}
         <div class="fight-log-item">
           <div class="fight-log-team-one">
             {#each item.teamOne as member}
-              <div class="member">{member.id}</div>
+              <div class="member">{item.members[member]}</div>
             {/each}
           </div>
           <div>VS</div>
           <div class="fight-log-team-two">
             {#each item.teamTwo as member}
-              <div class="member">{member.id}</div>
+              <div class="member">{member}</div>
             {/each}
           </div>
         </div>
