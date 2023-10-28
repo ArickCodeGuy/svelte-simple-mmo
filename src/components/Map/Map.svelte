@@ -68,5 +68,6 @@ onMount(() => {
   align-items: center;
 
   gap: 2px;
+  display: none;
 }
 </style>

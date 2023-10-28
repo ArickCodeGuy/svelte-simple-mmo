@@ -57,6 +57,7 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
 
@@ -391,4 +392,7 @@ select {
     background: rgba(var(--rgba-contrast), 1);
     border-radius: 10px;
   }
+}
+.overflow-hidden {
+  overflow: hidden;
 }

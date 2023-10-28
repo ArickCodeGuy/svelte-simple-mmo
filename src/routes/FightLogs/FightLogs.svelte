@@ -1,7 +1,9 @@
 <script lang="ts">
 import { Server } from '@/backend';
 import type { GlobalInfo } from '@/backend/Server/types';
+import UiIconButton from '@/components/UI/UIIcon/UIIconButton.svelte';
 import { globalInfoState } from '@/store/player';
+import { myNavigate } from '@/utils/myNavigate';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -14,17 +16,30 @@ $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
     <h1 class="h1">Fight Logs</h1>
     <div class="fight-log-items">
       {#each items as item}
-        {JSON.stringify(item.members)}
         <div class="fight-log-item">
+          <UiIconButton
+            icon="information-outline"
+            on:click={myNavigate('FIGHT_LOG', {
+              params: {
+                id: item.id,
+              },
+            })}
+          />
           <div class="fight-log-team-one">
             {#each item.teamOne as member}
-              <div class="member">{item.members[member]}</div>
+              <div
+                class="member"
+                style={`background-image: url(${item.members[member].pfp})`}
+              />
             {/each}
           </div>
           <div>VS</div>
           <div class="fight-log-team-two">
             {#each item.teamTwo as member}
-              <div class="member">{member}</div>
+              <div
+                class="member"
+                style={`background-image: url(${item.members[member].pfp})`}
+              />
             {/each}
           </div>
         </div>
@@ -51,5 +66,9 @@ $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
   height: 20px;
   border-radius: 50%;
   border: 1px solid var(--contrast);
+  overflow: hidden;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style>

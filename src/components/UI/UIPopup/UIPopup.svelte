@@ -12,11 +12,22 @@ const bgClick = (e: MouseEvent) => {
 const handleEsc = (e: KeyboardEvent) => {
   if (e.key === 'Escape') props.close && props.close();
 };
+const hideScroll = (isOpen: boolean) => {
+  if (isOpen) {
+    document.body.classList.add('overflow-hidden');
+  } else {
+    document.body.classList.remove('overflow-hidden');
+  }
+};
+$: {
+  hideScroll(props.isOpen);
+}
 
 onMount(() => {
   document.addEventListener('keydown', handleEsc);
   return () => {
     document.removeEventListener('keydown', handleEsc);
+    hideScroll(false);
   };
 });
 </script>
