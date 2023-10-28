@@ -9,6 +9,14 @@ let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
+
+const viewLog = (id: number) => {
+  myNavigate('FIGHT_LOG', {
+    params: {
+      id,
+    },
+  });
+};
 </script>
 
 <section class="section">
@@ -19,11 +27,7 @@ $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
         <div class="fight-log-item">
           <UiIconButton
             icon="information-outline"
-            on:click={myNavigate('FIGHT_LOG', {
-              params: {
-                id: item.id,
-              },
-            })}
+            on:click={viewLog(item.id)}
           />
           <div class="fight-log-team-one">
             {#each item.teamOne as member}
