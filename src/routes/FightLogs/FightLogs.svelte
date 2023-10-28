@@ -27,7 +27,7 @@ const viewLog = (id: number) => {
         <div class="fight-log-item">
           <UiIconButton
             icon="information-outline"
-            on:click={viewLog(item.id)}
+            on:click={() => viewLog(item.id)}
           />
           <div class="fight-log-team-one">
             {#each item.teamOne as member}
