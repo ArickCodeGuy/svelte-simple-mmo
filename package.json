@@ -29,6 +29,7 @@
   "type": "module",
   "dependencies": {
     "@mdi/font": "^7.2.96",
+    "svelte-navigator": "^3.2.2",
     "svelte-routing": "^1.6.0"
   }
 }

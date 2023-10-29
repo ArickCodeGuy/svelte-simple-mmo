@@ -1,5 +1,5 @@
 <script>
-import { Router, Route } from 'svelte-routing';
+import { Router, Route } from 'svelte-navigator';
 import Layout from './layout/default.svelte';
 import Main from './routes/index.svelte';
 import Character from './routes/Character/Character.svelte';

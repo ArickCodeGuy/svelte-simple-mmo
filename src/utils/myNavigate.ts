@@ -3,7 +3,7 @@ import {
   ROUTE_NAMES_ENUM,
   type ROUTE_NAMES,
 } from '@/constants/base';
-import { navigate } from 'svelte-routing';
+import { navigate } from 'svelte-navigator';
 
 type Options = {
   params?: Record<string, string | number>;

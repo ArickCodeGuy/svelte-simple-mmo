@@ -15,6 +15,7 @@ specifiers:
   sass: ^1.60.0
   svelte: ^3.55.1
   svelte-check: ^2.10.3
+  svelte-navigator: ^3.2.2
   svelte-routing: ^1.6.0
   tslib: ^2.5.0
   typescript: ^4.9.3
@@ -23,6 +24,7 @@ specifiers:
 
 dependencies:
   '@mdi/font': 7.2.96
+  svelte-navigator: 3.2.2_aswnnyxiuwffgztcffmr7c7eny
   svelte-routing: 1.6.0_aswnnyxiuwffgztcffmr7c7eny
 
 devDependencies:
@@ -1900,6 +1902,17 @@ packages:
     dependencies:
       svelte: 3.58.0
     dev: true
+
+  /svelte-navigator/3.2.2_aswnnyxiuwffgztcffmr7c7eny:
+    resolution: {integrity: sha512-Xio4ohLUG1nQJ+ENNbLphXXu9L189fnI1WGg+2Q3CIMPe8Jm2ipytKQthdBs8t0mN7p3Eb03SE9hq0xZAqwQNQ==}
+    peerDependencies:
+      svelte: 3.x
+    dependencies:
+      svelte: 3.58.0
+      svelte2tsx: 0.1.193_aswnnyxiuwffgztcffmr7c7eny
+    transitivePeerDependencies:
+      - typescript
+    dev: false
 
   /svelte-preprocess/4.10.7_7a2x2atvwaqpe5f2godyg6k3ry:
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}
