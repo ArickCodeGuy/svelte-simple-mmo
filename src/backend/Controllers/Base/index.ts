@@ -1,8 +1,8 @@
 import idGen from '@/utils/idGen';
 
-export type BaseItem<T> = {
+export type BaseItem<T> = T & {
   id: number;
-} & T;
+};
 
 export class BaseController<T> {
   #state: Record<string, BaseItem<T>>;
