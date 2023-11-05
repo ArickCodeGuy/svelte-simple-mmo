@@ -10,6 +10,7 @@ import { useGetFightLog } from './getFightLog';
 import { usePublicApiItemActions } from './item';
 import { useGetFightLogs } from './getFightLogs';
 import { usePublicApiFightActions } from './fight';
+import { useCellActions } from './cellActions';
 
 export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
@@ -24,4 +25,5 @@ export const usePublicApi = (controller: ServerController) => ({
 
   items: usePublicApiItemActions(controller),
   fight: usePublicApiFightActions(controller),
+  cellActions: useCellActions(controller),
 });
