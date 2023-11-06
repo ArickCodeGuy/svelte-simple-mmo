@@ -19,10 +19,9 @@ export const useGetLivingState =
     const distantLivings =
       serverController.livingsController.getLivingsPositions(living.position);
 
-    const cellTypeId =
-      map.layout[`${living.position.x},${living.position.y}`].typeId;
-    const actions =
-      serverController.mapController.mapCellTypes.getById(cellTypeId).actions;
+    const cellType = serverController.mapController.getCellType(
+      living.position
+    );
 
     return {
       living,
@@ -35,6 +34,6 @@ export const useGetLivingState =
       neighbour,
       distantLivings,
       equipment,
-      actions,
+      cellType,
     };
   };
