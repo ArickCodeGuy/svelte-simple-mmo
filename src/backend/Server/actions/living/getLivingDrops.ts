@@ -1,6 +1,7 @@
 import type { Item } from '@/backend/Controllers/Items/types';
 import type { ServerController } from '../..';
 import type { BaseItem } from '@/backend/Controllers/Base';
+import { isPlayer } from '@/backend/Controllers/Livings/utils/isPlayer';
 
 export const useGetLivingDrops =
   (controller: ServerController) =>
@@ -11,7 +12,7 @@ export const useGetLivingDrops =
     /**
      * If player drop nothing
      */
-    if (living.protoId === 0) {
+    if (isPlayer(living)) {
       return res;
     }
 

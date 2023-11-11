@@ -1,4 +1,5 @@
 import type { Living } from '../types';
+import { isPlayer } from './isPlayer';
 
 export const livingCurrentHealth = (living: Living) => {
   /**
@@ -8,7 +9,7 @@ export const livingCurrentHealth = (living: Living) => {
    */
   if (
     living.health.current === living.health.max ||
-    living.protoId !== 0 ||
+    !isPlayer(living) ||
     living.activity === 'FIGHT'
   )
     return living.health.current;

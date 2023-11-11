@@ -9,7 +9,7 @@ import type { Equipment } from '@/backend/Server/types';
 import type {
   UICharacterItems,
   UICharacterProps,
-} from '@/components/UI/Character/types';
+} from '@/components/UI/UICharacter/types';
 
 export const livingToUICharacterProps = (
   living: Living,

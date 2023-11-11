@@ -11,6 +11,7 @@ import { usePublicApiItemActions } from './item';
 import { useGetFightLogs } from './getFightLogs';
 import { usePublicApiFightActions } from './fight';
 import { useCellActions } from './cellActions';
+import { useGetLivingById } from './getLivingById';
 
 export const usePublicApi = (controller: ServerController) => ({
   move: useTryDirectionalMove(controller),
@@ -22,6 +23,7 @@ export const usePublicApi = (controller: ServerController) => ({
   getItemsByType: useGetItemsByType(controller),
   getFightLog: useGetFightLog(controller),
   getFightLogs: useGetFightLogs(controller),
+  getLivingById: useGetLivingById(controller),
 
   items: usePublicApiItemActions(controller),
   fight: usePublicApiFightActions(controller),

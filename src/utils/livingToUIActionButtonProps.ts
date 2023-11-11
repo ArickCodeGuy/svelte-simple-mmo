@@ -2,7 +2,6 @@ import type { BaseItem } from '@/backend/Controllers/Base';
 import type { Living } from '@/backend/Controllers/Livings/types';
 import type { UIActionButtonProps } from '@/components/UI/UIActionButton/types';
 import { showCharacterInfoPopup } from '@/modal/components/CharacterInfoModal/show';
-import { livingToUICharacterProps } from './livingToUICharacterProps';
 
 export const livingToUIActionButtonProps = (
   living: BaseItem<Living>
@@ -14,7 +13,7 @@ export const livingToUIActionButtonProps = (
   actions: [
     {
       f: () => {
-        showCharacterInfoPopup(livingToUICharacterProps(living));
+        showCharacterInfoPopup(living.id);
       },
       icon: 'information-slab-circle-outline',
     },

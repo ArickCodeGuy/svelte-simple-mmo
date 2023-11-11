@@ -1,4 +1,4 @@
-import type { UINavigationGroup } from '@/components/UI/Navigation/types';
+import type { UINavigationGroup } from '@/components/UI/UINavigation/types';
 import { myNavigate } from '@/utils/myNavigate';
 
 export const navigation: UINavigationGroup[] = [

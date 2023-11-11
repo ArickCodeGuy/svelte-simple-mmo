@@ -1,14 +1,12 @@
 import { closePopup, modalState } from '../../store';
-import UiCharacter from '@/components/UI/UICharacter/UICharacter.svelte';
-import type { UICharacterProps } from '@/components/UI/UICharacter/types';
+import CharacterInfo from './CharacterInfo.svelte';
 
-export const showCharacterInfoPopup = (props: UICharacterProps) => {
+export const showCharacterInfoPopup = (livingId: number) => {
   modalState.update(() => ({
-    component: UiCharacter,
+    component: CharacterInfo,
     title: 'Character info',
     componentProps: {
-      ...props,
-      isView: true,
+      id: livingId,
     },
     close: closePopup,
   }));
