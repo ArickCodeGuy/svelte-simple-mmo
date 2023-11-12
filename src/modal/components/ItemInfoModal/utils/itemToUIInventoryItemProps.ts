@@ -1,13 +1,17 @@
-import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Item } from '@/backend/Controllers/Items/types';
+import type { PublicItem } from '@/backend/Controllers/Items/types';
 import type { LivingCompleteStats } from '@/backend/Controllers/Livings/types';
-import type { UIInventoryItemProps } from '@/components/UI/InventoryItem/types';
+import type { UIInventoryItemProps } from '@/components/UI/UIInventoryItem/types';
+
+type Options = {
+  actions?: UIInventoryItemProps['actions'];
+};
 
 /**
  * Returns only display content of item. Does not return actions
  */
 export const itemToUIInventoryItemProps = (
-  item: BaseItem<Item>
+  item: PublicItem,
+  options: Options = {}
 ): UIInventoryItemProps => {
   const bonuses: string[] = [];
 
@@ -22,8 +26,9 @@ export const itemToUIInventoryItemProps = (
   }
 
   return {
-    img: item.img,
-    name: item.name,
+    img: item.proto.img,
+    name: item.proto.name,
     bonuses,
+    actions: options.actions,
   };
 };

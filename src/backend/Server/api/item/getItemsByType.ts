@@ -1,12 +1,11 @@
-import type { Item, ItemType } from '@/backend/Controllers/Items/types';
+import type { ItemType } from '@/backend/Controllers/Items/types';
 import type { ServerController } from '../..';
-import type { BaseItem } from '@/backend/Controllers/Base';
 
 export const useGetItemsByType =
   (controller: ServerController) =>
-  (playerId: number, itemType?: ItemType | undefined): BaseItem<Item>[] => {
+  (playerId: number, itemType?: ItemType | undefined) => {
     return controller.itemsController
       .getPlayerItems(playerId)
-      .map((i) => controller.itemsController.getById(i))
-      .filter((i) => !itemType || itemType === i.type);
+      .map((i) => controller.itemsController.actions.getPublicItem(i))
+      .filter((i) => !itemType || itemType === i.proto.type);
   };

@@ -1,9 +1,10 @@
+import type { BaseItem } from '../../Base';
 import type { ItemProto } from '../ItemsProtos/types';
 import type { Item } from '../types';
 import { itemProtoStatBonusRecordToRecord } from './itemProtoStatBonusToNumber';
 
 export const itemProtoToItem = (
-  itemProto: ItemProto
+  itemProto: BaseItem<ItemProto>
 ): Omit<Item, 'playerId'> => {
   // @@TODO: finish
 
@@ -13,12 +14,9 @@ export const itemProtoToItem = (
   }
 
   const item: Omit<Item, 'playerId'> = {
-    name: itemProto.name,
-    img: itemProto.img,
-    type: itemProto.type,
+    protoId: itemProto.id,
     requirements: itemProto.requirements,
     statsBonuses,
-    price: itemProto.price,
   };
 
   return item;

@@ -11,7 +11,7 @@ export const useGetEquipment =
       (
         Object.entries(player.equipment) as [LivingEquipmentType, number][]
       ).forEach(([place, id]) => {
-        items[place] = controller.itemsController.getById(id);
+        items[place] = controller.itemsController.actions.getPublicItem(id);
       });
     }
 

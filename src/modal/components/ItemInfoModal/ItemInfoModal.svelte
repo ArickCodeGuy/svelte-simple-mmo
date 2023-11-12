@@ -2,8 +2,7 @@
 import UiInventoryItem from '@/components/UI/UIInventoryItem/UIInventoryItem.svelte';
 import { itemToUIInventoryItemProps } from './utils/itemToUIInventoryItemProps';
 import type { ItemInfoModalProps } from './types';
-import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Item } from '@/backend/Controllers/Items/types';
+import type { PublicItem } from '@/backend/Controllers/Items/types';
 import { globalInfoState } from '@/store/player';
 import type { GlobalInfo } from '@/backend/Server/types';
 import { Server } from '@/backend';
@@ -20,7 +19,7 @@ globalInfoState.subscribe((v) => (globalInfo = v));
 $: equippedItem =
   globalInfo.living?.equipment?.[props.itemType as keyof LivingEquipment];
 
-let items: BaseItem<Item>[] = [];
+let items: PublicItem[] = [];
 $: {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 }

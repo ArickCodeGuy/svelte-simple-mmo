@@ -1,6 +1,7 @@
 import { BaseController, type BaseItem } from '../Base';
 import { ItemsProtosController } from './ItemsProtos';
 import type { ItemProto } from './ItemsProtos/types';
+import { useActions } from './actions';
 import type { Item } from './types';
 import { itemProtoToItem } from './utils/itemProtoToItem';
 
@@ -10,18 +11,22 @@ export class ItemsController extends BaseController<Item> {
   };
   itemsProtosController: ItemsProtosController;
 
+  actions: ReturnType<typeof useActions>;
+
   constructor(tableName: string) {
     super(tableName);
     this.itemsProtosController = new ItemsProtosController(
       `${tableName}_PROTOS`
     );
 
+    this.actions = useActions(this);
+
     this.#playerItems = {};
   }
 
   // @@TODO: fix
   // @ts-ignore
-  add(proto: ItemProto, playerId: number) {
+  add(proto: BaseItem<ItemProto>, playerId: number) {
     const item = super.add({
       ...itemProtoToItem(proto),
       playerId,
