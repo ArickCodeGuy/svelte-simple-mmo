@@ -1,41 +1,56 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
+import type { ItemProto } from '@/backend/Controllers/Items/ItemsProtos/types';
 import type { Item } from '@/backend/Controllers/Items/types';
 import type {
   Living,
   LivingEquipmentType,
 } from '@/backend/Controllers/Livings/types';
 import { livingStats } from '@/backend/Controllers/Livings/utils/livingStats';
-import type { Equipment } from '@/backend/Server/types';
+import type { LivingEquipmentItems } from '@/backend/Server/types';
 import type {
   UICharacterItems,
   UICharacterProps,
 } from '@/components/UI/UICharacter/types';
 
+type Options = {
+  equipment?: LivingEquipmentItems;
+  drops?: BaseItem<ItemProto>[];
+  isView?: UICharacterProps['isView'];
+  statsConfirm?: UICharacterProps['statsConfirm'];
+  inventoryClick?: UICharacterProps['inventoryClick'];
+};
+
 export const livingToUICharacterProps = (
-  living: Living,
-  equipment?: Equipment
+  character: Living,
+  options: Options = {}
 ): UICharacterProps => {
   const items: UICharacterItems = {
-    pfp: living.pfp,
+    pfp: character.pfp,
   };
 
-  if (equipment) {
+  if (options.equipment) {
     (
-      Object.entries(equipment) as [LivingEquipmentType, BaseItem<Item>][]
+      Object.entries(options.equipment) as [
+        LivingEquipmentType,
+        BaseItem<Item>,
+      ][]
     ).forEach(([place, item]) => {
       items[place] = item.img;
     });
   }
 
   return {
-    name: living.name,
-    lvl: living.lvl,
-    exp: living.exp,
-    health: living.health,
-    lastUpdated: living.lastUpdated,
-    statPoints: living.statPoints,
-    stats: livingStats(living),
-    isView: true,
+    name: character.name,
+    lvl: character.lvl,
+    exp: character.exp,
+    health: character.health,
+    lastUpdated: character.lastUpdated,
+    statPoints: character.statPoints,
+    stats: livingStats(character),
+    isView: options.isView ?? true,
     items,
+    inventoryClick: options.inventoryClick,
+    statsConfirm: options.statsConfirm,
+    drops: options.drops,
   };
 };

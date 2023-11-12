@@ -1,5 +1,5 @@
 import type { Living } from '@/backend/Controllers/Livings/types';
-import type { Equipment } from '../types';
+import type { LivingEquipmentItems } from '../types';
 import { calculatePlayerCompleteStats } from './calculatePlayerCompleteStats';
 
 export type PlayerAttack = {
@@ -24,7 +24,7 @@ export type PlayerAttack = {
 export const calculatePlayerAttack = (
   player: Living,
   options: {
-    equipment?: Equipment;
+    equipment?: LivingEquipmentItems;
   } = {}
 ): PlayerAttack => {
   const stats = calculatePlayerCompleteStats(player, options.equipment);

@@ -16,7 +16,7 @@ export type GlobalInfo = {
   fight?: FightInfo;
   neighbour: BaseItem<Living>[];
   distantLivings: NearbyLivings;
-  equipment?: Equipment;
+  equipment?: LivingEquipmentItems;
   cellType: BaseItem<MapCellType>;
 };
 
@@ -29,7 +29,9 @@ export type FightInfo = {
   log: BaseItem<FightLog>;
 };
 
-export type Equipment = Partial<Record<LivingEquipmentType, BaseItem<Item>>>;
+export type LivingEquipmentItems = Partial<
+  Record<LivingEquipmentType, BaseItem<Item>>
+>;
 
 /**
  * How should a fight instance look

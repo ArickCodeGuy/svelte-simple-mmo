@@ -2,7 +2,7 @@ import type {
   Living,
   LivingCompleteStats,
 } from '@/backend/Controllers/Livings/types';
-import type { Equipment } from '../types';
+import type { LivingEquipmentItems } from '../types';
 import { useLivingCompleteStats } from '@/backend/Controllers/Livings/utils/useLivingCompleteStats';
 import { calculateEquipmentStats } from './calculateEquipmentStats';
 
@@ -11,7 +11,7 @@ import { calculateEquipmentStats } from './calculateEquipmentStats';
  */
 export const calculatePlayerCompleteStats = (
   player: Living,
-  equipment?: Equipment
+  equipment?: LivingEquipmentItems
 ): LivingCompleteStats => {
   const stats = useLivingCompleteStats();
   const equipmentStats = calculateEquipmentStats(equipment);

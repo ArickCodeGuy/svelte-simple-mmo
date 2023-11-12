@@ -1,5 +1,5 @@
 import { useLivingCompleteStats } from '@/backend/Controllers/Livings/utils/useLivingCompleteStats';
-import type { Equipment } from '../types';
+import type { LivingEquipmentItems } from '../types';
 import type {
   LivingCompleteStats,
   LivingEquipment,
@@ -7,7 +7,7 @@ import type {
 import type { Item } from '@/backend/Controllers/Items/types';
 
 export const calculateEquipmentStats = (
-  equipment: Equipment | undefined
+  equipment: LivingEquipmentItems | undefined
 ): LivingCompleteStats => {
   const stats = useLivingCompleteStats();
   if (!equipment) {

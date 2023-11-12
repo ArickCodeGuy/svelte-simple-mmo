@@ -34,12 +34,12 @@ const handleInventoryClick = (type: ItemType) => {
   showItemInfoModal(type);
 };
 
-$: props = {
-  ...livingToUICharacterProps(globalInfo.living, globalInfo.equipment),
+$: props = livingToUICharacterProps(globalInfo.living, {
+  equipment: globalInfo.equipment,
   isView: false,
   statsConfirm,
   inventoryClick: handleInventoryClick,
-};
+});
 </script>
 
 <svelte:head>

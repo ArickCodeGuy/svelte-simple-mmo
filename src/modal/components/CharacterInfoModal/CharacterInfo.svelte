@@ -10,10 +10,10 @@ export let props: CharacterInfoProps;
 let character: UICharacterProps | undefined;
 $: {
   const livingData = Server.publicApi.getLivingById(props.id);
-  character = {
-    ...livingToUICharacterProps(livingData.living),
+  character = livingToUICharacterProps(livingData.living, {
+    drops: livingData.drops,
     isView: true,
-  };
+  });
 }
 </script>
 

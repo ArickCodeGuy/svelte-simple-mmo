@@ -35,8 +35,8 @@ const handleInventoryCellClick = (type: ItemType) => {
 };
 </script>
 
-<div class="UICharacter">
-  {#if props}
+{#if props}
+  <div class="UICharacter">
     <div class="title">{props.name} <b>[{props.lvl}]</b></div>
     <div class="bars">
       <div class="bar">
@@ -80,22 +80,36 @@ const handleInventoryCellClick = (type: ItemType) => {
         on:click={(e) => handleInventoryCellClick(e.detail)}
       />
     </div>
-    {#if !props.isView}
-      <div class="extra">
+    <div class="UICharacter__add">
+      {#if !props.isView}
         <div>Exp: {props.exp}/{LIVING_LEVELS[props.lvl].exp}</div>
-      </div>
-    {/if}
-    <UiCharacterStats
-      stats={props.stats}
-      isView={props.isView}
-      statPoints={props.statPoints}
-      statsConfirm={props.statsConfirm}
-    />
-  {/if}
-</div>
+      {/if}
+
+      <UiCharacterStats
+        stats={props.stats}
+        isView={props.isView}
+        statPoints={props.statPoints}
+        statsConfirm={props.statsConfirm}
+      />
+
+      {#if props.drops}
+        <div>
+          <div>Drops:</div>
+          {#each props.drops as drop}
+            {drop.name}
+          {/each}
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}
 
 <style lang="scss">
 .UICharacter {
+  &__add {
+    display: grid;
+    grid-gap: var(--column-gap);
+  }
   .title {
     text-align: center;
     margin-bottom: 0.5em;
@@ -105,9 +119,6 @@ const handleInventoryCellClick = (type: ItemType) => {
   }
   .grid {
     margin-bottom: 1em;
-  }
-  .extra {
-    margin-bottom: 0.5em;
   }
 }
 .bars {

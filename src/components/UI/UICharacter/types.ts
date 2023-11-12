@@ -1,3 +1,5 @@
+import type { BaseItem } from '@/backend/Controllers/Base';
+import type { ItemProto } from '@/backend/Controllers/Items/ItemsProtos/types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 
@@ -15,6 +17,7 @@ export type UICharacterProps = {
 
   isView?: boolean;
   items: UICharacterItems;
+  drops?: BaseItem<ItemProto>[];
 
   inventoryClick?: (type: ItemType) => void;
   statsConfirm?: (updatedStats: LivingStats) => void;

@@ -1,11 +1,11 @@
 import type { LivingEquipmentType } from '@/backend/Controllers/Livings/types';
 import type { ServerController } from '../..';
-import type { Equipment } from '../../types';
+import type { LivingEquipmentItems } from '../../types';
 
 export const useGetEquipment =
   (controller: ServerController) => (playerId: number) => {
     const player = controller.livingsController.getById(playerId);
-    const items: Equipment = {};
+    const items: LivingEquipmentItems = {};
 
     if (player.equipment) {
       (
