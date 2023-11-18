@@ -1,11 +1,11 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Item } from '@/backend/Controllers/Items/types';
+import type { PublicItem } from '@/backend/Controllers/Items/types';
 import { isItemEquipable } from '@/backend/Controllers/Items/utils/isItemEquipable';
 import type { Living } from '@/backend/Controllers/Livings/types';
 
 export const isPlayerCanEquipItem = (
   player: BaseItem<Living>,
-  item: Item
+  item: PublicItem
 ): boolean => {
   if (player.activity === 'FIGHT') {
     console.warn(

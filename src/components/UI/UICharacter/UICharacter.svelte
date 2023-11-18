@@ -5,6 +5,8 @@ import type { UICharacterProps } from './types';
 import type { ItemType } from '@/backend/Controllers/Items/types';
 import { currentHealth } from './utils/currentHealth';
 import UiCharacterGridItem from './UICharacterGridItem.svelte';
+import UiInventoryItem from '../UIInventoryItem/UIInventoryItem.svelte';
+import { itemToUIInventoryItemProps } from '@/modal/components/ItemInfoModal/utils/itemToUIInventoryItemProps';
 
 export let props: UICharacterProps;
 
@@ -96,7 +98,7 @@ const handleInventoryCellClick = (type: ItemType) => {
         <div>
           <div>Drops:</div>
           {#each props.drops as drop}
-            {drop.name}
+            <UiInventoryItem props={itemToUIInventoryItemProps(drop)} />
           {/each}
         </div>
       {/if}

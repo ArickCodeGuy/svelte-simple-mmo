@@ -1,4 +1,3 @@
-import woodenSword from '@/backend/Controllers/Items/ItemsProtos/items/woodenSword';
 import type { ServerController } from '..';
 import type { GlobalInfo } from '../types';
 
@@ -13,7 +12,7 @@ export const useCreateNewPlayer =
       params.name
     );
 
-    serverController.itemsController.add(woodenSword, player.id);
+    serverController.itemsController.add(1, player.id);
 
     return serverController.publicApi.getState(player.id);
   };

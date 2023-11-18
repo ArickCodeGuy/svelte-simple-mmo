@@ -1,15 +1,19 @@
-import type { PublicItem } from '@/backend/Controllers/Items/types';
-import type { LivingCompleteStats } from '@/backend/Controllers/Livings/types';
+import type { ItemProto } from '@/backend/Controllers/Items/ItemsProtos/types';
+import type {
+  ItemProtoStatBonus,
+  PublicItem,
+} from '@/backend/Controllers/Items/types';
+import type {
+  LivingCompleteStats,
+  LivingStats,
+} from '@/backend/Controllers/Livings/types';
 import type { UIInventoryItemProps } from '@/components/UI/UIInventoryItem/types';
 
 type Options = {
   actions?: UIInventoryItemProps['actions'];
 };
 
-/**
- * Returns only display content of item. Does not return actions
- */
-export const itemToUIInventoryItemProps = (
+const publicItemToUIInventoryItemProps = (
   item: PublicItem,
   options: Options = {}
 ): UIInventoryItemProps => {
@@ -31,4 +35,43 @@ export const itemToUIInventoryItemProps = (
     bonuses,
     actions: options.actions,
   };
+};
+
+const itemProtoStatBonusToString = (bonus: ItemProtoStatBonus) =>
+  Array.isArray(bonus.value)
+    ? `${bonus.value[0]} - ${bonus.value[1]}`
+    : String(bonus.value);
+
+const itemProtoToUIInventoryItemProps = (
+  item: ItemProto,
+  options: Options = {}
+): UIInventoryItemProps => {
+  const bonuses = (
+    Object.entries(item.statsBonuses || {}) as [
+      keyof LivingStats,
+      ItemProtoStatBonus,
+    ][]
+  ).map(
+    ([statName, bonus]) => statName + ': ' + itemProtoStatBonusToString(bonus)
+  );
+
+  return {
+    img: item.img,
+    name: item.name,
+    bonuses,
+  };
+};
+
+/**
+ * Returns only display content of item. Does not return actions
+ */
+export const itemToUIInventoryItemProps = (
+  item: PublicItem | ItemProto,
+  options: Options = {}
+): UIInventoryItemProps => {
+  if ('protoId' in item) {
+    return publicItemToUIInventoryItemProps(item, options);
+  } else {
+    return itemProtoToUIInventoryItemProps(item, options);
+  }
 };

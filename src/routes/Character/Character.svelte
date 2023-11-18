@@ -1,7 +1,6 @@
 <script lang="ts">
 import { Server } from '@/backend';
-import type { BaseItem } from '@/backend/Controllers/Base';
-import type { Item, ItemType } from '@/backend/Controllers/Items/types';
+import type { ItemType, PublicItem } from '@/backend/Controllers/Items/types';
 import type { LivingStats } from '@/backend/Controllers/Livings/types';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiCharacter from '@/components/UI/UICharacter/UICharacter.svelte';
@@ -13,7 +12,7 @@ import { livingToUICharacterProps } from '@/utils/livingToUICharacterProps';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
-let items: BaseItem<Item>[] = [];
+let items: PublicItem[] = [];
 $: {
   if (!globalInfo.living.id) {
     items = [];
@@ -22,7 +21,19 @@ $: {
   }
 }
 
-$: inventoryItems = items.map((i) => itemToUIInventoryItemProps(i));
+$: inventoryItems = items.map((i) =>
+  itemToUIInventoryItemProps(i, {
+    actions: [
+      {
+        text: 'Throw away',
+        action: () => {
+          Server.publicApi.items.throw(i.id, globalInfo.living.id);
+          items = Server.publicApi.getItemsByType(globalInfo.living.id);
+        },
+      },
+    ],
+  })
+);
 
 const statsConfirm = (updatedStats: LivingStats) => {
   globalInfoState.update(() =>
@@ -58,9 +69,13 @@ $: props = livingToUICharacterProps(globalInfo.living, {
       </div>
       <div class="col-lg-4">
         <h2 class="h2">Inventory</h2>
-        {#each inventoryItems as props}
-          <UiInventoryItem {props} />
-        {/each}
+        {#if inventoryItems.length}
+          {#each inventoryItems as props}
+            <UiInventoryItem {props} />
+          {/each}
+        {:else}
+          no items
+        {/if}
       </div>
     </div>
   </div>

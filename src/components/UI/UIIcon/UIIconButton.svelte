@@ -16,8 +16,15 @@ export let icon: string;
 </button>
 
 <style lang="scss">
+@import '@/assets/styles/_vars.scss';
+
 .UIIconButton {
   cursor: pointer;
   gap: 15px;
+  --size: 10px;
+  line-height: var(--size);
+  @media (min-width: $breakpoint-lg) {
+    --size: 16px;
+  }
 }
 </style>

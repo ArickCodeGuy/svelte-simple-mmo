@@ -18,15 +18,22 @@ export let props: UIActionButtonProps;
 </div>
 
 <style lang="scss">
+@import '@/assets/styles/_vars.scss';
+
 .UIActionButton {
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   background-color: rgba(var(--rgba-bgc), 0.3);
   gap: 10px;
   transition: 0.3s;
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 10px;
+  }
+
   &:focus-within,
   &:hover {
     filter: drop-shadow(0 0 5px rgba(var(--rgba-contrast), 0.3));

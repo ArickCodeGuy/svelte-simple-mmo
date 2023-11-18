@@ -1,5 +1,5 @@
 import type { LivingEquipmentType } from '../../Livings/types';
-import type { Item } from '../types';
+import type { PublicItem } from '../types';
 
 const equipableTypes: LivingEquipmentType[] = [
   'body',
@@ -12,5 +12,5 @@ const equipableTypes: LivingEquipmentType[] = [
 
 const equipableTypesRegExp = RegExp(`^${equipableTypes.join('|')}$`);
 
-export const isItemEquipable = (item: Item): boolean =>
-  Boolean(equipableTypesRegExp.test(item.type));
+export const isItemEquipable = (item: PublicItem): boolean =>
+  Boolean(equipableTypesRegExp.test(item.proto.type));

@@ -30,6 +30,8 @@ export let props: UIInventoryItemProps;
 </div>
 
 <style lang="scss">
+@import '@/assets/styles/_vars.scss';
+
 .UIInventoryItem {
   display: flex;
   gap: var(--column-gap);
@@ -37,9 +39,13 @@ export let props: UIInventoryItemProps;
     margin-bottom: 5px;
   }
   &__left {
-    width: 100px;
+    width: 25%;
     flex-grow: 0;
     flex-shrink: 0;
+
+    @media (min-width: $breakpoint-md) {
+      width: 100px;
+    }
   }
   &__right {
     width: 100%;

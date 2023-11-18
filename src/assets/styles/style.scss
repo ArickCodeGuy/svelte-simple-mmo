@@ -126,7 +126,10 @@ body {
 button {
   border: none;
   border-radius: 3px;
-  padding: 5px;
+  padding: 2px;
+  @media (min-width: $breakpoint-lg) {
+    padding: 5px;
+  }
 }
 
 .section {

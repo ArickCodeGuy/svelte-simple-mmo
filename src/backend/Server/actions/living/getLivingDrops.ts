@@ -29,11 +29,7 @@ export const useGetLivingDrops =
       const rand = Math.random();
 
       if (rand <= drop.dropRate) {
-        const itemProto =
-          controller.itemsController.itemsProtosController.getById(
-            drop.itemProtoId
-          );
-        const item = controller.itemsController.add(itemProto, 0);
+        const item = controller.itemsController.add(drop.itemProtoId, 0);
         res.push(item);
       }
     });

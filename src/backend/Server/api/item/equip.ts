@@ -9,7 +9,7 @@ import { isPlayerCanEquipItem } from '../../utils/isPlayerCanEquipItem';
 export const useEquipItem =
   (contorller: ServerController) =>
   (playerId: number, itemId: number): GlobalInfo => {
-    const item = contorller.itemsController.getById(itemId);
+    const item = contorller.itemsController.actions.getPublicItem(itemId);
     const player = contorller.livingsController.getById(playerId);
 
     if (isPlayerCanEquipItem(player, item)) {
@@ -18,7 +18,7 @@ export const useEquipItem =
           ? { ...v.equipment }
           : {};
 
-        equipment[item.type as LivingEquipmentType] = item.id;
+        equipment[item.proto.type as LivingEquipmentType] = item.id;
 
         return {
           ...v,

@@ -1,6 +1,6 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
 import type { ItemProto } from '@/backend/Controllers/Items/ItemsProtos/types';
-import type { Item } from '@/backend/Controllers/Items/types';
+import type { PublicItem } from '@/backend/Controllers/Items/types';
 import type {
   Living,
   LivingEquipmentType,
@@ -30,12 +30,9 @@ export const livingToUICharacterProps = (
 
   if (options.equipment) {
     (
-      Object.entries(options.equipment) as [
-        LivingEquipmentType,
-        BaseItem<Item>,
-      ][]
+      Object.entries(options.equipment) as [LivingEquipmentType, PublicItem][]
     ).forEach(([place, item]) => {
-      items[place] = item.img;
+      items[place] = item.proto.img;
     });
   }
 

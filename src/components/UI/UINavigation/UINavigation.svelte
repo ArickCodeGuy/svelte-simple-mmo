@@ -80,21 +80,27 @@ onMount(() => {
 {/if}
 
 <style lang="scss">
+@import '@/assets/styles/_vars.scss';
 .UINavigation {
   background-color: var(--bgc);
   padding: var(--column-gutter);
   align-items: start;
   transition: 0.3s;
+  --width: calc(100% - 30px);
+  width: var(--width);
+  @media (min-width: $breakpoint-md) {
+    --width: 300px;
+  }
+
   &--fixed {
     z-index: 10;
     position: fixed;
     left: 0;
     top: 0;
-    width: 300px;
     height: 100%;
   }
   &--closed {
-    left: -300px;
+    left: calc(var(--width) * -1);
   }
 }
 .navigation-groups {
