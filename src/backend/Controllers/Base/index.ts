@@ -1,3 +1,5 @@
+import type { Updater } from '@/backend/Server/types';
+import { updaterFunction } from '@/backend/Server/utils/updaterFunction';
 import idGen from '@/utils/idGen';
 
 export type BaseItem<T> = T & {
@@ -48,12 +50,9 @@ export class BaseController<T> {
   replace(id: number, item: BaseItem<T>) {
     this.#state[id] = item;
   }
-  update(
-    id: number,
-    updater: ((oldState: BaseItem<T>) => BaseItem<T>) | BaseItem<T>
-  ): BaseItem<T> {
+  update(id: number, updater: Updater<BaseItem<T>>) {
     const item = this.getById(id);
-    const newState = typeof updater === 'function' ? updater(item) : updater;
+    const newState = updaterFunction(updater, item);
     this.replace(id, newState);
 
     return newState;

@@ -56,3 +56,7 @@ export type LivingEquipmentItems = Partial<
  *   nextTurn?: number;
  * }
  */
+
+export type PositionLikeObject<T> = Record<number, Record<string, T>>;
+
+export type Updater<T> = ((oldState: T) => T) | T;

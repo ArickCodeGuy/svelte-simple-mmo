@@ -108,7 +108,10 @@ export const DEFAULT_MAP_LAYOUT: MazeMap = {
 const npcSettings: MapInfo['npcSettings'] = [
   {
     id: 2,
-    area: Object.keys(DEFAULT_MAP_LAYOUT),
+    area: Object.values(DEFAULT_MAP_LAYOUT).map((i) => ({
+      ...i.position,
+      mapId: 1,
+    })),
     amount: 100,
   },
 ];

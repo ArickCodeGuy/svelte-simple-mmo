@@ -1,6 +1,6 @@
 import type { BaseItem } from '@/backend/Controllers/Base';
 import type { ServerController } from '..';
-import type { Living } from '@/backend/Controllers/Livings/types';
+import type { Living, Position } from '@/backend/Controllers/Livings/types';
 import { DEFAULT_RESPAWN_POSITION } from '../constants';
 
 export const respawnNpc = (
@@ -8,11 +8,12 @@ export const respawnNpc = (
   living: BaseItem<Living>
 ) => {
   serverController.livingsController.remove(living.id);
-  serverController.livingsController.createNpc(
-    living.protoId,
-    living.position,
-    living.mapArea
-  );
+  if (living.respawn) {
+    serverController.livingsController.createNpc(
+      living.protoId,
+      living.respawn
+    );
+  }
 };
 
 /**
@@ -24,7 +25,9 @@ export const respawnPlayer = (
 ) => {
   serverController.livingsController.update(living.id, (v) => ({
     ...v,
-    position: v.respawn ? { ...v.respawn } : DEFAULT_RESPAWN_POSITION,
+    position: v.respawn
+      ? ({ ...v.respawn } as Position)
+      : DEFAULT_RESPAWN_POSITION,
   }));
 };
 

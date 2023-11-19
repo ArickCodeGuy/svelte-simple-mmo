@@ -1,4 +1,4 @@
-import type { MapArea } from '../Maps/types';
+import type { PositionLikeObject } from '@/backend/Server/types';
 
 export type Position = {
   mapId: number;
@@ -38,10 +38,10 @@ export type Living = {
   position: Position;
   activity?: LivingActivity;
   fightInstanceId?: number;
-  mapArea?: MapArea;
+  mapArea?: Position[];
   fightLogs?: number[];
   equipment?: LivingEquipment;
-  respawn?: Position;
+  respawn?: Position | Position[];
   /**
    * url to profile picture
    */
@@ -102,12 +102,12 @@ export type DirectionalMove = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 /**
  * LivingsPositions[mapId][`${x},${y}`] = Living[];
  */
-export type LivingsPositions = Record<string, MapLivingsPositions>;
+export type LivingsPositions = PositionLikeObject<Living[]>;
 
 /**
  * Livings on certain mapId as [`${x},${y}`] => living.id[]
  */
-export type MapLivingsPositions = Record<string, number[] | undefined>;
+export type MapLivingsPositions = PositionLikeObject<number[]>;
 
 /**
  * Used for indicating for nearby enemies

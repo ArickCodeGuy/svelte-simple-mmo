@@ -1,17 +1,20 @@
-import type { Living, Position } from '../types';
+import type { Living } from '../types';
 import type { LivingsController } from '..';
 import { protoToDefaultLiving } from '../utils/protoToDefaultLiving';
-import type { MapArea } from '../../Maps/types';
+import { randomItemFromArray } from '@/utils/randomItemFromArray';
 
 export const useCreateNpc =
   (controller: LivingsController) =>
-  (protoId: number, position: Position, mapArea?: MapArea) => {
+  (protoId: number, area: Living['respawn']) => {
+    if (!area) return;
+
+    const position = Array.isArray(area) ? randomItemFromArray(area) : area;
     const proto = controller.livingsProtosController.getById(protoId);
 
     const newLiving: Living = {
       ...protoToDefaultLiving(proto),
       position,
-      mapArea,
+      respawn: area,
     };
 
     return controller.add(newLiving);

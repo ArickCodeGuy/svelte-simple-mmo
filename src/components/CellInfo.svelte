@@ -33,7 +33,7 @@ $: {
 
 $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbour);
 
-$: cellActions = globalInfo.actions;
+$: cellActions = null;
 
 $: players = sortedLivings.players.map((i) => ({
   ...livingToUIActionButtonProps(i),

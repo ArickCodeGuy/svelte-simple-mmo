@@ -4,7 +4,7 @@ import { useDirectionalMove } from './actions/directionalMove';
 import { BaseController, type BaseItem } from '../Base';
 import type {
   Living,
-  LivingsPositions,
+  MapLivingsPositions,
   NearbyLivings,
   Position,
 } from './types';
@@ -13,9 +13,15 @@ import { useUpdateCurrentHealth } from './actions/updateCurrentHealth';
 import { useUpdateStats } from './actions/updateStats';
 import { livingCurrentHealth } from './utils/livingCurrentHealth';
 import { LivingsProtosController } from './LivingsProtos';
+import {
+  getItemFromPositionLikeObject,
+  setItemToPositionLikeObject,
+} from '@/backend/Server/utils/getItemFromPositionLikeObject';
+import type { Updater } from '@/backend/Server/types';
+import { updaterFunction } from '@/backend/Server/utils/updaterFunction';
 
 export class LivingsController extends BaseController<Living> {
-  #livingsPositions: LivingsPositions;
+  #livingsPositions: MapLivingsPositions;
   livingsProtosController: LivingsProtosController;
 
   createNpc: ReturnType<typeof useCreateNpc>;
@@ -76,14 +82,9 @@ export class LivingsController extends BaseController<Living> {
     return super.replace(id, living);
   }
 
-  update(
-    id: number,
-    updater:
-      | ((_oldState: BaseItem<Living>) => BaseItem<Living>)
-      | BaseItem<Living>
-  ): BaseItem<Living> {
+  update(id: number, updater: Updater<BaseItem<Living>>): BaseItem<Living> {
     const item = this.getById(id);
-    const newState = typeof updater === 'function' ? updater(item) : updater;
+    const newState = updaterFunction(updater, item);
 
     if (!item.activity) {
       newState.health.current = livingCurrentHealth(newState);
@@ -108,10 +109,30 @@ export class LivingsController extends BaseController<Living> {
     return res;
   }
 
-  getLivingsByPosition({ mapId, y, x }: Position): BaseItem<Living>[] {
-    const ids = this.#livingsPositions?.[mapId]?.[`${x},${y}`] || [];
+  getLivingsIdsByPosition(pos: Position) {
+    return getItemFromPositionLikeObject(pos, this.#livingsPositions);
+  }
 
-    return ids.map((i) => this.getById(i));
+  getLivingsByPosition({ mapId, y, x }: Position): BaseItem<Living>[] {
+    const ids = this.getLivingsIdsByPosition({ mapId, y, x });
+
+    return (ids || []).map((i) => this.getById(i));
+  }
+
+  removeLivingFromPosition(pos: Position, id: number) {
+    setItemToPositionLikeObject(pos, this.#livingsPositions, (v) => {
+      if (!v) return [];
+
+      return v.filter((i) => i !== id);
+    });
+  }
+
+  addLivingToPosition(pos: Position, id: number) {
+    setItemToPositionLikeObject(pos, this.#livingsPositions, (v) => {
+      if (!v) return [id];
+
+      return [...v, id];
+    });
   }
 
   updateLivingsPositions(
@@ -123,35 +144,17 @@ export class LivingsController extends BaseController<Living> {
      * New position
      */
     np: Position | undefined,
+    /**
+     * living.id
+     */
     id: number
   ) {
-    /**
-     * this.#livingsPositions
-     */
-    const lp = this.#livingsPositions;
-
-    const ppPos = pp && `${pp.x},${pp.y}`;
-    const npPos = np && `${np.x},${np.y}`;
-
-    /**
-     * if position have not changed then return from function
-     */
-    if (pp && np && pp.mapId === np.mapId && ppPos === npPos) {
-      return;
+    if (pp) {
+      this.removeLivingFromPosition(pp, id);
     }
 
-    if (pp && ppPos && lp[pp.mapId]?.[ppPos]) {
-      lp[pp.mapId][ppPos] = lp[pp.mapId][ppPos]!.filter((i) => i !== id);
-    }
-
-    if (np && npPos) {
-      if (!lp[np.mapId]) {
-        lp[np.mapId] = {};
-      }
-      if (!lp[np.mapId]?.[npPos]) {
-        lp[np.mapId][npPos] = [];
-      }
-      lp[np.mapId][npPos]!.push(id);
+    if (np) {
+      this.addLivingToPosition(np, id);
     }
   }
 }

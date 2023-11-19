@@ -94,7 +94,7 @@ const handleInventoryCellClick = (type: ItemType) => {
         statsConfirm={props.statsConfirm}
       />
 
-      {#if props.drops}
+      {#if props.drops?.length}
         <div>
           <div>Drops:</div>
           {#each props.drops as drop}

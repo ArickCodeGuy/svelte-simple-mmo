@@ -1,4 +1,5 @@
 import type { MazeMap } from '@/components/CanvasMap/types';
+import type { Position } from '../Livings/types';
 
 export type MapCell = {
   /**
@@ -6,8 +7,6 @@ export type MapCell = {
    */
   typeId: number;
 };
-
-export type MapArea = string[];
 
 export type MapNpcSettings = {
   /**
@@ -18,7 +17,7 @@ export type MapNpcSettings = {
    * Amount to be spawned on init
    */
   amount: number;
-  area: MapArea;
+  area: Position[];
 };
 
 export type MapLayout = MapCell[][];

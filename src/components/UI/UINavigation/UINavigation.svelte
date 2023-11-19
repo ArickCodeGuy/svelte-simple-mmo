@@ -119,14 +119,19 @@ onMount(() => {
   gap: 5px;
 }
 .navigation-group-item {
-  padding: 5px;
+  padding: 3px;
   display: block;
   width: 100%;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   background-color: rgba(var(--rgba-bgc), 0.3);
   border: none;
   text-align: left;
+
+  @media (min-width: $breakpoint-sm) {
+    padding: 5px;
+    font-size: 1.2rem;
+  }
 }
 .navigation-background {
   position: fixed;
