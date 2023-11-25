@@ -45,7 +45,5 @@ export const useFightInit =
       }));
     });
 
-    setTimeout(() => {
-      serverController.fightActions.turn(fightInstanceId);
-    }, fightInstance.nextTurn - new Date().getTime());
+    serverController.fightActions.timeoutAdd(fightInstanceId);
   };

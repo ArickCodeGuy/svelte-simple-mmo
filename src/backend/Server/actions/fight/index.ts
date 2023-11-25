@@ -4,6 +4,7 @@ import { useFightEnd } from './end';
 import { useGetFightInfo } from './getInfo';
 import { useGetTeamExp } from './getTeamExp';
 import { useFightInit } from './init';
+import { useFightTimeoutAdd, useFightTimeoutRemove } from './timeout';
 import { useFightTurn } from './turn';
 
 export const useFightActions = (serverController: ServerController) => ({
@@ -13,4 +14,6 @@ export const useFightActions = (serverController: ServerController) => ({
   getTeamExp: useGetTeamExp(serverController),
   turn: useFightTurn(serverController),
   init: useFightInit(serverController),
+  timeoutAdd: useFightTimeoutAdd(serverController),
+  timeoutRemove: useFightTimeoutRemove(serverController),
 });

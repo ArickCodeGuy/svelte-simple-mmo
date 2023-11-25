@@ -30,14 +30,6 @@ export const useFightTurn =
       serverController.fightLogActions.pushTurn(fight.logId);
 
       teamTurn(serverController, fight.id);
-
-      const newFightState = serverController.fightController.updateTimeout(
-        fight.id
-      );
-
-      window.setTimeout(() => {
-        serverController.fightActions.turn(fight.id);
-      }, newFightState.nextTurn - new Date().getTime());
     } catch (e) {
       console.error('Fight turn: Fight is already over. Aborting...');
     }

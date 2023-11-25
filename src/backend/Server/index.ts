@@ -24,6 +24,12 @@ export class ServerController {
   respawn: ReturnType<typeof useRespawn>;
   init: ReturnType<typeof useInit>;
 
+  /**
+   * key: FightInstance['id']
+   * value: timeoutId
+   */
+  fightTimeoutMap: Record<number, number>;
+
   constructor(
     livingsController: LivingsController,
     mapController: MapController,
@@ -44,6 +50,8 @@ export class ServerController {
     this.publicApi = usePublicApi(this);
     this.respawn = useRespawn(this);
     this.init = useInit(this);
+
+    this.fightTimeoutMap = {};
 
     this.init();
   }

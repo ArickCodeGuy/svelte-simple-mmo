@@ -51,4 +51,5 @@ export const useFightEnd =
     });
 
     serverController.fightController.remove(id);
+    serverController.fightActions.timeoutRemove(id);
   };

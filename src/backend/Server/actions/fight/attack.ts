@@ -18,7 +18,7 @@ export const useFightAttack =
 
     if (!attacker.fightInstanceId) {
       throw new Error(
-        `Attacker: ${attacker.id} tryes to attack without fight instance id`
+        `Attacker: ${attacker.id} tries to attack without fight instance id`
       );
     }
 
