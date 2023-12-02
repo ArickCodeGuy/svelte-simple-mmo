@@ -42,6 +42,7 @@ export type Living = {
   fightLogs?: number[];
   equipment?: LivingEquipment;
   respawn?: Position | Position[];
+  gold?: number;
   /**
    * url to profile picture
    */

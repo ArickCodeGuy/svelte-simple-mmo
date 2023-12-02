@@ -24,10 +24,25 @@ export const useDrink = (controller: ServerController) => (id: number) => {
       current: v.health.max,
     },
   }));
+
+  return controller.publicApi.getState(id);
 };
 
-const fountainActions = (controller: ServerController) => ({
+export const useTossACoin = (controller: ServerController) => (id: number) => {
+  const player = controller.livingsController.getById(id);
+  if (!player.gold) return;
+
+  controller.livingsController.update(id, (v) => ({
+    ...v,
+    gold: v.gold! - 1,
+  }));
+
+  return controller.publicApi.getState(id);
+};
+
+const useFountainActions = (controller: ServerController) => ({
   drink: useDrink(controller),
+  tossACoin: useTossACoin(controller),
 });
 
-export default fountainActions;
+export default useFountainActions;
