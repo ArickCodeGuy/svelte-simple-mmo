@@ -5,9 +5,8 @@ import UiIconButton from '../UIIcon/UIIconButton.svelte';
 export let props: UIActionButtonProps;
 </script>
 
-<div class="UIActionButton">
-  <div class="UIActionButton__lvl">[{props.lvl}]</div>
-  <div class="UIActionButton__name">{props.name}</div>
+<div class="UIActionButton" on:keydown on:click={props.onClick}>
+  <div class="UIActionButton__desc">{@html props.desc}</div>
   {#if props.actions}
     <div class="UIActionButton__right">
       {#each props.actions as action}
@@ -37,9 +36,6 @@ export let props: UIActionButtonProps;
   &:focus-within,
   &:hover {
     filter: drop-shadow(0 0 5px rgba(var(--rgba-contrast), 0.3));
-  }
-  &__lvl {
-    font-weight: bold;
   }
   &__right {
     margin-left: auto;

@@ -5,35 +5,16 @@ import { livingToUIActionButtonProps } from '@/utils/livingToUIActionButtonProps
 import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import { livingsArrToNpcAndPlayers } from '@/utils/livingsArrToNpcAndPlayers';
-import { frontDictionaryState } from '@/store/dictionary';
-import type { Dictionary } from '@/types/types';
 import { myNavigate } from '@/utils/myNavigate';
+import CellActions from './CellActions/CellActions.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
-let dictionary: Dictionary;
-frontDictionaryState.subscribe((v) => (dictionary = v));
-
-const getCurrentCellName = (globalInfo: GlobalInfo, dictionary: Dictionary) => {
-  if (!globalInfo.map || !globalInfo.living || !dictionary) {
-    return '';
-  }
-
-  const pos = `${globalInfo.living.position.x},${globalInfo.living.position.y}`;
-  const cellTypeId = globalInfo.map.layout[pos].typeId;
-
-  return dictionary['cellTypeName'][cellTypeId];
-};
-
-let cellType = '';
-$: {
-  cellType = getCurrentCellName(globalInfo, dictionary);
-}
+$: pos = `${globalInfo.living.position.x},${globalInfo.living.position.y}`;
+$: cellTypeId = globalInfo?.map?.layout[pos].typeId || 0;
 
 $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbour);
-
-$: cellActions = null;
 
 $: players = sortedLivings.players.map((i) => ({
   ...livingToUIActionButtonProps(i),
@@ -67,14 +48,7 @@ $: enemies = sortedLivings.npc.map((i) => {
 <div class="CellInfo">
   {#if globalInfo}
     <div class="CellInfo__blocks">
-      <div class="CellInfo__block">
-        Cell type: {cellType}
-      </div>
-      {#if cellActions}
-        {#each cellActions as action}
-          <div on:keypress on:click={() => action.action()}>{action.name}</div>
-        {/each}
-      {/if}
+      <CellActions props={{ id: cellTypeId }} />
       {#if players.length}
         <div class="CellInfo__block">
           <div>Players:</div>

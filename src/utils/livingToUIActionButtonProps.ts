@@ -6,10 +6,7 @@ import { showCharacterInfoPopup } from '@/modal/components/CharacterInfoModal/sh
 export const livingToUIActionButtonProps = (
   living: BaseItem<Living>
 ): UIActionButtonProps => ({
-  lvl: living.lvl,
-  name: living.name,
-  chp: living.health.current,
-  hp: living.health.max,
+  desc: `<b>[${living.lvl}]</b> ${living.name}`,
   actions: [
     {
       f: () => {

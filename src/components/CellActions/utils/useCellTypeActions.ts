@@ -11,7 +11,8 @@ export const useCellTypeActions = async (
     const {
       default: cellActions,
     }: { default: CellActionsAction[] | undefined } = await import(
-      `../typeIds/${cellTypeName}`
+      /* @vite-ignore */
+      `../typeIds/${cellTypeName}.ts`
     );
 
     return cellActions;

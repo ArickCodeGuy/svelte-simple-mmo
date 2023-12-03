@@ -39,5 +39,6 @@ module.exports = {
         args: 'none',
       },
     ],
+    'svelte/no-at-html-tags': 'off',
   },
 };

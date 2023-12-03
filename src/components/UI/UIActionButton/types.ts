@@ -4,9 +4,7 @@ export type UIActionButtonAction = {
 };
 
 export type UIActionButtonProps = {
-  lvl: number;
-  name: string;
-  chp: number;
-  hp: number;
+  desc: string;
   actions?: UIActionButtonAction[];
+  onClick?: () => void;
 };
