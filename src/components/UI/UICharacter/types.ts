@@ -17,7 +17,7 @@ export type UICharacterProps = {
 
   isView?: boolean;
   items: UICharacterItems;
-  drops?: BaseItem<ItemProto>[];
+  drops?: (BaseItem<ItemProto> & { dropRate: number })[];
 
   inventoryClick?: (type: ItemType) => void;
   statsConfirm?: (updatedStats: LivingStats) => void;
