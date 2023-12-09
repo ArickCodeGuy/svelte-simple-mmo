@@ -14,11 +14,12 @@ export const useGetLivingById =
           living.protoId
         );
       if (proto.drops) {
-        drops = proto.drops.map((i) =>
-          controller.itemsController.itemsProtosController.getById(
+        drops = proto.drops.map((i) => ({
+          ...controller.itemsController.itemsProtosController.getById(
             i.itemProtoId
-          )
-        );
+          ),
+          dropRate: i.dropRate,
+        }));
       }
     }
 

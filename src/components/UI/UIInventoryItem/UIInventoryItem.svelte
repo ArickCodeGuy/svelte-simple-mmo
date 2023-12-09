@@ -10,11 +10,16 @@ export let props: UIInventoryItemProps;
   </div>
   <div class="UIInventoryItem__right">
     <div class="UIInventoryItem__name">{props.name}</div>
-    <div class="UIInventoryItem__bonuses">
+    <div class="UIInventoryItem__bonuses small">
       {#each props.bonuses as bonus}
         <div>{bonus}</div>
       {/each}
     </div>
+    {#if props.dropRate}
+      <div class="UIInventoryItem__dropRate small">
+        Drop Rate: {props.dropRate}
+      </div>
+    {/if}
     <div class="UIInventoryItem__btns">
       {#if props.actions}
         {#each props.actions as action}
@@ -62,6 +67,11 @@ export let props: UIInventoryItemProps;
       padding: 2px 5px;
       width: unset;
     }
+  }
+
+  .small {
+    font-size: 0.6em;
+    line-height: 1em;
   }
 }
 </style>

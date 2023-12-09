@@ -98,7 +98,11 @@ const handleInventoryCellClick = (type: ItemType) => {
         <div>
           <div>Drops:</div>
           {#each props.drops as drop}
-            <UiInventoryItem props={itemToUIInventoryItemProps(drop)} />
+            <UiInventoryItem
+              props={itemToUIInventoryItemProps(drop, {
+                dropRate: drop.dropRate,
+              })}
+            />
           {/each}
         </div>
       {/if}

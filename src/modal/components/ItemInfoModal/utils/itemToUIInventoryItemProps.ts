@@ -8,9 +8,11 @@ import type {
   LivingStats,
 } from '@/backend/Controllers/Livings/types';
 import type { UIInventoryItemProps } from '@/components/UI/UIInventoryItem/types';
+import { dropRateToString } from './dropRateToString';
 
 type Options = {
   actions?: UIInventoryItemProps['actions'];
+  dropRate?: number;
 };
 
 const publicItemToUIInventoryItemProps = (
@@ -59,6 +61,7 @@ const itemProtoToUIInventoryItemProps = (
     img: item.img,
     name: item.name,
     bonuses,
+    dropRate: options.dropRate ? dropRateToString(options.dropRate) : undefined,
   };
 };
 
