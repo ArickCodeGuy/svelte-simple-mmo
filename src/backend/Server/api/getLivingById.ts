@@ -7,7 +7,7 @@ export const useGetLivingById =
   (controller: ServerController) => (livingId: number) => {
     const living = controller.livingsController.getById(livingId);
 
-    let drops: BaseItem<ItemProto>[] = [];
+    let drops: (BaseItem<ItemProto> & { dropRate: number })[] = [];
     if (!isPlayer(living)) {
       const proto =
         controller.livingsController.livingsProtosController.getById(

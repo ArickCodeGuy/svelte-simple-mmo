@@ -1,5 +1,5 @@
 import type { LivingEquipment } from '@/backend/Controllers/Livings/types';
-import type { UICharacterItems } from '@/components/UI/Character/types';
+import type { UICharacterItems } from '@/components/UI/UICharacter/types';
 
 export const livingEquipmentToUICharacterItems = (
   equipment: LivingEquipment | undefined

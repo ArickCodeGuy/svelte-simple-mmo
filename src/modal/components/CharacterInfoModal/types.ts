@@ -1,3 +1,3 @@
-export type CharacterInfoProps = {
+export type CharacterInfoModalProps = {
   id: number;
 };

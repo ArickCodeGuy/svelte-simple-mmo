@@ -1,9 +1,9 @@
 import { closePopup, modalState } from '../../store';
-import CharacterInfo from './CharacterInfo.svelte';
+import CharacterInfoModal from './CharacterInfoModal.svelte';
 
 export const showCharacterInfoPopup = (livingId: number) => {
   modalState.update(() => ({
-    component: CharacterInfo,
+    component: CharacterInfoModal,
     title: 'Character info',
     componentProps: {
       id: livingId,

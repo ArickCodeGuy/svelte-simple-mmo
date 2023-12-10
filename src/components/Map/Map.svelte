@@ -61,6 +61,8 @@ onMount(() => {
 </div>
 
 <style lang="scss">
+@import '@/assets/styles/vars.scss';
+
 .buttons {
   margin-top: 5px;
   display: flex;
@@ -69,5 +71,8 @@ onMount(() => {
 
   gap: 2px;
   display: none;
+  @media (min-width: $breakpoint-lg) {
+    display: none;
+  }
 }
 </style>

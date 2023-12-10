@@ -14,7 +14,7 @@ import type {
 
 type Options = {
   equipment?: LivingEquipmentItems;
-  drops?: BaseItem<ItemProto>[];
+  drops?: (BaseItem<ItemProto> & { dropRate: number })[];
   isView?: UICharacterProps['isView'];
   statsConfirm?: UICharacterProps['statsConfirm'];
   inventoryClick?: UICharacterProps['inventoryClick'];
