@@ -23,7 +23,7 @@ $: remainingStatPoints = statPoints - totalSpentStats;
 
 $: statsArr = Object.entries(stats) as [
   keyof LivingStats,
-  ValueOf<LivingStats>
+  ValueOf<LivingStats>,
 ][];
 
 const confirm = () => {
@@ -90,6 +90,7 @@ const confirm = () => {
 </div>
 
 <style lang="scss">
+@import '@/assets/styles/vars.scss';
 .UICharacterStats {
   &__confirm {
     margin-top: 20px;
@@ -119,14 +120,18 @@ const confirm = () => {
       background-color: transparent;
       padding: 3px;
       font-size: 20px;
+      line-height: 0;
       &:focus {
         outline: none;
       }
     }
   }
   &__value {
-    width: 40px;
+    width: 15px;
     text-align: right;
+    @media (min-width: $breakpoint-md) {
+      width: 40px;
+    }
   }
 }
 </style>
