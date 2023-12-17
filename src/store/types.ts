@@ -1,7 +1,7 @@
 import type { UINotificationProps } from '@/components/UI/UINotification/types';
 
 export type Notifications = {
-  items: Notification;
+  items: Notification[];
 };
 
 export type Notification = UINotificationProps & {
