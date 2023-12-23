@@ -5,12 +5,12 @@ import idGen from '@/utils/idGen';
 
 const gen = idGen();
 
-export const notifications = writable<Notifications>({
+export const notificationsStore = writable<Notifications>({
   items: [],
 });
 
 export const removeNotification = (id: number): void => {
-  notifications.update((v) => {
+  notificationsStore.update((v) => {
     const newItems = v.items.filter((i) => i.id !== id);
 
     return {
@@ -21,17 +21,19 @@ export const removeNotification = (id: number): void => {
 };
 
 export const pushNotification = (notif: UINotificationProps): void => {
-  notifications.update((v) => {
+  notificationsStore.update((v) => {
     const id = gen();
+    const timeout = notif.timeout || 5000;
     const item = {
       ...notif,
       id,
+      timeout,
     };
     const newItems = [item, ...v.items];
 
     setTimeout(() => {
       removeNotification(id);
-    }, 5000);
+    }, timeout);
 
     return {
       ...v,

@@ -17,18 +17,34 @@ $: type = props.type || 'text';
 </div>
 
 <style lang="scss">
+@import '@/assets/styles/vars.scss';
 .UINotification {
-  padding: 5px 5px 4px 5px;
+  position: relative;
+  padding: 15px;
   background-color: rgba(var(--rgba-bgc), 0.6);
   --border-color-warn: yellow;
   --border-color-error: red;
   --border-color-text: var(--contrast);
-  border-bottom: 1px solid var(--border-color);
+  max-width: 100%;
+  width: 200px;
+  @media (min-width: $breakpoint-lg) {
+    width: 400px;
+  }
   &__title {
-    font-size: 2em;
+    font-size: 1.3em;
   }
   &__text {
-    margin-top: 1em;
+    margin-top: 0.5em;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    bottom: 0;
+    left: 0;
   }
 }
 </style>
