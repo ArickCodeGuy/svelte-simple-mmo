@@ -1,14 +1,31 @@
 <script lang="ts">
+import type { TransitionConfig } from 'svelte/types/runtime/transition';
 import type { UINotificationProps } from './types';
+import { sineInOut } from 'svelte/easing';
 
 export let props: UINotificationProps;
 
 $: type = props.type || 'text';
+
+function slide(node: HTMLElement, params?: TransitionConfig): TransitionConfig {
+  const duration = params?.duration || 400;
+
+  return {
+    delay: params?.delay || 0,
+    duration,
+    easing: sineInOut,
+    css: (t, u) =>
+      `transform: translate(${
+        -40 * u
+      }px); opacity: ${t}; transition: ${duration}ms`,
+  };
+}
 </script>
 
 <div
   class="UINotification"
   style:--border-color={`var(--border-color-${type})`}
+  transition:slide
 >
   <div class="UINotification__title">{props.title}</div>
   {#if props.text}
