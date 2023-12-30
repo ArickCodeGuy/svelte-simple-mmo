@@ -9,19 +9,12 @@ import Fight from './routes/Fight/Fight.svelte';
 import { BASE_PATH, ROUTE_NAMES_ENUM } from './constants/base';
 import MapEdit from './routes/MapEdit/MapEdit.svelte';
 import type { UINotificationProps } from './components/UI/UINotification/types';
-import { notificationsStore, pushNotification } from './store/notifications';
+import { notificationsStore } from './store/notifications';
 
 let notifications: UINotificationProps[] = [];
 notificationsStore.subscribe((v) => {
   notifications = v.items;
 });
-setTimeout(() => {
-  pushNotification({
-    title: 'title',
-    text: 'text',
-    type: 'warn',
-  });
-}, 0);
 </script>
 
 <Router basepath={BASE_PATH}>

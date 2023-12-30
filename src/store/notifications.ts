@@ -9,7 +9,7 @@ export const notificationsStore = writable<Notifications>({
   items: [],
 });
 
-export const removeNotification = (id: number): void => {
+const removeNotification = (id: number): void => {
   notificationsStore.update((v) => {
     const newItems = v.items.filter((i) => i.id !== id);
 
@@ -20,7 +20,7 @@ export const removeNotification = (id: number): void => {
   });
 };
 
-export const pushNotification = (notif: UINotificationProps): void => {
+const pushNotification = (notif: UINotificationProps): void => {
   notificationsStore.update((v) => {
     const id = gen();
     const timeout = notif.timeout || 5000;
@@ -40,4 +40,9 @@ export const pushNotification = (notif: UINotificationProps): void => {
       items: newItems,
     };
   });
+};
+
+export const notificationsActions = {
+  pushNotification,
+  removeNotification,
 };
