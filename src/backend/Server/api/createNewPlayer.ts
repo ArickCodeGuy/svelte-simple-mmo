@@ -12,6 +12,7 @@ export const useCreateNewPlayer =
       params.name
     );
 
+    // add default item
     serverController.itemsController.add(1, player.id);
 
     return serverController.publicApi.getState(player.id);

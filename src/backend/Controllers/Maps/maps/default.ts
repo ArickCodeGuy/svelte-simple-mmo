@@ -1,5 +1,6 @@
 import type { MazeMap } from '@/components/CanvasMap/types';
 import type { MapInfo } from '../types';
+import { REGULAR_TYPE_IDS } from '../constants';
 
 export const DEFAULT_MAP_LAYOUT: MazeMap = {
   '0,0': { typeId: 1, position: { x: 0, y: 0 } },
@@ -108,10 +109,13 @@ export const DEFAULT_MAP_LAYOUT: MazeMap = {
 const npcSettings: MapInfo['npcSettings'] = [
   {
     id: 2,
-    area: Object.values(DEFAULT_MAP_LAYOUT).map((i) => ({
-      ...i.position,
-      mapId: 1,
-    })),
+    area: Object.values(DEFAULT_MAP_LAYOUT)
+      // spawn only on regular cells
+      .filter((i) => REGULAR_TYPE_IDS[i.typeId])
+      .map((i) => ({
+        ...i.position,
+        mapId: 1,
+      })),
     amount: 100,
   },
 ];
