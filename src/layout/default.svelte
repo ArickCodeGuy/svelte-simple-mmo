@@ -52,6 +52,7 @@ export let notifications: UINotificationProps[] = [];
 <style lang="scss">
 @import '@/assets/styles/vars.scss';
 .notifications {
+  pointer-events: none;
   padding: 15px;
   position: fixed;
   top: 0;
