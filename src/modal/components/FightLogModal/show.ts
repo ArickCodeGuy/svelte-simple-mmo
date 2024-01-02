@@ -1,24 +1,23 @@
 import { Server } from '@/backend';
 import { closePopup, modalState } from '@/modal/store';
 import { globalInfoState } from '@/store/player';
-import FightEndModal from './FightEndModal.svelte';
-import type { FightEndModalProps } from './types';
+import FightLogModal from './FightLogModal.svelte';
+import type { FightLogModalProps } from './types';
 import { myNavigate } from '@/utils/myNavigate';
 
-const leaveFight = () => {
+export const leaveFight = () => {
   globalInfoState.update((v) => Server.publicApi.fight.leave(v.living.id));
   myNavigate('MAIN');
   closePopup();
 };
 
-export const showFightEndPopup = (props: FightEndModalProps) => {
+export const showFightLogPopup = (props: FightLogModalProps) => {
   modalState.update(() => ({
-    component: FightEndModal,
+    component: FightLogModal,
     title: 'Fight end',
     componentProps: {
       ...props,
-      leaveClick: leaveFight,
     },
-    close: leaveFight,
+    close: props.leaveClick,
   }));
 };

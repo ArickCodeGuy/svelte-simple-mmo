@@ -1,7 +1,10 @@
 import { writable } from 'svelte/store';
 import { Server } from '@/backend';
 import type { CreateNewPlayerParams } from '@/backend/Server/api/createNewPlayer';
-import { showFightEndPopup } from '@/modal/components/FightEndModal/show';
+import {
+  leaveFight,
+  showFightLogPopup,
+} from '@/modal/components/FightLogModal/show';
 
 const newPlayerParams: CreateNewPlayerParams = {
   name: 'admin',
@@ -17,8 +20,9 @@ globalInfoState.subscribe((globalInfo) => {
   if (globalInfo.living.activity === 'FIGHT' && !globalInfo.fight) {
     const logs = globalInfo.living.fightLogs!;
     const fightLogId = logs[logs.length - 1];
-    showFightEndPopup({
+    showFightLogPopup({
       fightLogId,
+      leaveClick: leaveFight,
     });
   }
 

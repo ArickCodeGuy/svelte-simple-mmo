@@ -4,7 +4,6 @@ export enum ROUTE_NAMES_ENUM {
   MAIN = '',
   CHARACTER = '/character',
   FIGHT_LOGS = '/fight-logs',
-  FIGHT_LOG = '/fight-logs/:id',
   FIGHT = '/fight/:id',
   MAP_EDIT = '/map-edit',
 }

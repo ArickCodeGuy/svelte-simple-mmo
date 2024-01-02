@@ -2,19 +2,17 @@
 import { Server } from '@/backend';
 import type { GlobalInfo } from '@/backend/Server/types';
 import UiIconButton from '@/components/UI/UIIcon/UIIconButton.svelte';
+import { showFightLogPopup } from '@/modal/components/FightLogModal/show';
 import { globalInfoState } from '@/store/player';
-import { myNavigate } from '@/utils/myNavigate';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
 $: items = Server.publicApi.getFightLogs(globalInfo.living.id);
 
-const viewLog = (id: number) => {
-  myNavigate('FIGHT_LOG', {
-    params: {
-      id,
-    },
+const viewLog = (fightLogId: number) => {
+  showFightLogPopup({
+    fightLogId,
   });
 };
 </script>

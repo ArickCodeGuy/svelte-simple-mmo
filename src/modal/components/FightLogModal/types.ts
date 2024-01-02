@@ -1,4 +1,4 @@
-export type FightEndModalProps = {
+export type FightLogModalProps = {
   fightLogId: number;
   leaveClick?: () => void;
 };
