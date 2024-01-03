@@ -9,7 +9,10 @@ export const useInit = (serverController: ServerController) => () => {
       const area: Position[] = npcSetting.area;
 
       for (let i = 0; i < npcSetting.amount; i++) {
-        serverController.livingsController.createNpc(npcSetting.id, area);
+        serverController.livingsController.actions.create.npc(
+          npcSetting.id,
+          area
+        );
       }
     });
   });

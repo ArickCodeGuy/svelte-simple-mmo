@@ -8,7 +8,7 @@ export type CreateNewPlayerParams = {
 export const useCreateNewPlayer =
   (serverController: ServerController) =>
   (params: CreateNewPlayerParams): GlobalInfo => {
-    const player = serverController.livingsController.createNewPlayer(
+    const player = serverController.livingsController.actions.create.player(
       params.name
     );
 

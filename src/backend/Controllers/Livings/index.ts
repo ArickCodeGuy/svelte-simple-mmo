@@ -1,5 +1,3 @@
-import { useCreateNpc } from './actions/createNpc';
-import { useCreateNewPlayer } from './actions/createNewPlayer';
 import { useDirectionalMove } from './actions/directionalMove';
 import { BaseController, type BaseItem } from '../Base';
 import type {
@@ -19,13 +17,14 @@ import {
 } from '@/backend/Server/utils/getItemFromPositionLikeObject';
 import type { Updater } from '@/backend/Server/types';
 import { updaterFunction } from '@/backend/Server/utils/updaterFunction';
+import { useActions } from './actions';
 
 export class LivingsController extends BaseController<Living> {
   #livingsPositions: MapLivingsPositions;
   livingsProtosController: LivingsProtosController;
 
-  createNpc: ReturnType<typeof useCreateNpc>;
-  createNewPlayer: ReturnType<typeof useCreateNewPlayer>;
+  actions: ReturnType<typeof useActions>;
+
   directionalMove: ReturnType<typeof useDirectionalMove>;
   updateExp: ReturnType<typeof useUpdateExp>;
   updateCurrentHealth: ReturnType<typeof useUpdateCurrentHealth>;
@@ -38,8 +37,8 @@ export class LivingsController extends BaseController<Living> {
       `${tableName}_PROTOS`
     );
 
-    this.createNpc = useCreateNpc(this);
-    this.createNewPlayer = useCreateNewPlayer(this);
+    this.actions = useActions(this);
+
     this.directionalMove = useDirectionalMove(this);
     this.updateExp = useUpdateExp(this);
     this.updateCurrentHealth = useUpdateCurrentHealth(this);

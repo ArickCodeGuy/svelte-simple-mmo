@@ -51,7 +51,7 @@ $: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
       text: 'Throw away',
       hidden: props.isView,
       action: () => {
-        Server.publicApi.items.throw(item.id, globalInfo.living.id);
+        Server.publicApi.items.throw(globalInfo.living.id, item.id);
         updateItems();
       },
     },

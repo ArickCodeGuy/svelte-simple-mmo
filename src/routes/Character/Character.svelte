@@ -27,7 +27,7 @@ $: inventoryItems = items.map((i) =>
       {
         text: 'Throw away',
         action: () => {
-          Server.publicApi.items.throw(i.id, globalInfo.living.id);
+          Server.publicApi.items.throw(globalInfo.living.id, i.id);
           items = Server.publicApi.getItemsByType(globalInfo.living.id);
         },
       },

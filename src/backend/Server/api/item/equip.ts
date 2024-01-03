@@ -1,31 +1,20 @@
-import type {
-  LivingEquipment,
-  LivingEquipmentType,
-} from '@/backend/Controllers/Livings/types';
 import type { ServerController } from '../..';
 import type { GlobalInfo } from '../../types';
 import { isPlayerCanEquipItem } from '../../utils/isPlayerCanEquipItem';
 
 export const useEquipItem =
-  (contorller: ServerController) =>
+  (controller: ServerController) =>
   (playerId: number, itemId: number): GlobalInfo => {
-    const item = contorller.itemsController.actions.getPublicItem(itemId);
-    const player = contorller.livingsController.getById(playerId);
+    const item = controller.itemsController.actions.getPublicItem(itemId);
+    const player = controller.livingsController.getById(playerId);
 
     if (isPlayerCanEquipItem(player, item)) {
-      contorller.livingsController.update(playerId, (v) => {
-        const equipment: LivingEquipment = v.equipment
-          ? { ...v.equipment }
-          : {};
-
-        equipment[item.proto.type as LivingEquipmentType] = item.id;
-
-        return {
-          ...v,
-          equipment,
-        };
-      });
+      controller.livingsController.actions.items.add(
+        playerId,
+        itemId,
+        item.proto.type
+      );
     }
 
-    return contorller.publicApi.getState(playerId);
+    return controller.publicApi.getState(playerId);
   };
