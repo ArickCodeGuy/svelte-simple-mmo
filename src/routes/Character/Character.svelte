@@ -29,6 +29,7 @@ $: inventoryItems = items.map((i) =>
         action: () => {
           Server.publicApi.items.throw(globalInfo.living.id, i.id);
           items = Server.publicApi.getItemsByType(globalInfo.living.id);
+          globalInfoState.update((v) => Server.publicApi.getState(v.living.id));
         },
       },
     ],

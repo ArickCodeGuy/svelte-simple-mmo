@@ -24,10 +24,6 @@ $: {
   items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
 }
 
-const updateItems = () => {
-  items = Server.publicApi.getItemsByType(globalInfo.living.id, props.itemType);
-};
-
 $: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
   ...itemToUIInventoryItemProps(item),
   actions: [
@@ -45,14 +41,6 @@ $: inventoryItems = items.map<UIInventoryItemProps>((item) => ({
           );
         }
         closePopup();
-      },
-    },
-    {
-      text: 'Throw away',
-      hidden: props.isView,
-      action: () => {
-        Server.publicApi.items.throw(globalInfo.living.id, item.id);
-        updateItems();
       },
     },
   ],
