@@ -6,8 +6,8 @@ import { useCellTypeActions } from './utils/useCellTypeActions';
 import { globalInfoState } from '@/store/player';
 import type { Dictionary } from '@/types/types';
 import { frontDictionaryState } from '@/store/dictionary';
-import UiActionButtonContainer from '../UI/UIActionButton/UIActionButtonContainer.svelte';
 import { cellActionsActionToUIActionButtonContainerItems } from './utils/cellActionsActionToUIActionButtonContainerItems';
+import UiActionButtonContainer from '@/components/UI/UIActionButton/UIActionButtonContainer.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));

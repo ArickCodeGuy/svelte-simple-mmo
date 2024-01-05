@@ -6,7 +6,7 @@ import type { GlobalInfo } from '@/backend/Server/types';
 import { globalInfoState } from '@/store/player';
 import { livingsArrToNpcAndPlayers } from '@/utils/livingsArrToNpcAndPlayers';
 import { myNavigate } from '@/utils/myNavigate';
-import CellActions from './CellActions/CellActions.svelte';
+import BzCellActions from './BZ/BZCellActions/BZCellActions.svelte';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -48,7 +48,7 @@ $: enemies = sortedLivings.npc.map((i) => {
 <div class="CellInfo">
   {#if globalInfo}
     <div class="CellInfo__blocks">
-      <CellActions props={{ id: cellTypeId }} />
+      <BzCellActions props={{ id: cellTypeId }} />
       {#if players.length}
         <div class="CellInfo__block">
           <div>Players:</div>
