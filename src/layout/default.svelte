@@ -1,7 +1,7 @@
 <script lang="ts">
 import '@/assets/styles/style.scss';
 import Header from '../components/Header/Header.svelte';
-import Footer from '../components/Footer.svelte';
+import Footer from '../components/Footer/Footer.svelte';
 import type { HeaderProps } from '@/components/Header/types';
 import Modal from '@/modal/Modal.svelte';
 import { navigation } from './utils/navigation';

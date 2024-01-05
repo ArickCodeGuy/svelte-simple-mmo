@@ -1,16 +1,5 @@
 <script lang="ts">
-const FOOTER_LINKS = [
-  {
-    img: '/svelte-simple-mmo/author.jpg',
-    alt: 'Author',
-    link: 'https://github.com/ArickCodeGuy',
-  },
-  {
-    img: '/svelte-simple-mmo/github.png',
-    alt: 'Github',
-    link: 'https://github.com/ArickCodeGuy/svelte-simple-mmo',
-  },
-] as { img: string; alt: string; link: string }[];
+import { FOOTER_LINKS } from './constants';
 </script>
 
 <footer class="Footer banner">

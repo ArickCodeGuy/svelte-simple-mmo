@@ -11,9 +11,6 @@ import BzCellActions from './BZ/BZCellActions/BZCellActions.svelte';
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
 
-$: pos = `${globalInfo.living.position.x},${globalInfo.living.position.y}`;
-$: cellTypeId = globalInfo?.map?.layout[pos].typeId || 0;
-
 $: sortedLivings = livingsArrToNpcAndPlayers(globalInfo.neighbour);
 
 $: players = sortedLivings.players.map((i) => ({
@@ -48,7 +45,7 @@ $: enemies = sortedLivings.npc.map((i) => {
 <div class="CellInfo">
   {#if globalInfo}
     <div class="CellInfo__blocks">
-      <BzCellActions props={{ id: cellTypeId }} />
+      <BzCellActions />
       {#if players.length}
         <div class="CellInfo__block">
           <div>Players:</div>
