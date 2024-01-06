@@ -6,10 +6,7 @@ import { globalInfoState } from '@/store/player';
 import type { Dictionary } from '@/types/types';
 import { frontDictionaryState } from '@/store/dictionary';
 import UiCellActions from '@/components/UI/UICellActions/UICellActions.svelte';
-import type {
-  UICellActionsAction,
-  UICellActionsProps,
-} from '@/components/UI/UICellActions/types';
+import type { UICellActionsAction } from '@/components/UI/UICellActions/types';
 
 let globalInfo: GlobalInfo;
 globalInfoState.subscribe((v) => (globalInfo = v));
@@ -25,12 +22,7 @@ $: {
   useCellTypeActions(cellTypeId).then((v) => (cellActions = v));
 }
 
-$: name = getCurrentCellName(globalInfo, dictionary, cellTypeId);
-
-let cellActionsProps: UICellActionsProps = {
-  name,
-  actions: cellActions,
-};
+$: name = getCurrentCellName(dictionary, cellTypeId);
 </script>
 
-<UiCellActions props={cellActionsProps} />
+<UiCellActions props={{ name, actions: cellActions }} />

@@ -9,7 +9,7 @@ $: actions = props.actions || [];
 </script>
 
 <div class="CellActions">
-  <div class="CellActions__name">{name}</div>
+  <div class="CellActions__name">{props.name}</div>
   {#if actions}
     <div class="CellActionsActions">
       <UiActionButtonContainer

@@ -52,6 +52,10 @@ export let notifications: UINotificationProps[] = [];
 <style lang="scss">
 @import '@/assets/styles/vars.scss';
 .notifications {
+  display: flex;
+  grid-gap: var(--column-gutter);
+  justify-content: flex-start;
+  flex-direction: column;
   pointer-events: none;
   padding: 15px;
   position: fixed;

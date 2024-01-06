@@ -42,6 +42,7 @@ function slide(node: HTMLElement, params?: TransitionConfig): TransitionConfig {
   --border-color-warn: yellow;
   --border-color-error: red;
   --border-color-text: var(--contrast);
+  --border-color-success: lightgreen;
   max-width: 100%;
   width: 200px;
   @media (min-width: $breakpoint-lg) {
